@@ -8,19 +8,21 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var port = process.env.PORT || 3000;
 var passport = require('passport');
+var router = express.Router();
 
-mongoose.connect('mongodb://localhost:27017/nutrifood');
+var apiVersion = 1;
 
 //-S-- ROUTES FILES
 var user = require('./routes/users');
 //-E-- ROUTES FILES
 
+mongoose.connect('mongodb://localhost:27017/nutrifood');
+
 app.use(bodyParser.urlencoded({
 	extended: true
 }));
+
 app.use(passport.initialize());
-var router = express.Router();
-app.use('/api', user, router);
+app.use('/api/v' + apiVersion, user, router);
 
 app.listen(port);
-console.log('Nutrifood server is running on port ' + port);

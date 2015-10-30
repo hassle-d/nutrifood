@@ -26,6 +26,29 @@ exports.getUsers = function(req, res) {
 	});
 };
 
-exports.test = function(req, res) {
-	res.json({message: 'Hello World!'});
+exports.getUserById = function(req, res) {
+	User.findById(req.params.id, 'id username lastname firstname', function(err, user) {
+		if (err)
+			res.send(err);
+		else
+			res.json(user);
+	});
+};
+
+exports.getUserByUsername = function(req, res) {
+	User.findOne({'username': req.params.username}, function(err, user) {
+		if (err)
+			res.send(err);
+		else
+			res.json(user);
+	});
+};
+
+exports.delUserById = function(req, res) {
+	User.findByIdAndRemove(req.params.id, function(err, count) {
+		if (err)
+			res.send(err);
+		else
+			res.json(count);
+	});
 };

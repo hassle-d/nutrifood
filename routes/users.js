@@ -12,7 +12,11 @@ router.route('/users')
 	.post(userController.postUsers)
 	.get(userController.getUsers);
 
-router.route('/test')
-	.get(authController.isAuthenticated, userController.test);
+router.route('/users/:id')
+	.get(authController.isAuthenticated, userController.getUserById)
+	.delete(authController.isAuthenticated, userController.delUserById);
+
+router.route('/users/username/:username')
+	.get(authController.isAuthenticated, userController.getUserByUsername);
 
 module.exports = router;

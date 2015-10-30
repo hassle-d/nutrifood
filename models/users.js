@@ -15,14 +15,37 @@ var UserSchema = new mongoose.Schema({
 		type: String,
 		required: true
 	},
-	email: {type: String, required: true},
-	firstname: {type: String, required: true},
-	lastname: {type: String, required: true},
-	description: {type: String, required: true},
-	age: {type: Number, required: true},
-	date: {type: Date, default: Date.now, required: true},
-	allergy: {type: [String]},
-	religion: {type: String}
+	email: {
+		type: String,
+		required: true
+	},
+	firstname: {
+		type: String,
+		required: true
+	},
+	lastname: {
+		type: String,
+		required: true
+	},
+	description: {
+		type: String,
+		required: true
+	},
+	age: {
+		type: Number, 
+		required: true
+	},
+	date: {
+		type: Date,
+		default: Date.now, 
+		required: true
+	},
+	allergy: {
+		type: [String]
+	},
+	religion: {
+		type: String
+	}
 });
 
 UserSchema.pre('save', function(callback) {
