@@ -12,7 +12,8 @@ exports.postUsers = function(req, res) {
 	user.save(function(err) {
 		if (err)
 			res.send(err);
-		res.json({message: 'User added'});
+		else
+			res.json({message: 'User added'});
 	});
 };
 
@@ -20,6 +21,11 @@ exports.getUsers = function(req, res) {
 	User.find(function(err, users) {
 		if (err)
 			res.send(err);
-		res.json(users);
+		else
+			res.json(users);
 	});
+};
+
+exports.test = function(req, res) {
+	res.json({message: 'Hello World!'});
 };

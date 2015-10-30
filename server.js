@@ -4,10 +4,10 @@
 
 var express = require('express');
 var app = express();
+var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var port = process.env.PORT || 3000;
-var router = express.Router();
-var passport = require
+var passport = require('passport');
 
 mongoose.connect('mongodb://localhost:27017/nutrifood');
 
@@ -15,6 +15,11 @@ mongoose.connect('mongodb://localhost:27017/nutrifood');
 var user = require('./routes/users');
 //-E-- ROUTES FILES
 
+app.use(bodyParser.urlencoded({
+	extended: true
+}));
+app.use(passport.initialize());
+var router = express.Router();
 app.use('/api', user, router);
 
 app.listen(port);
