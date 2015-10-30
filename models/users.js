@@ -20,7 +20,7 @@ var UserSchema = new mongoose.Schema({
 	lastname: {type: String, required: true},
 	description: {type: String, required: true},
 	age: {type: Number, required: true},
-	date: {type: Date, default: Date.now, required: true},
+	date: {type: Date, default: Date.now},
 	allergy: {type: [String]},
 	religion: {type: String}
 });

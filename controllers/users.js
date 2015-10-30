@@ -7,7 +7,15 @@ var User = require('../models/users');
 exports.postUsers = function(req, res) {
 	var user = new User({
 		username: req.body.username,
-		password: req.body.password
+		password: req.body.password,
+		email: req.body.email,
+		firstname: req.body.firstname,
+		lastname: req.body.lastname,
+		description: req.body.description,
+		age: req.body.age,
+		date: new Date(),
+		allergy: req.allergy,
+		religion: req.religion
 	});
 	user.save(function(err) {
 		if (err)
