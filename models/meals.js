@@ -4,15 +4,16 @@
 
 var mongoose = require('mongoose');
 
-var MealSchema = new Schema({
-    author: String,
-    name: String,
-    description: String,
-    category: String,
-    recipices: [String],
-    ingredients: [String],
-    votes: Number
+var MealSchema = new mongoose.Schema({
+    author: {type: String, required: true},
+    date: {type: Date, default: Date.now, required: true},
+    name: {type: String, required: true},
+    description: {type: String, required: true},
+    category: {type: String, required: true},
+    recipices: {type: [String], required: true},
+    ingredients: {type: [String], required: true},
+    votes: {type: Number}
 });
 
 
-module.exports = mongoose.model('MealSchema');
+module.exports = mongoose.model('Meal', MealSchema);
