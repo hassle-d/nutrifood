@@ -1,0 +1,13 @@
+{
+  "name": "nutrifood",
+  "description": "API for nourriture project",
+  "main": "server.js",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
+    "mongoose": "^4.2.3",
+    "passport": "^0.3.0",
+    "passport-http": "^0.3.0"
+  }
+}
