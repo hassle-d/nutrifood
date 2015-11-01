@@ -14,7 +14,7 @@
 
 Request URL :
 
-    http POST http://localhost:4242/api/v1/auth/signin
+    http POST http://localhost:3000/api/v1/auth/signin
 
 POST Parameters :
 
@@ -38,3 +38,23 @@ Errors :
     HTTP 401 {message: 'Missing token'}
     HTTP 401 {message: 'Invalid or expired token'}
     HTTP 401 {message: 'Invalid token'}
+
+### Create User :
+
+Request URL :
+
+    http POST http://localhost:3000/api/v1/users
+
+POST Paramters :
+
+    R=Required, O=Optional
+
+    R - username: String (min length 5)
+    R - password: String (min length 8)
+    R - email: String
+    R - firstname: String
+    R - lastname: String
+    R - age: age Number
+    O - description: String
+    O - allergy: String Array
+    O - religion: String
