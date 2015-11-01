@@ -67,7 +67,20 @@ exports.updateUser = function(req, res) {
 	if (!req.body.id) { res.status(400).json({name: 'ValidationError', message: 'MissingFields'}); return;}
 	User.findById(req.body.id, function(err, user) {
 		if (err) { res.send(err); return; }
+		if (!user) { res.status(400).json({name: 'ValidationError', message: 'Invalid user id'}); return; }
+		if (req.body.password)
+			user.password = req.body.password;
 		if (req.body.email)
+			user.email = req.body.email;
+		if (req.body.firstname)
+			user.firstname = req.body.firstname;
+		if (req.body.lastname)
+			user.lastname = req.body.lastname;
+		if (req.body.description)
+			user.description = req.body.description;
+		if (req.body.age)
+			user.age = req.body.age;
+		
 	});
 };
 
