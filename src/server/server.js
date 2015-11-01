@@ -23,6 +23,7 @@ var user 		= require('./routes/users');
 var client 		= require('./routes/client');
 var meal 		= require('./routes/meals');
 var auth		= require('./routes/auth');
+var token		= require('./routes/token');
 var oauth		= require('./routes/oauth2');
 //-E-- ROUTES FILES
 
@@ -44,6 +45,7 @@ app.use('/api/v' + apiVersion,
 	client,
 	meal,
 	auth,
+	token,
 	oauth,
 	router);
 

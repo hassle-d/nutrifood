@@ -76,15 +76,19 @@ exports.getNewToken = function(req, res, next) {
 
 exports.isValidToken = function(req, res, next) {
 	var token = req.get('token');
-	if (!token) { res.status(401).send('Missing token'); return; }
-	console.log(token);
+	if (!token) { res.status(401).json({message: 'Missing token'}); return; }
 	Token.findOne({value: token}, function(err, myToken) {
 		if (err) { res.status(500).json({message: 'Server Error'}); return; }
-		if (!myToken) { res.status(401).send('Invalid or expired token'); return; }
-		myToken.date = new Date();
-		myToken.save(function(err) {
+		if (!myToken) { res.status(401).json({message: 'Invalid or expired token'}); return; }
+		User.findOne({username: myToken.username}, function(err, user) {
 			if (err) { res.status(500).json({message: 'Server Error'}); return; }
-			else { next(); }
+			if (!user) { res.status(401).json({message:'Invalid token'}); return; }
+			req.user = {userId: user.id, username: user.username, privilege: user.privilege};
+			myToken.date = new Date();
+			myToken.save(function(err) {
+				if (err) { res.status(500).json({message: 'Server Error'}); return; }
+				else { next(); }
+			});
 		});
 	});
 };
@@ -93,7 +97,7 @@ exports.isAdmin = function(req, res, next) {
 	if (req.user && req.user.privilege && req.user.privilege == "admin")
 		next();
 	else
-		res.status(401).send('Need to be admin');
+		res.status(401).json({message: 'Need to be admin'});
 };
 
 exports.isAuthenticated = passport.authenticate('basic', {session: false});

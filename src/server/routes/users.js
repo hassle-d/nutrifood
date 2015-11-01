@@ -15,7 +15,8 @@ router.route('/users')
 
 router.route('/users/:id')
 	.get(authController.isAuthenticated, userController.getUserById)
-	.delete(authController.isAuthenticated, userController.delUserById);
+	.put(authController.isAuthenticated, userController.updateUser)
+	.delete(authController.isAuthenticated, authController.isAdmin, userController.delUserById);
 
 router.route('/users/username/:username')
 	.get(authController.isAuthenticated, userController.getUserByUsername);

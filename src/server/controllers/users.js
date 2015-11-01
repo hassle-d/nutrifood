@@ -63,6 +63,14 @@ exports.getUserByUsername = function(req, res) {
 	});
 };
 
+exports.updateUser = function(req, res) {
+	if (!req.body.id) { res.status(400).json({name: 'ValidationError', message: 'MissingFields'}); return;}
+	User.findById(req.body.id, function(err, user) {
+		if (err) { res.send(err); return; }
+		if (req.body.email)
+	});
+};
+
 exports.delUserById = function(req, res) {
 	User.findByIdAndRemove(req.params.id, function(err, count) {
 		if (err)
