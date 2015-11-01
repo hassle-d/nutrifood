@@ -8,9 +8,10 @@ var passport = require('passport');
 var userController = require('../controllers/users');
 var authController = require('../controllers/auth');
 
+
 router.route('/users')
 	.post(userController.postUsers)
-	.get(userController.getUsers);
+	.get(authController.isValidToken, authController.isAdmin, userController.getUsers);
 
 router.route('/users/:id')
 	.get(authController.isAuthenticated, userController.getUserById)
@@ -18,5 +19,6 @@ router.route('/users/:id')
 
 router.route('/users/username/:username')
 	.get(authController.isAuthenticated, userController.getUserByUsername);
+
 
 module.exports = router;

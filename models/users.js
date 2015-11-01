@@ -28,8 +28,7 @@ var UserSchema = new mongoose.Schema({
 		required: true
 	},
 	description: {
-		type: String,
-		required: true
+		type: String
 	},
 	age: {
 		type: Number, 
@@ -37,7 +36,7 @@ var UserSchema = new mongoose.Schema({
 	},
 	date: {
 		type: Date,
-		default: Date.now, 
+		default: null, 
 		required: true
 	},
 	allergy: {
@@ -45,6 +44,10 @@ var UserSchema = new mongoose.Schema({
 	},
 	religion: {
 		type: String
+	},
+	privilege: {
+		type: String,
+		default: 'user'
 	}
 });
 
