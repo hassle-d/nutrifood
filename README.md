@@ -14,7 +14,6 @@
 
 Client :
 
-    http POST http://localhost:4242/api/v1/auth/signin username:username password:password
-Pro :
-
-    http POST http://localhost:4242/api/v1/auth/signin username:username password:password
+    http POST http://localhost:4242/api/v1/auth/signin
+        username: username
+        password: password
