@@ -1,3 +1,7 @@
+/*
+** Created by HASSLER Damien
+*/
+
 var mongoose = require('mongoose');
 
 var TokenSchema = new mongoose.Schema({
