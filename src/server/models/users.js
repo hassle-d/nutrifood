@@ -44,10 +44,6 @@ var UserSchema = new mongoose.Schema({
 	},
 	religion: {
 		type: String
-	},
-	privilege: {
-		type: String,
-		default: 'user'
 	}
 });
 

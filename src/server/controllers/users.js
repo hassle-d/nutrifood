@@ -64,23 +64,30 @@ exports.getUserByUsername = function(req, res) {
 };
 
 exports.updateUser = function(req, res) {
-	if (!req.body.id) { res.status(400).json({name: 'ValidationError', message: 'MissingFields'}); return;}
-	User.findById(req.body.id, function(err, user) {
-		if (err) { res.send(err); return; }
-		if (!user) { res.status(400).json({name: 'ValidationError', message: 'Invalid user id'}); return; }
-		if (req.body.password)
-			user.password = req.body.password;
-		if (req.body.email)
-			user.email = req.body.email;
-		if (req.body.firstname)
-			user.firstname = req.body.firstname;
-		if (req.body.lastname)
-			user.lastname = req.body.lastname;
-		if (req.body.description)
-			user.description = req.body.description;
-		if (req.body.age)
-			user.age = req.body.age;
-		
+	if (!req.params.id) { res.status(400).json({name: 'ValidationError', message: 'MissingFields'}); return;}
+	updateFields = {};
+	if (req.body.password)
+		updateFields.password = req.body.password;
+	if (req.body.email)
+		updateFields.email = req.body.email;
+	if (req.body.firstname)
+		updateFields.firstname = req.body.firstname;
+	if (req.body.lastname)
+		updateFields.lastname = req.body.lastname;
+	if (req.body.description)
+		updateFields.description = req.body.description;
+	if (req.body.age)
+		updateFields.age = req.body.age;
+	if (req.body.allergy)
+		updateFields.allergy = req.body.allergy;
+	if (req.body.religion)
+		updateFields.religion = req.body.religion;
+	if (req.body.privilege && req.user && req.user.privilege == 'admin')
+		updateFields.privilege = req.body.privilege;
+	console.log(updateFields);
+	User.update({_id: req.params.id}, updateFields, function (err, doc){
+		if (err) { res.json(err); return; }
+		res.json(doc);
 	});
 };
 
