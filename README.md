@@ -6,6 +6,12 @@
     MongoDB
     NodeJS
 
+##INSTALLATION :
+
+    1 - Install MongoDB and NodeJS
+    2 - Move to server root directory ( src/server )
+    3 - Install preject dependency ( npm install )
+
 ##DEMO :
 
     node server.js
