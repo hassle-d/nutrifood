@@ -5,7 +5,7 @@
 var express = require('express');
 var path 	= require('path');
 var router = express.Router();
-var views = path.join(__dirname, ../views/);
+var views = path.join(__dirname, '../views/');
 
 router.get('/', function(req, res, next) {
   res.writeHead(301, {Location: '/index'});
