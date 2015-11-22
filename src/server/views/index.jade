@@ -1,0 +1,23 @@
+extends layout
+
+block content
+	include header
+	div(class="container")
+		h1= title
+		div(class="row")
+			div(class="col-lg-6")
+				div(class="input-group")
+					input(type="text", id="pseudo", class="form-control", placeholder="Pseudo")
+					span(class="input-group-btn")
+						button(id="change_pseudo", class="btn btn-default") Définir Pseudo
+		br
+		form(action="/", method="post", id="formulaire_chat")
+			div(class="row")
+				div(class="col-lg-6")
+					div(class="input-group")
+						input(type="text", id="message", class="form-control", placeholder="Votre message" size="50", autocomplete="off")
+						span(class="input-group-btn")
+							input(type="submit", id="envoi_message", class="btn btn-primary", value="Envoyer")
+		section(id="zone_chat" style="padding: 0 5px 0 5px; border: 1px solid black; height: 300px; width: 100%; overflow-y: auto; overflow-x: hidden;")
+
+	script(src="/javascripts/jquery-2.1.3.min.js")
