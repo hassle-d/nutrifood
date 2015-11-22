@@ -5,6 +5,7 @@
 var express = require('express');
 var path 	= require('path');
 var router = express.Router();
+var views = path.join(__dirname, ../views/);
 
 router.get('/', function(req, res, next) {
   res.writeHead(301, {Location: '/index'});
@@ -16,7 +17,7 @@ router.get('/index', function(req, res, next) {
 });
 
 router.get('/test', function(r, q, n) {
-	q.sendFile(path.join(__dirname, '../views/test.html'));
+	q.sendFile(views + 'test.html');
 });
 
 module.exports = router;
