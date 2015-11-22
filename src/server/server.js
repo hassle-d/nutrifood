@@ -32,7 +32,6 @@ var oauth		= require('./routes/oauth2');
 mongoose.connect('mongodb://' + dbServer + ':' + dbPort + '/' + dbName);
 
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
 
 app.use(express.static(path.join(__dirname, 'public')));
 
