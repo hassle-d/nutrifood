@@ -17,6 +17,9 @@ var token = "";
 
 myApp.controller('recipeSubmitController', ['$scope', '$http', function($scope, $http){
     $scope.recipes = function() {
+
+        console.log("lol");
+
         var recipe = {
             author: $scope.author,
             name: $scope.name,
@@ -25,7 +28,8 @@ myApp.controller('recipeSubmitController', ['$scope', '$http', function($scope, 
             category: $scope.category,
             ingredients: $scope.ingredients
         };
-        $http.post('/api/v1/meals', serialize(meals))
+
+        $http.post('/api/v1/meals', serialize(recipe))
             .success(function(recipe){
                 console.log(recipe);
             })
