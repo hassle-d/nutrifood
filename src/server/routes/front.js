@@ -20,4 +20,16 @@ router.get('/test', function(r, q, n) {
 	q.sendFile(views + 'test.html');
 });
 
+router.get('/login', function(r, q, n){
+  q.sendFile(views + 'login.html')
+});
+
+router.get('/home', function(r, q, n) {
+  q.sendFile(views + 'home.html')
+})
+
+router.get('/register', function(r, q, n){
+  q.sendFile(views + 'register.html');
+});
+
 module.exports = router;
