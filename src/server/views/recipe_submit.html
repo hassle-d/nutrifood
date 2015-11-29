@@ -6,7 +6,7 @@
 <html class="ie ie8 no-js" lang="en-US">
 <![endif]-->
 <!--[if !(IE 7) | !(IE 8)  ]><!-->
-<html lang="en" class="no-js">
+<html lang="en" ng-app="nutrifood">
 
 <!-- Mirrored from haintheme.com/demo/html/culinier/recipe_submit.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 29 Nov 2015 11:35:04 GMT -->
 <head>
@@ -169,17 +169,23 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-12 col-sm-8">
+				<div ng-controller="recipeSubmitController">
 				<div class="hs-header text-left">
 					<h2>Welcome back, Recipe Contributor!</h2>
 					<p>In this section you can submit one recipe of your choice, make sure to give any detailed information so other users can enjoy your creation.</p>
 					<hr>
 				</div>
 				<div class="hs-content">
-					<form action="#" class="row">
+					<form class="row" method="post">
 						<div class="form-group col-sm-6">
 							<label>Recipe title</label>
-							<input type="text">
+							<input type="text" ng-model="name" class="input">
 							<p class="des">Keep it short and descriptive</p>
+						</div>
+						<div class="form-group col-sm-6">
+							<label>Author</label>
+							<input type="text" ng-model="author" class="input">
+							<p class="des">Stay classy</p>
 						</div>
 						<div class="form-group col-sm-6">
 							<label>Recipe photo</label>
@@ -207,7 +213,7 @@
 						</div>
 						<div class="form-group col-sm-4">
 							<label>RECIPE CATEGORY</label>
-							<select>
+							<select ng-model="category">
 								<option value="" disabled selected>Choose category</option>
 								<option value="">Asian</option>
 								<option value="">Western</option>
@@ -218,7 +224,7 @@
 						</div>
 						<div class="form-group col-sm-12">
 							<label>Short description</label>
-							<textarea cols="30" rows="10"></textarea>
+							<textarea cols="30" rows="10" ng-model="description" class="input"></textarea>
 						</div>
 						<div class="form-group range-slider col-sm-6">
 							<label>pre time</label>
@@ -241,14 +247,14 @@
 						<div class="form-group col-sm-12">
 							<label>Ingredient</label>
 							<div class="ingredient-textarea">
-								<textarea cols="30" rows="10"></textarea>
+								<textarea cols="30" rows="10" ng-model="ingredients" class="input"></textarea>
 							</div>
 							<p class="des">Enter the different ingredients with a clear name. Separate all different ingredients per a coma. If you need to give a special information, add it between two parentheses.</p>
 						</div>
 						<div class="form-group col-sm-12">
 							<label>Instruction</label>
 							<div class="ingredient-textarea">
-								<textarea cols="30" rows="10"></textarea>
+								<textarea cols="30" rows="10" ng-model="instruction"></textarea>
 							</div>
 							<p class="des">Add all of the cooking steps, one per line.</p>
 						</div>
@@ -318,12 +324,13 @@
 						</div>
 						<!-- / column -->
 						<div class="col-sm-12">
-							<button type="submit" class="ht-button view-more-button">
+							<button type="submit" ng-click="recipes()" class="ht-button view-more-button">
 								<i class="fa fa-arrow-left"></i> SUBMIT <i class="fa fa-arrow-right"></i>
 							</button>
 						</div>
 					</form>
 					<!-- / form -->
+				</div>
 				</div>
 				<!-- / .hs-content -->
 			</div>
