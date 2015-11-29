@@ -10,11 +10,10 @@ exports.postMeals = function(req, res) {
         date: new Date(),
         name: req.body.name.toLowerCase(),
         description: req.body.description,
+        instruction: req.body.instruction,
         category: req.body.category.toLowerCase(),
-        recipices: req.body.recipices,
         ingredients: req.body.ingredients,
         votes: req.body.votes
-
     });
 
     meal.save(function(err){
