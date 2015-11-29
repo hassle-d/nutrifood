@@ -25,7 +25,7 @@ myApp.controller('recipeSubmitController', ['$scope', '$http', function($scope, 
             category: $scope.category,
             ingredients: $scope.ingredients
         };
-        $http.post('/api/v1/meals', serialize(meals))
+        $http.post('/api/v1/meals', serialize(recipe))
             .success(function(recipe){
                 console.log(recipe);
             })
@@ -38,23 +38,23 @@ myApp.controller('recipeSubmitController', ['$scope', '$http', function($scope, 
 myApp.service('mealService', function($http) {
     delete $http.defaults.headers.common['X-Requested-With'];
     this.getData = function() {
-        // $http() returns a $promise that we can add handlers with .then()
         return $http({
             method: 'GET',
-            url: 'https://localhost:3000/api/v1/meals',
-            params: 'limit=10, sort_by=created:desc'
+            url: 'http://localhost:3000/api/v1/meals'
            // headers: {'Authorization': 'Token token=' + token}
         });
     }
 });
 
-myApp.controller('mealsController', function($scope, dataService) {
+myApp.controller('mealsController', function($scope, mealService) {
     $scope.data = null;
-    dataService.getData().then(function(dataResponse) {
+    $scope.name = null;
+    mealService.getData().then(function(dataResponse) {
         $scope.data = dataResponse;
-        console.log(dataResponse);
+        $scope.name = dataResponse.data[0];
     });
 });
+
 
 myApp.controller('registerController', ['$scope', '$http', function($scope, $http){
     $scope.register = function() {
