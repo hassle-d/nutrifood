@@ -24,9 +24,7 @@ exports.postMeals = function(req, res) {
         if (err)
             res.send(err);
         else {
-            if (req.file) {
-                console.log(req.file);
-            }            
+            console.log(req.file);
             res.json({message: 'Meal added'});
         }
     });
