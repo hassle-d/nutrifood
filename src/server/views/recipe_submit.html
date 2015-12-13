@@ -164,7 +164,6 @@
 
 
 
-
 <section class="ht-section hs-recipe submit">
 	<div class="container">
 		<div class="row">
@@ -204,10 +203,11 @@
 						</div>
 						<div class="form-group col-sm-12">
 							<label>Difficulty level</label>
-							<select>
-								<option value="">Easy</option>
-								<option value="">Hard</option>
-								<option value="">Master</option>
+							<select ng-model="difficulty">
+								<option value="easy">Easy</option>
+								<option value="medium">Medium</option>
+								<option value="high">High</option>
+								<option value="master">Master</option>
 							</select>
 							<p class="des">Keep it short and descriptive</p>
 						</div>
@@ -215,11 +215,11 @@
 							<label>RECIPE CATEGORY</label>
 							<select ng-model="category">
 								<option value="" disabled selected>Choose category</option>
-								<option value="">Asian</option>
-								<option value="">Western</option>
-								<option value="">Eastern</option>
-								<option value="">Muslim</option>
-								<option value="">Exotic</option>
+								<option value="Asian">Asian</option>
+								<option value="Western">Western</option>
+								<option value="Eastern">Eastern</option>
+								<option value="Muslim">Muslim</option>
+								<option value="Exotic">Exotic</option>
 							</select>
 						</div>
 						<div class="form-group col-sm-12">
@@ -237,7 +237,7 @@
 						</div>
 						<div class="form-group range-slider col-sm-6">
 							<label>cook time</label>
-							<input type="text" id="cook-time" value="00:00" />
+							<input type="text" id="cook-time" ng-model="cooktime" />
 							<div class="slider-range" data-target="#cook-time" data-max="6"></div>
 							<p class="des">
 								<span class="left">00:00</span><span class="right">06:00</span>
@@ -324,7 +324,7 @@
 						</div>
 						<!-- / column -->
 						<div class="col-sm-12">
-							<button type="submit" ng-click="recipes()" class="ht-button view-more-button">
+							<button  ng-click="recipes()" class="ht-button view-more-button">
 								<i class="fa fa-arrow-left"></i> SUBMIT <i class="fa fa-arrow-right"></i>
 							</button>
 						</div>
@@ -365,7 +365,8 @@
 
 </div>
 <!-- ./ht-page-wrapper -->
-
+<script src="js/angular.js"></script>
+<script src="js/core.js"></script>
 <script src="js/plugins.js"></script>
 <script src="js/custom.js"></script>
 

@@ -15,7 +15,7 @@ exports.postMeals = function(req, res) {
         cooktime: req.body.cooktime,
         category: req.body.category.toLowerCase(),
         ingredients: req.body.ingredients,
-        nutritionfact: req.body.nutritionfac
+        nutritionfact: req.body.nutritionfact
     });
 
     meal.save(function(err){
