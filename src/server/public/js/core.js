@@ -17,28 +17,29 @@ var token = "";
 
 myApp.controller('recipeSubmitController', ['$scope', '$http', function($scope, $http){
     $scope.recipes = function() {
+        var image = $scope.myFile;
 
-        console.log("lol");
+        var fd = new FormData();
 
-        var recipe = {
-            author: $scope.author,
-            date: Date.now,
-            name: $scope.name,
-            description: $scope.description,
-            instruction: $scope.instruction,
-            difficulty: $scope.difficulty,
-            category: $scope.category,
-            ingredients: $scope.ingredients,
-            cooktime: $scope.cooktime
-        };
+        fd.append('image', image);
+        fd.append('author', $scope.author);
+        fd.append('date', Date.now);
+        fd.append('name', $scope.name);
+        fd.append('description', $scope.description);
+        fd.append('instruction', $scope.instruction);
+        fd.append('difficulty', $scope. difficulty);
+        fd.append('category', $scope.category);
+        fd.append('ingredients', $scope.ingredients);
+        fd.append('cooktime', $scope.cooktime);
 
-        console.log(recipe);
-        $http.post('/api/v1/meals', serialize(recipe))
-            .success(function(recipe){
-                console.log(recipe);
+        $http.post('/api/v1/meals', fd,{
+                transformRequest: angular.identity,
+                headers: {'Content-Type': undefined}
             })
-            .error(function(recipe){
-                console.log(recipe)
+            .success(function(){
+                console.log('ok');
+            })
+            .error(function(){
             });
     };
 }]);
