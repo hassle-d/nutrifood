@@ -4,7 +4,32 @@
 
 var express = require('express');
 var router = express.Router();
+var multer          =       require('multer');
+var upload      =   multer({ dest: '../uploads/'});
+
 var mealController = require('../controllers/meals');
+
+
+router.route('/meals/image/:id')
+	.get(mealController.getImage)
+	.post(mealController.setImage);
+
+
+router.route('/test').get(function (req, res){
+		res.writeHead(200, {'Content-Type': 'text/html' });
+		res.end("<!DOCTYPE HTML><html><body>" +
+			"<form method='post' action='/api/v1/meals/image/adzadad' enctype='multipart/form-data'>" +
+			"<input type='file' name='image'/>" +
+			"<input type='submit' /></form>" +
+			"</body></html>");
+	});
+
+
+router.route('/meals/name/:name')
+    .get(mealController.getMealByName);
+
+router.route('/meals/category/:category')
+    .get(mealController.getMealByCategory);
 
 router.route('/meals')
     .post(mealController.postMeals)
@@ -12,11 +37,5 @@ router.route('/meals')
 
 router.route('/meals/:id')
     .get(mealController.getMealById);
-
-router.route('/meals/name/:name')
-    .get(mealController.getMealByName);
-
-router.route('/meals/category/:category')
-    .get(mealController.getMealByCategory);
 
 module.exports = router;

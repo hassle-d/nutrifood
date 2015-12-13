@@ -18,10 +18,10 @@ exports.postUsers = function(req, res) {
 			description: req.body.description,
 			age: req.body.age,
 			date: new Date(),
-			allergy: req.allergy,
-			religion: req.religion
+			allergy: req.body.allergy,
+			specialFood: req.body.special
 		});
-		user.save(function(err) {
+		user.save(function(err, user) {
 			if (err)
 				if (err.name && err.name == 'ValidationError')
 					res.status(400).json({name: 'ValidationError', message: 'MissingFields'});
@@ -40,7 +40,6 @@ exports.getUsers = function(req, res) {
 		if (err)
 			res.send(err);
 		else
-			console.log(req.user);
 			res.json(users);
 	});
 };
@@ -80,8 +79,8 @@ exports.updateUser = function(req, res) {
 		updateFields.age = req.body.age;
 	if (req.body.allergy)
 		updateFields.allergy = req.body.allergy;
-	if (req.body.religion)
-		updateFields.religion = req.body.religion;
+	if (req.body.special)
+		updateFields.special = req.body.special;
 	if (req.body.privilege && req.user && req.user.privilege == 'admin')
 		updateFields.privilege = req.body.privilege;
 	console.log(updateFields);

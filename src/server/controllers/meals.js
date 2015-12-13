@@ -2,6 +2,7 @@
  * Created by Yilmaz Emrah on 30/10/2015.
  */
 
+var fs = require('fs');
 var Meal = require('../models/meals');
 
 exports.postMeals = function(req, res) {
@@ -10,20 +11,36 @@ exports.postMeals = function(req, res) {
         date: new Date(),
         name: req.body.name.toLowerCase(),
         description: req.body.description,
+        video: req.body.video,
         instruction: req.body.instruction,
         difficulty: req.body.difficulty,
         cooktime: req.body.cooktime,
         category: req.body.category.toLowerCase(),
         ingredients: req.body.ingredients,
-        nutritionfact: req.body.nutritionfac
+        nutritionfact: req.body.nutritionfact
     });
 
-    meal.save(function(err){
+    meal.save(function(err, meal){
         if (err)
             res.send(err);
-        else
+        else {
+            if (req.file) {
+                console.log(req.file);
+            }            
             res.json({message: 'Meal added'});
+        }
     });
+};
+
+exports.getImage = function(req, res) {
+    var data = fs.readFileSync('./uploads/22bc5c3fad165b6b13fd28e87c4e7f8a');
+    res.contentType('image/png');
+    res.send(data);
+};
+
+exports.setImage = function(req, res) {
+    console.log(req.file);
+    res.end();
 };
 
 exports.getMeals = function(req, res) {
@@ -36,7 +53,7 @@ exports.getMeals = function(req, res) {
 };
 
 exports.getMealById = function(req, res) {
-    Meal.findById(req.params.id, 'id author name description recipices ingredients votes', function(err, meal){
+    Meal.findById(req.params.id, function(err, meal){
         if (err)
             res.send(err);
         else

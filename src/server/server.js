@@ -7,6 +7,7 @@ var dbServer	= 'localhost';
 var dbPort		= '27017';
 var dbName		= 'nutrifood';
 var apiVersion 	= 1;
+var done		= false;
 //-E-- CONFIG CONSTANTS VARS
 
 var express		= require('express');
@@ -15,6 +16,8 @@ var session 	= require('express-session');
 var bodyParser 	= require('body-parser');
 var mongoose 	= require('mongoose');
 var passport 	= require('passport');
+var multer		= require('multer');
+
 var port 		= process.env.PORT || 3000;
 var app 		= express();
 var router 		= express.Router();
@@ -34,6 +37,8 @@ mongoose.connect('mongodb://' + dbServer + ':' + dbPort + '/' + dbName);
 app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(multer({dest:'./uploads/'}).single('image'));
 
 app.use(bodyParser.urlencoded({
 	extended: true

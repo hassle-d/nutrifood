@@ -11,9 +11,9 @@ var UserCategorySchema = new mongoose.Schema({
 	},
 	type: {
 		type: String,
-		required: true
+		required: true,
 		default: 'user' // Can be user, professional, admin
 	}
 });
 
-module.exports = mongoose.model('UserCategory', UservCategorySchema);
+module.exports = mongoose.model('UserCategory', UserCategorySchema);

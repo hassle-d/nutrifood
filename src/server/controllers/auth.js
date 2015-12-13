@@ -74,6 +74,20 @@ exports.getNewToken = function(req, res, next) {
 	});
 };
 
+exports.logout = function(req, res, next) {
+	var token = req.get('token');
+	if (!token) { res.status(401).json({message: 'Missing token'}); return; }
+	Token.findOneAndRemove({value: token}, function(err, count) {
+		if (err) {
+			res.json(err);
+		}
+		else {
+			res.json(count);
+		}
+	});
+
+};
+
 exports.isValidToken = function(req, res, next) {
 	var token = req.get('token');
 	if (!token) { res.status(401).json({message: 'Missing token'}); return; }

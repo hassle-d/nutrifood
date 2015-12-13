@@ -11,7 +11,7 @@ var authController = require('../controllers/auth');
 
 router.route('/users')
 	.post(userController.postUsers)
-	.get(authController.isValidToken, /*authController.isAdmin,*/ userController.getUsers);
+	.get(/*authController.isValidToken, /*authController.isAdmin,*/ userController.getUsers);
 
 router.route('/users/:id')
 	.get(authController.isValidToken, userController.getUserById)
