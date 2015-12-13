@@ -11,9 +11,11 @@ exports.postMeals = function(req, res) {
         name: req.body.name.toLowerCase(),
         description: req.body.description,
         instruction: req.body.instruction,
+        difficulty: req.body.difficulty,
+        cooktime: req.body.cooktime,
         category: req.body.category.toLowerCase(),
         ingredients: req.body.ingredients,
-        votes: req.body.votes
+        nutritionfact: req.body.nutritionfac
     });
 
     meal.save(function(err){

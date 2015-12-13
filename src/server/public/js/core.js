@@ -28,10 +28,6 @@ myApp.controller('recipeSubmitController', ['$scope', '$http', function($scope, 
             category: $scope.category,
             ingredients: $scope.ingredients
         };
-<<<<<<< HEAD
-=======
-
->>>>>>> 44637b2aff6dfb478324c3db761bd850a1955a54
         $http.post('/api/v1/meals', serialize(recipe))
             .success(function(recipe){
                 console.log(recipe);
@@ -55,15 +51,15 @@ myApp.service('mealService', function($http) {
 
 myApp.controller('mealsController', function($scope, mealService) {
     $scope.data = null;
-    $scope.name = null;
+    $scope.meals = null;
     mealService.getData().then(function(dataResponse) {
         $scope.data = dataResponse;
-        $scope.name = dataResponse.data[0];
+        $scope.meals = dataResponse.data[0];
     });
 });
 
 
-myApp.controller('registerController', ['$scope', '$http', function($scope, $http){
+myApp.controller('registerController', ['$scope', '$http', '$location', function($scope, $http, $location){
     $scope.register = function() {
         var user = {
             username: $scope.username,
@@ -78,6 +74,8 @@ myApp.controller('registerController', ['$scope', '$http', function($scope, $htt
         };
         $http.post('/api/v1/users', serialize(user))
             .success(function(user){
+                console.log()
+                $location.path('/home');
             console.log(user);
         })
             .error(function(user){

@@ -34,6 +34,13 @@ router.get('/register', function(r, q, n){
 
 router.get('/submit-recipe', function(r,q,n){
   q.sendFile(views + 'recipe_submit.html');
-})
+});
+
+router.get('/category', function(r,q,n){
+  q.sendFile(views + 'category.html')
+});
+
+
+
 
 module.exports = router;

@@ -22,6 +22,14 @@ var MealSchema = new mongoose.Schema({
     	type: String, 
     	required: true
     },
+	difficulty: {
+		type: String,
+		required: true
+	},
+	cooktime: {
+		type: String,
+		required: true
+	},
 	instruction: {
 		type: String,
 		required: true
@@ -33,7 +41,12 @@ var MealSchema = new mongoose.Schema({
     ingredients: {
     	type: [String], 
     	required: true
-    }
+    },
+	nutritionfact: {
+		type: String,
+		default: "none"
+	}
+
 });
 
 

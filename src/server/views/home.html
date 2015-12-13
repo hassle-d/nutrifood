@@ -6,12 +6,12 @@
 <html class="ie ie8 no-js" lang="en-US">
 <![endif]-->
 <!--[if !(IE 7) | !(IE 8)  ]><!-->
-<html lang="en" class="no-js">
+<html lang="en" ng-app="nutrifood">
 
 <!-- Mirrored from haintheme.com/demo/html/culinier/home-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 29 Nov 2015 11:34:56 GMT -->
 <head>
 	<!-- Basic need -->
-	<title>Culinier Template</title>
+	<title>NutriFood</title>
 	<meta charset="UTF-8">
 	<meta name="description" content="">
 	<meta name="keywords" content="">
@@ -207,9 +207,13 @@
 
 <!-- / .hs-recent-posts -->
 
+	<div ng-controller="mealsController">
+
+
 <section class="ht-section hs-recipes grid">
 	<header class="hs-header">
 		<div class="container">
+
 			<h2 class="heading">Editors' Choices</h2>
 			<ul class="isotope-filter" data-target="#grid-1">
 				<li class="is-filtered"><a href="#" data-filter="*">ALL</a></li>
@@ -367,6 +371,8 @@
 			<li><a href="#" data-filter=".filter-pudding">PUDDING</a></li>
 		</ul>
 	</header>
+
+
 	<div class="hs-content">
 		<div class="container">
 			<div class="row">
@@ -388,13 +394,13 @@
 							</div>
 							<!-- ./ entry-media -->
 							<div class="content-wrapper">
-								<h3 class="entry-name"><a href="recipe_single.html">Khatulistiwa Fruit Salad</a></h3>
-								<p class="entry-author">By Lina Sukowati</p>
+								<h3 class="entry-name"><a href="recipe_single.html">{{meals.name}}</a></h3>
+								<p class="entry-author">By {{meals.author}}</p>
 								<div class="entry-meta">
 									<div class="foo-wrapper">
-										<span class="meta-difficulty easy" title="">Easy</span>
-										<span class="meta-time">3 minutes</span>
-									</div>
+										<span class="meta-difficulty {{meals.difficulty}}" title="">{{meals.difficulty}}</span>
+										<span class="meta-time">{{meals.cooktime}}</span>
+									</div><br/>
 									<div class="meta-rate" title="4 star">
 										<i class="fa fa-star rated"></i>
 										<i class="fa fa-star rated"></i>
@@ -838,10 +844,10 @@
 			</p>
 		</div>
 		<!-- /.container -->
-
 	</div>
 	<!-- /.ht-products.grid -->
 </section>
+	</div>
 <!-- /.ht-section -->
 
 
@@ -872,8 +878,10 @@
 </div>
 <!-- ./ht-page-wrapper -->
 
+<script src="/js/angular.js"></script>
 <script src="js/plugins.js"></script>
 <script src="js/custom.js"></script>
+<script src="/js/core.js"></script>
 
 </body>
 
