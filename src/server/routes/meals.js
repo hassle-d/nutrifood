@@ -4,8 +4,8 @@
 
 var express = require('express');
 var router = express.Router();
-var multer          =       require('multer');
-var upload      =   multer({ dest: '../uploads/'});
+var multer = require('multer');
+var upload = multer({ dest: '../uploads/'});
 
 var mealController = require('../controllers/meals');
 
@@ -18,7 +18,7 @@ router.route('/meals/image/:id')
 router.route('/test').get(function (req, res){
 		res.writeHead(200, {'Content-Type': 'text/html' });
 		res.end("<!DOCTYPE HTML><html><body>" +
-			"<form method='post' action='/api/v1/meals/image/adzadad' enctype='multipart/form-data'>" +
+			"<form method='post' action='/api/v1/meals/' enctype='multipart/form-data'>" +
 			"<input type='file' name='image'/>" +
 			"<input type='submit' /></form>" +
 			"</body></html>");

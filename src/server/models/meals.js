@@ -48,8 +48,11 @@ var MealSchema = new mongoose.Schema({
 	nutritionfact: {
 		type: String,
 		default: null
-	}
-
+	},
+    image: {
+        type: String,
+        default: null
+    }
 });
 
 

@@ -4,8 +4,12 @@
 
 var fs = require('fs');
 var Meal = require('../models/meals');
+var MealImage = require('../models/mealsImage');
 
 exports.postMeals = function(req, res) {
+        image = null;
+    if (req.file)
+        image = req.file.filename;
     var meal = new Meal({
         author: req.body.author,
         date: new Date(),
@@ -17,23 +21,42 @@ exports.postMeals = function(req, res) {
         cooktime: req.body.cooktime,
         category: req.body.category.toLowerCase(),
         ingredients: req.body.ingredients,
-        nutritionfact: req.body.nutritionfact
+        nutritionfact: req.body.nutritionfact,
+        image: image
     });
 
     meal.save(function(err, meal){
         if (err)
             res.send(err);
         else {
-            console.log(req.file);
-            res.json({message: 'Meal added'});
+            if (req.file) {
+                var mealImage = new MealImage({
+                    filename: req.file.filename,
+                    type: req.file.mimetype
+                });
+                mealImage.save(function(err) {
+                    if (err)
+                        res.send(err);
+                    else
+                        res.json({message: 'Meal added'});
+                });
+            }
         }
     });
 };
 
 exports.getImage = function(req, res) {
-    var data = fs.readFileSync('./uploads/22bc5c3fad165b6b13fd28e87c4e7f8a');
-    res.contentType('image/png');
-    res.send(data);
+    file = req.params.filename;
+    MealImage.findOne({'filename': file}, function(err, img) {
+        if (err)
+            res.send(err);
+        else {
+            var data = fs.readFileSync('./uploads/' + file);
+            res.contentType();
+            res.send(data);
+        }
+    });
+    //fs.unlinkSync('./uploads/e72aca600d53aa37789740f692f72260')
 };
 
 exports.setImage = function(req, res) {
