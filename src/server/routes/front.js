@@ -8,12 +8,8 @@ var router = express.Router();
 var views = path.join(__dirname, '../views/');
 
 router.get('/', function(req, res, next) {
-  res.writeHead(301, {Location: '/index'});
+  res.writeHead(301, {Location: '/home'});
   res.end();
-});
-
-router.get('/index', function(req, res, next) {
-  res.render( 'index', { title: 'Index' } );
 });
 
 router.get('/test', function(r, q, n) {

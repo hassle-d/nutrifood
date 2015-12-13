@@ -22,12 +22,17 @@ myApp.controller('recipeSubmitController', ['$scope', '$http', function($scope, 
 
         var recipe = {
             author: $scope.author,
+            date: Date.now,
             name: $scope.name,
             description: $scope.description,
             instruction: $scope.instruction,
+            difficulty: $scope.difficulty,
             category: $scope.category,
-            ingredients: $scope.ingredients
+            ingredients: $scope.ingredients,
+            cooktime: $scope.cooktime
         };
+
+        console.log(recipe);
         $http.post('/api/v1/meals', serialize(recipe))
             .success(function(recipe){
                 console.log(recipe);
@@ -53,8 +58,11 @@ myApp.controller('mealsController', function($scope, mealService) {
     $scope.data = null;
     $scope.meals = null;
     mealService.getData().then(function(dataResponse) {
+
         $scope.data = dataResponse;
-        $scope.meals = dataResponse.data[0];
+        console.log($scope.data);
+        $scope.meals = dataResponse.data;
+        console.log($scope.meals);
     });
 });
 
