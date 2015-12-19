@@ -38,7 +38,7 @@ exports.postUsers = function(req, res) {
 exports.getUsers = function(req, res) {
 	User.find(function(err, users) {
 		if (err)
-			res.send(err);
+			res.status(500).send(err);
 		else
 			res.json(users);
 	});
@@ -47,16 +47,16 @@ exports.getUsers = function(req, res) {
 exports.getUserById = function(req, res) {
 	User.findById(req.params.id, function(err, user) {
 		if (err)
-			res.send(err);
+			res.status(500).send(err);
 		else
 			res.json(user);
 	});
 };
 
 exports.getUserByUsername = function(req, res) {
-	User.findOne({'username': req.params.username}, function(err, user) {
+	User.findOne({'username': req.params.username.toLowerCase()}, function(err, user) {
 		if (err)
-			res.send(err);
+			res.status(500).send(err);
 		else
 			res.json(user);
 	});

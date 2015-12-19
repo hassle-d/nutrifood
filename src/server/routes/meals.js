@@ -11,9 +11,7 @@ var mealController = require('../controllers/meals');
 
 
 router.route('/meals/image/:id')
-	.get(mealController.getImage)
-	.post(mealController.setImage);
-
+	.get(mealController.getImage);
 
 router.route('/test').get(function (req, res){
 		res.writeHead(200, {'Content-Type': 'text/html' });
@@ -36,6 +34,7 @@ router.route('/meals')
     .get(mealController.getMeals);
 
 router.route('/meals/:id')
-    .get(mealController.getMealById);
+    .get(mealController.getMealById)
+    .put(mealController.updateMeal);
 
 module.exports = router;

@@ -30,6 +30,7 @@ var meal 		= require('./routes/meals');
 var auth		= require('./routes/auth');
 var token		= require('./routes/token');
 var oauth		= require('./routes/oauth2');
+var category	= require('./routes/category');
 //-E-- ROUTES FILES
 
 mongoose.connect('mongodb://' + dbServer + ':' + dbPort + '/' + dbName);
@@ -59,6 +60,7 @@ app.use('/api/v' + apiVersion,
 	auth,
 	token,
 	oauth,
+	category,
 	router);
 
 app.use('/', frontroutes);
