@@ -39,11 +39,15 @@ var UserSchema = new mongoose.Schema({
 		default: null, 
 		required: true
 	},
+	userCategory: {
+		type: String,
+		default: 'user',
+	},
 	allergy: {
 		type: [String]
 	},
-	religion: {
-		type: String
+	specialFood: {
+		type: [String]
 	}
 });
 
