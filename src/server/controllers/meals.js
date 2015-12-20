@@ -52,7 +52,7 @@ exports.getImage = function(req, res) {
             res.send(err);
         else {
             var data = fs.readFileSync('./uploads/' + file);
-            res.contentType();
+            res.contentType(img.type);
             res.send(data);
         }
     });

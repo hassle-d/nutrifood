@@ -10,10 +10,8 @@ var upload = multer({ dest: '../uploads/'});
 var mealController = require('../controllers/meals');
 
 
-router.route('/meals/image/:id')
-	.get(mealController.getImage)
-	.post(mealController.setImage);
-
+router.route('/meals/image/:filename')
+	.get(mealController.getImage);
 
 router.route('/test').get(function (req, res){
 		res.writeHead(200, {'Content-Type': 'text/html' });
