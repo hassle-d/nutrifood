@@ -89,7 +89,7 @@ exports.logout = function(req, res, next) {
 };
 
 exports.isValidToken = function(req, res, next) {
-	var token = req.get('token');
+	var token = req.get('Authorization');
 	if (!token) { res.status(401).json({message: 'Missing token'}); return; }
 	Token.findOne({value: token}, function(err, myToken) {
 		if (err) { res.status(500).json({message: 'Server Error'}); return; }

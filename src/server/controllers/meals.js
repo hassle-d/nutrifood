@@ -4,10 +4,10 @@
 
 var fs = require('fs');
 var Meal = require('../models/meals');
-var MealImage = require('../models/mealsImage');
+var MealImage = require('../models/image');
 
 exports.postMeals = function(req, res) {
-        image = null;
+    image = null;
     if (req.file)
         image = req.file.filename;
     var meal = new Meal({
@@ -24,7 +24,6 @@ exports.postMeals = function(req, res) {
         nutritionfact: req.body.nutritionfact,
         image: image
     });
-
     meal.save(function(err, meal){
         if (err)
             res.send(err);
@@ -34,14 +33,45 @@ exports.postMeals = function(req, res) {
                     filename: req.file.filename,
                     type: req.file.mimetype
                 });
-                mealImage.save(function(err) {
-                    if (err)
-                        res.send(err);
-                    else
-                        res.json({message: 'Meal added'});
-                });
+                if (image){
+                    mealImage.save(function(err) {
+                        if (err)
+                            res.status(500).send(err);
+                    });
+                }
             }
+            res.json({message: 'Meal added'}).status(201);
         }
+    });
+};
+
+exports.updateMeal = function(req, res) {
+    updateFields = {};
+    if (req.file)
+        updateFields.image = req.file.filename;
+    if (req.body.author)
+        updateFields.author = req.body.author;
+    if (req.body.name)
+        updateFields.name = req.body.name.toLowerCase();
+    if (req.body.description)
+        updateFields.description = req.body.description;
+    if (req.body.video)
+        updateFields.video = req.body.video;
+    if (req.body.instruction)
+        updateFields.instruction = req.body.instruction;
+    if (req.body.difficulty)
+        updateFields.difficulty = req.body.difficulty;
+    if (req.body.cooktime)
+        updateFields.cooktime = req.body.cooktime;
+    if (req.body.category)
+        updateFields.category = req.body.category;
+    if (req.body.ingredients)
+        updateFields.ingredients = req.body.ingredients;
+    if (req.body.nutritionfact)
+        updateFields.nutritionfact = req.body.nutritionfact;
+    Meal.update({_id: req.params.id}, updateFields, function (err, doc){
+        if (err) { res.json(err); return; }
+        res.json(doc);
     });
 };
 
@@ -54,18 +84,24 @@ exports.getImage = function(req, res) {
             var data = fs.readFileSync('./uploads/' + file);
             res.contentType(img.type);
             res.send(data);
+
+            if (img) {
+                var data = fs.readFileSync('./uploads/' + file);
+                res.contentType();
+                res.send(data);                
+            }
+            else
+                res.status(404).send();
         }
     });
     //fs.unlinkSync('./uploads/e72aca600d53aa37789740f692f72260')
 };
 
-exports.setImage = function(req, res) {
-    console.log(req.file);
-    res.end();
-};
-
-exports.getMeals = function(req, res) {
-    Meal.find(function(err, meals){
+exports.getMeals = function(req, res){
+    options = null;
+    if (req.query.overview !== undefined)
+        options = 'author name difficulty cooktime image category'
+    Meal.find({}, options, function(err, meals){
         if (err)
             res.send(err);
         else

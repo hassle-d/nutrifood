@@ -10,7 +10,11 @@ var upload = multer({ dest: '../uploads/'});
 var mealController = require('../controllers/meals');
 
 
+<<<<<<< HEAD
 router.route('/meals/image/:filename')
+=======
+router.route('/meals/image/:id')
+>>>>>>> 2d5587e1148c325add40c17e677a73cdbb267dbf
 	.get(mealController.getImage);
 
 router.route('/test').get(function (req, res){
@@ -34,6 +38,7 @@ router.route('/meals')
     .get(mealController.getMeals);
 
 router.route('/meals/:id')
-    .get(mealController.getMealById);
+    .get(mealController.getMealById)
+    .put(mealController.updateMeal);
 
 module.exports = router;
