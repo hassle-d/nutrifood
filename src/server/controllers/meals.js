@@ -4,10 +4,11 @@
 
 var fs = require('fs');
 var Meal = require('../models/meals');
-var MealImage = require('../models/image');
+var Image = require('../models/image');
 
 exports.postMeals = function(req, res) {
     image = null;
+    console.log(req.file);
     if (req.file)
         image = req.file.filename;
     var meal = new Meal({
@@ -29,7 +30,7 @@ exports.postMeals = function(req, res) {
             res.send(err);
         else {
             if (req.file) {
-                var mealImage = new MealImage({
+                var mealImage = new Image({
                     filename: req.file.filename,
                     type: req.file.mimetype
                 });
@@ -76,14 +77,15 @@ exports.updateMeal = function(req, res) {
 };
 
 exports.getImage = function(req, res) {
-    file = req.params.filename;
-    MealImage.findOne({'filename': file}, function(err, img) {
+    var file = req.params.filename;
+    console.log(file);
+    Image.findOne({'filename': file}, function(err, img) {
         if (err)
             res.send(err);
         else {
             if (img) {
                 var data = fs.readFileSync('./uploads/' + file);
-                res.contentType();
+                res.contentType(img.type);
                 res.send(data);                
             }
             else

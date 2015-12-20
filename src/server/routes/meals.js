@@ -10,7 +10,7 @@ var upload = multer({ dest: '../uploads/'});
 var mealController = require('../controllers/meals');
 
 
-router.route('/meals/image/:id')
+router.route('/meals/image/:filename')
 	.get(mealController.getImage);
 
 router.route('/test').get(function (req, res){
@@ -18,7 +18,7 @@ router.route('/test').get(function (req, res){
 		res.end("<!DOCTYPE HTML><html><body>" +
 			"<form method='post' action='/api/v1/meals/' enctype='multipart/form-data'>" +
 			"<input type='file' name='image'/>" +
-			"<input type='submit' /></form>" +
+			"<input type='submit' /></form><img src='http://localhost:3000/api/v1/meals/image/496e8ea4b75c8ca27e34acae10038eec'><img src='http://localhost:3000/api/v1/meals/image/db81e8d3e96c2abba5a14c0a6a533fad'>" +
 			"</body></html>");
 	});
 
@@ -37,4 +37,4 @@ router.route('/meals/:id')
     .get(mealController.getMealById)
     .put(mealController.updateMeal);
 
-module.exports = router;
+module.exports = router

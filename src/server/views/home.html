@@ -383,7 +383,7 @@
 					<div class="entry col-xs-12 col-sm-4 col-md-3 filter-food filter-pudding">
 						<div class="entry-inner">
 							<div class="entry-media">
-								<img src="images/dishes/dish_1.jpg" alt=""/>
+								<img ng-src="http://localhost:3000/api/v1/meals/image/{{meal.image}}" alt=""/>
 								<div class="entry-action">
 									<div class="entry-action-inner">
 										<span>
@@ -395,10 +395,12 @@
 									</div>
 								</div>
 							</div>
+
 							<!-- ./ entry-media -->
 							<div class="content-wrapper">
 								<h3 class="entry-name"><a href="recipe_single.html">{{meal.name}}</a></h3>
-								<p class="entry-author">By {{meal.author}}</p>
+								<p class="entry-author">By {{meal.author}}</p><br/>
+								<p class="entry-author">{{meal.description}}</p>
 								<div class="entry-meta">
 									<div class="foo-wrapper">
 										<span class="meta-difficulty {{meal.difficulty}}" title="">{{meal.difficulty}}</span>
