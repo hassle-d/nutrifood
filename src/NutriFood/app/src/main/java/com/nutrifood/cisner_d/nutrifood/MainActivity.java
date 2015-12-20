@@ -1,34 +1,44 @@
 package com.nutrifood.cisner_d.nutrifood;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.nutrifood.cisner_d.nutrifood.adapter.TabViewAdapter;
+
 
 public class MainActivity extends ActionBarActivity {
 
-    private DataHolder dataHolder = DataHolder.getInstence();
+    private ViewPager viewPager = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Client.setContext(this);
-        /*
-        if (dataHolder.Token() == null) {
-            SharedPreferences settings = getSharedPreferences("SETTINGS", MODE_PRIVATE);
-            dataHolder.Token(settings.getString(getString(R.string.token_key), null));
-        }
-        */
+
+        SharedPreferences settings = getSharedPreferences("SETTINGS", MODE_PRIVATE);
+        DataHolder.token = settings.getString(getString(R.string.token_key), null);
+        DataHolder.login = settings.getString(getString(R.string.username_key), null);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        if (dataHolder.Token() == null) { startActivity(new Intent(this, LoginActivity.class)); }
+        if (DataHolder.token == null) { startActivity(new Intent(this, LoginActivity.class)); }
+        else {
+            Client.addHeader(DataHolder.token);
+            viewPager = (ViewPager) findViewById(R.id.pager);
+            DataHolder.Adapter = new TabViewAdapter(getSupportFragmentManager());
+            viewPager.setAdapter(DataHolder.Adapter);
+        }
     }
 
     @Override
@@ -42,7 +52,8 @@ public class MainActivity extends ActionBarActivity {
     protected void onStop() {
         SharedPreferences settings = getApplicationContext().getSharedPreferences("SETTINGS", MODE_PRIVATE);
         SharedPreferences.Editor editor = settings.edit();
-        editor.putString(getString(R.string.token_key), dataHolder.Token());
+        editor.putString(getString(R.string.token_key), DataHolder.token);
+        editor.putString(getString(R.string.username_key), DataHolder.login);
         editor.commit();
         super.onStop();
     }
@@ -56,6 +67,26 @@ public class MainActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            return true;
+        }
+
+        if (id == R.id.action_home) {
+            viewPager.setCurrentItem(0);
+            return true;
+        }
+
+        if (id == R.id.action_profil) {
+            viewPager.setCurrentItem(1);
+            return true;
+        }
+
+        if (id == R.id.action_logout) {
+            DataHolder.Clear();
+            SharedPreferences settings = getApplicationContext().getSharedPreferences("SETTINGS", MODE_PRIVATE);
+            SharedPreferences.Editor editor = settings.edit();
+            editor.clear();
+            editor.commit();
+            startActivity(new Intent(this, LoginActivity.class));
             return true;
         }
 

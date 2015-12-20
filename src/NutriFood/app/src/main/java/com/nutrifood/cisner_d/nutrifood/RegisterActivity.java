@@ -1,6 +1,10 @@
 package com.nutrifood.cisner_d.nutrifood;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
@@ -13,12 +17,12 @@ import android.widget.TextView;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
-import org.apache.http.Header;
+import cz.msebera.android.httpclient.Header;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class RegisterActivity extends ActionBarActivity implements View.OnClickListener {
+public class RegisterActivity extends Activity implements View.OnClickListener {
 
     private Button registerbutton = null;
     private EditText login = null;
@@ -28,7 +32,6 @@ public class RegisterActivity extends ActionBarActivity implements View.OnClickL
     private EditText lastname = null;
     private EditText age = null;
     private TextView error = null;
-    private DataHolder dataHolder = DataHolder.getInstence();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,46 +93,65 @@ public class RegisterActivity extends ActionBarActivity implements View.OnClickL
         }
     };
 
+    private void onRegister()
+    {
+        RequestParams params = new RequestParams();
+        DataHolder.login = login.getText().toString();
+        DataHolder.password = password.getText().toString();
+        DataHolder.email = email.getText().toString();
+        DataHolder.firstname = firstname.getText().toString();
+        DataHolder.lastname = lastname.getText().toString();
+        try
+        {
+            DataHolder.age = Integer.parseInt(age.getText().toString());
+        }
+        catch (NumberFormatException e)
+        {
+            DataHolder.age = 0;
+        }
+        params.put(getString(R.string.username_key), DataHolder.login);
+        params.put(getString(R.string.password_key), DataHolder.password);
+        params.put(getString(R.string.email_key), DataHolder.email);
+        params.put(getString(R.string.firstname_key), DataHolder.firstname);
+        params.put(getString(R.string.lastname_key), DataHolder.lastname);
+        params.put(getString(R.string.age_key), DataHolder.age);
+
+        Client.post(getString(R.string.users_URL), params, new JsonHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                finish();
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject object) {
+                finish();
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String string, Throwable throwable) {
+                error.setText("ERROR");
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                error.setText("ERROR");
+            }
+        });
+    }
+
     @Override
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.register:
-                RequestParams params = new RequestParams();
-                dataHolder.login = login.getText().toString();
-                dataHolder.password = password.getText().toString();
-                dataHolder.email = email.getText().toString();
-                dataHolder.firstname = firstname.getText().toString();
-                dataHolder.lastname = lastname.getText().toString();
-                dataHolder.age = age.getText().toString();
-                params.put(getString(R.string.username_key), dataHolder.login);
-                params.put(getString(R.string.password_key), dataHolder.password);
-                params.put(getString(R.string.email_key), dataHolder.email);
-                params.put(getString(R.string.firstname_key), dataHolder.firstname);
-                params.put(getString(R.string.lastname_key), dataHolder.lastname);
-                params.put(getString(R.string.age_key), Integer.parseInt(dataHolder.age));
-
-                Client.post(getString(R.string.register_URL), params, new JsonHttpResponseHandler() {
-
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                        finish();
-                    }
-
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONObject object) {
-                        finish();
-                    }
-
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, String string, Throwable throwable) {
-                        error.setText("ERROR");
-                    }
-
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                        error.setText("ERROR");
-                    }
-                });
+                ConnectivityManager connMgr = (ConnectivityManager)
+                        getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+                if (networkInfo != null && networkInfo.isConnected()) {
+                    onRegister();
+                } else {
+                    error.setText("ERROR : no connection");
+                }
                 break;
         }
     }
