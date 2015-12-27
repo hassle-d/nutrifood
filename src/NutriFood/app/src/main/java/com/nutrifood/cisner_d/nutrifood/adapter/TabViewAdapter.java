@@ -19,7 +19,19 @@ public class TabViewAdapter extends FragmentPagerAdapter {
                     return new Home();
                 }
                 case 1: {
+                    return new Category();
+                }
+                case 2: {
+                    return new Dishes();
+                }
+                case 3: {
                     return new Profil();
+                }
+                case 4: {
+                    return new CreateDishes();
+                }
+                case 5: {
+                    return new Dishe();
                 }
             }
         return null;
@@ -27,6 +39,6 @@ public class TabViewAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 2;
+        return 6;
     }
 }

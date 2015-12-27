@@ -2,23 +2,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
 
-    <item android:id="@+id/action_home"
-        android:title="@string/action_home"
-        android:icon="@drawable/ic_home_white_18dp"
-        app:showAsAction="ifRoom" />
-
-    <item android:id="@+id/action_profil"
-        android:title="@string/action_profil"
-        android:icon="@drawable/ic_account_white_18dp"
-        app:showAsAction="ifRoom" />
-
     <item android:id="@+id/action_settings"
         android:title="@string/action_settings"
         android:icon="@drawable/ic_settings_white_18dp"
         app:showAsAction="never" />
 
+    <!--
+    <item android:id="@+id/action_search"
+        android:title="Search"
+        android:icon="@android:drawable/ic_menu_search"
+        app:showAsAction="always"
+        android:actionViewClass="android.widget.SearchView" />
+    -->
+
+    <item android:id="@+id/action_synch"
+        android:title="@string/action_synch"
+        android:icon="@android:drawable/ic_popup_sync"
+        app:showAsAction="always" />
+
     <item android:id="@+id/action_logout"
         android:title="@string/action_logout"
-        android:icon="@drawable/ic_logout_white_18dp"
+        android:icon="@drawable/ic_logout_white_36dp"
         app:showAsAction="always" />
+
 </menu>

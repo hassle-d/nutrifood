@@ -15,14 +15,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Home extends Fragment {
-    private View home;
+    private View home_view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        home = inflater.inflate(R.layout.fragment_home, container, false);
+        home_view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        return home;
+        return home_view;
     }
 
     @Override

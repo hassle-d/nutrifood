@@ -1,18 +1,33 @@
 package com.nutrifood.cisner_d.nutrifood;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+
+import com.loopj.android.http.FileAsyncHttpResponseHandler;
+
+import java.io.File;
 import java.util.ArrayList;
 
+import cz.msebera.android.httpclient.Header;
+
 public class Meal {
-    private String _author;
-    private String _name;
-    private String _description;
-    private String _instruction;
-    private String _difficulty;
-    private String _category;
-    private String _cooktime;
+    private String  _author;
+    private String  _name;
+    private String  _description;
+    private String  _instruction;
+    private String  _difficulty;
+    private String  _category;
+    private String  _cooktime;
+    private String  _id;
+    private File    _image;
+    private Bitmap _bitmap;
     private ArrayList<String> _ingredients;
 
     void Meal() {}
+
+    public String Id() { return _id; }
+
+    public void Id(String str) { _id = str; }
 
     public String Author()
     {
@@ -86,5 +101,29 @@ public class Meal {
     public void Ingredients(ArrayList<String> list)
     {
         _ingredients = list;
+    }
+
+    public File Image() { return _image; }
+
+    public void Image(String str, Context context)
+    {
+        Client.get(context.getString(R.string.image_URL) + "/" + str, null, new FileAsyncHttpResponseHandler(context) {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, File response) {
+                _image = response;
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
+            }
+        });
+    }
+
+    public Bitmap Bitmap() {
+        return _bitmap;
+    }
+
+    public void Bitmap(Bitmap _bitmap) {
+        this._bitmap = _bitmap;
     }
 }

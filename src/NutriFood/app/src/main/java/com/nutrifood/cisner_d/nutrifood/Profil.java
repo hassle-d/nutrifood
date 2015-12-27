@@ -20,24 +20,23 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Profil extends Fragment {
-    private View profil;
+    private View profil_view;
     private TextView error = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        profil = inflater.inflate(R.layout.fragment_profil, container, false);
-        return profil;
+        profil_view = inflater.inflate(R.layout.fragment_profil, container, false);
+        return profil_view;
     }
 
     @Override
     public void onStart()
     {
-        error = (TextView)profil.findViewById(R.id.error);
         ConnectivityManager connMgr = (ConnectivityManager)getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected()) {
-            getUserProfile();
+//            getUserProfile();
         } else {
         }
         super.onStart();
