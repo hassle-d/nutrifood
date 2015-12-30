@@ -10,7 +10,7 @@ exports.postUsers = function(req, res) {
 		{ error = true; res.status(400).json({name: 'ValidationError', message: 'PasswordTooShort'}); }
 	if (!error) {
 		var user = new User({
-			username: req.body.username,
+			username: req.body.username.toLowerCase(),
 			password: req.body.password,
 			email: req.body.email,
 			firstname: req.body.firstname,
@@ -46,7 +46,7 @@ exports.getProfil = function(req, res) {
 
 exports.updateProfil = function(req, res) {
 	if (!req.user.userId) { res.status(400).json({name: 'ValidationError', message: 'MissingFields'}); return;}
-	updateFields = {};
+	var updateFields = {};
 	if (req.body.password)
 		updateFields.password = req.body.password;
 	if (req.body.email)
@@ -76,7 +76,7 @@ exports.getUsers = function(req, res) {
 			res.status(500).send(err);
 		else
 			res.json(users);
-	});
+	}).sort({username:1}).skip(null).limit(1);
 };
 
 exports.getUserById = function(req, res) {

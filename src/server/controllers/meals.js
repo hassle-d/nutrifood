@@ -12,8 +12,8 @@ exports.postMeals = function(req, res) {
     if (req.file)
         image = req.file.filename;
     var meal = new Meal({
-        author: req.body.author,
-        date: new Date(),
+        author: req.body.author.toLowerCase(),
+        date: new Date().toISOString(),
         name: req.body.name.toLowerCase(),
         description: req.body.description,
         video: req.body.video,
@@ -47,7 +47,7 @@ exports.postMeals = function(req, res) {
 };
 
 exports.updateMeal = function(req, res) {
-    updateFields = {};
+    var updateFields = {};
     if (req.file)
         updateFields.image = req.file.filename;
     if (req.body.author)
@@ -96,15 +96,24 @@ exports.getImage = function(req, res) {
 };
 
 exports.getMeals = function(req, res){
-    options = null;
+    var options = null;
+    var opsort = null;
+    if (req.query.orderby) {
+        var field = req.query.orderby;
+        var order = '';
+        if (req.query.order == 'desc')
+            order = '-';
+        opsort = order+field;
+        console.log(opsort);
+    }
     if (req.query.overview !== undefined)
         options = 'author name difficulty cooktime image category'
-    Meal.find({}, options, function(err, meals){
+    Meal.find({}, options, {sort: opsort}, function(err, meals){
         if (err)
             res.send(err);
         else
             res.json(meals);
-    })
+    });
 };
 
 exports.getMealById = function(req, res) {
