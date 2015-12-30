@@ -37,4 +37,4 @@ router.route('/meals/:id')
     .get(mealController.getMealById)
     .put(mealController.updateMeal);
 
-module.exports = router
+module.exports = router;

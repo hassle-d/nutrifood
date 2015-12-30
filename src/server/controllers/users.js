@@ -35,6 +35,41 @@ exports.postUsers = function(req, res) {
 	}
 };
 
+exports.getProfil = function(req, res) {
+	User.findById(req.user.userId, function(err, user) {
+		if (err)
+			res.status(500).send(err);
+		else
+			res.json(user);
+	});	
+};
+
+exports.updateProfil = function(req, res) {
+	if (!req.user.userId) { res.status(400).json({name: 'ValidationError', message: 'MissingFields'}); return;}
+	updateFields = {};
+	if (req.body.password)
+		updateFields.password = req.body.password;
+	if (req.body.email)
+		updateFields.email = req.body.email;
+	if (req.body.firstname)
+		updateFields.firstname = req.body.firstname;
+	if (req.body.lastname)
+		updateFields.lastname = req.body.lastname;
+	if (req.body.description)
+		updateFields.description = req.body.description;
+	if (req.body.age)
+		updateFields.age = req.body.age;
+	if (req.body.allergy)
+		updateFields.allergy = req.body.allergy;
+	if (req.body.special)
+		updateFields.special = req.body.special;
+	console.log(updateFields);
+	User.update({_id: req.user.userId}, updateFields, function (err, doc){
+		if (err) { res.json(err); return; }
+		res.json(doc);
+	});
+};
+
 exports.getUsers = function(req, res) {
 	User.find(function(err, users) {
 		if (err)
