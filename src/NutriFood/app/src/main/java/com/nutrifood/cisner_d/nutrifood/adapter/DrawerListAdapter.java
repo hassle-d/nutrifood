@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.nutrifood.cisner_d.nutrifood.NavItem;
+import com.nutrifood.cisner_d.nutrifood.Main.NavItem;
 import com.nutrifood.cisner_d.nutrifood.R;
 
 import java.util.ArrayList;

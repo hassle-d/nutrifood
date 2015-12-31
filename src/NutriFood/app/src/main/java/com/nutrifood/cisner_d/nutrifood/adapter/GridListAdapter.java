@@ -12,24 +12,22 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.nutrifood.cisner_d.nutrifood.DataHolder;
-import com.nutrifood.cisner_d.nutrifood.Dishe;
-import com.nutrifood.cisner_d.nutrifood.Meal;
+import com.nutrifood.cisner_d.nutrifood.Main.CallBack;
+import com.nutrifood.cisner_d.nutrifood.Main.Meal;
 import com.nutrifood.cisner_d.nutrifood.R;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.InputStream;
 import java.util.Collections;
 import java.util.List;
-
-import cz.msebera.android.httpclient.extras.Base64;
 
 
 public class GridListAdapter extends RecyclerView.Adapter<GridListAdapter.MyViewHolder> {
     Context _context;
     LayoutInflater _inflater;
     List<Meal> _items = Collections.emptyList();
+    CallBack _callback;
+
 
     public GridListAdapter(Context context, LayoutInflater inflater) {
         _inflater = inflater;
@@ -53,7 +51,6 @@ public class GridListAdapter extends RecyclerView.Adapter<GridListAdapter.MyView
 
         if (name != null)
             holder.titleView.setText(name);
-        holder.iconView.setImageResource(R.drawable.ic_launcher);
 
         if (image != null && bitmap == null)
             new DownloadImageTask(holder.iconView, current).execute(image);
@@ -66,10 +63,11 @@ public class GridListAdapter extends RecyclerView.Adapter<GridListAdapter.MyView
         return _items.size();
     }
 
-    public void setItemsList(List<Meal> list)
+    public void setItemsList(List<Meal> list, CallBack callback)
     {
         Log.d("setItemsList", String.valueOf(list.size()));
         _items = list;
+        _callback = callback;
         this.notifyDataSetChanged();
     }
 
@@ -92,8 +90,9 @@ public class GridListAdapter extends RecyclerView.Adapter<GridListAdapter.MyView
 
         @Override
         public void onClick(View v) {
-            Dishe.setMeal(DataHolder.meals.get(this.getPosition()));
-            DataHolder.viewPager.setCurrentItem(DataHolder.DISHE);
+            Log.d("MyViewHolder", "OnClick");
+            if (_callback != null)
+                _callback.onItemClicked(_items.get(this.getPosition()));
         }
     }
 
@@ -119,68 +118,8 @@ public class GridListAdapter extends RecyclerView.Adapter<GridListAdapter.MyView
             }
             return mIcon;
         }
-/*
-        protected Bitmap doInBackground(String... str){
-            String encodedImage = str[0];
-            Bitmap mIcon = null;
-            try {
-                byte[] decodedString = DataHolder.decodeImage(encodedImage);
-                mIcon = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return mIcon;
-        }
-*/
-/*
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap mIcon = null;
-            try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                mIcon = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return mIcon;
-        }
-*/
         protected void onPostExecute(Bitmap result) {
             bmImage.setImageBitmap(result);
         }
     }
- /*
-    @Override
-    public int getCount() {
-        return items.size();
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return items.get(position);
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View view;
-
-        if (convertView == null) {
-            LayoutInflater inflater = (LayoutInflater) _context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.grid_item, null);
-        }
-        else {
-            view = convertView;
-        }
-
-        TextView titleView = (TextView) view.findViewById(R.id.title);
-        ImageView iconView = (ImageView) view.findViewById(R.id.icon);
-
-        titleView.setText( items.get(position).Name() );
-        iconView.setImageResource(items.get(position).Image());
-
-        return view;
-    }
-*/
 }

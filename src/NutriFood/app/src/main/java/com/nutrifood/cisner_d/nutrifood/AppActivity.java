@@ -3,6 +3,8 @@ package com.nutrifood.cisner_d.nutrifood;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 
+import com.nutrifood.cisner_d.nutrifood.R;
+
 public class AppActivity extends ActionBarActivity {
 
     @Override
