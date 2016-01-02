@@ -25,6 +25,10 @@ myApp.config(function ($httpProvider, $routeProvider) {
                     templateUrl : 'views/login.html',
                     controller : 'loginController'
                 })
+                .when('/profile', {
+                    templateUrl : 'views/profile.html',
+                    controller : 'profilController'
+                })
                 .when('/meal/:id', {
                     templateUrl : 'views/meal.html',
                     controller : 'mealController'
