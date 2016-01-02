@@ -7,13 +7,36 @@ myApp.config(function ($httpProvider, $routeProvider) {
             $routeProvider
                 .when('/', {
                     templateUrl : 'views/home.html',
-                    controller : 'maincontroller'
+                    controller : 'mainController'
+                })
+                .when('/register', {
+                    templateUrl : 'views/register.html',
+                    controller : 'registerController'
+                })
+                .when('/category', {
+                    templateUrl : 'views/category.html',
+                    controller : 'categoryController'
+                })
+                .when('/recipes', {
+                    templateUrl : 'views/recipes.html',
+                    controller : 'recipesController'
+                })
+                .when('/login', {
+                    templateUrl : 'views/login.html',
+                    controller : 'loginController'
+                })
+                .when('/meal/:id', {
+                    templateUrl : 'views/meal.html',
+                    controller : 'mealController'
                 });
 });
 
-testApp.controller('mainController', function($scope) {
-    $scope.message = 'Page d\'acceuil';
+
+myApp.controller('mainController', function($scope, $http) {
+
 });
+
+
 
 serialize = function(obj) {
   var str = [];
