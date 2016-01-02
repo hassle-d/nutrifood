@@ -1,8 +1,19 @@
-var myApp = angular.module('nutrifood',[])
-        .config(function ($httpProvider) {
+var myApp = angular.module('nutrifood', ['ngRoute'])
+
+myApp.config(function ($httpProvider, $routeProvider) {
             $httpProvider.defaults.headers.put['Content-Type'] = 'application/x-www-form-urlencoded';
             $httpProvider.defaults.headers.post['Content-Type'] =  'application/x-www-form-urlencoded';
-        })
+
+            $routeProvider
+                .when('/', {
+                    templateUrl : 'views/home.html',
+                    controller : 'maincontroller'
+                });
+});
+
+testApp.controller('mainController', function($scope) {
+    $scope.message = 'Page d\'acceuil';
+});
 
 serialize = function(obj) {
   var str = [];
