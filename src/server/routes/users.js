@@ -14,7 +14,7 @@ router.route('/user')
 
 router.route('/users')
 	.post(userController.postUsers)
-	.get(/*authController.isValidToken, */userController.getUsers);
+	.get(authController.isValidToken, userController.getUsers);
 
 router.route('/users/:id')
 	.get(authController.isValidToken, userController.getUserById)
@@ -23,6 +23,5 @@ router.route('/users/:id')
 
 router.route('/users/username/:username')
 	.get(authController.isValidToken, userController.getUserByUsername);
-
 
 module.exports = router;

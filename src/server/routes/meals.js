@@ -8,7 +8,7 @@ var multer = require('multer');
 var upload = multer({ dest: '../uploads/'});
 
 var mealController = require('../controllers/meals');
-
+var authController = require('../controllers/auth');
 
 router.route('/meals/image/:filename')
 	.get(mealController.getImage);
@@ -24,17 +24,17 @@ router.route('/test').get(function (req, res){
 
 
 router.route('/meals/name/:name')
-    .get(mealController.getMealByName);
+    .get(authController.isValidToken, mealController.getMealByName);
 
 router.route('/meals/category/:category')
-    .get(mealController.getMealByCategory);
+    .get(authController.isValidToken, mealController.getMealByCategory);
 
 router.route('/meals')
-    .post(mealController.postMeals)
-    .get(mealController.getMeals);
+    .post(authController.isValidToken, mealController.postMeals)
+    .get(authController.isValidToken, mealController.getMeals);
 
 router.route('/meals/:id')
-    .get(mealController.getMealById)
-    .put(mealController.updateMeal);
+    .get(authController.isValidToken, mealController.getMealById)
+    .put(authController.isValidToken, mealController.updateMeal);
 
 module.exports = router;
