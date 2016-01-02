@@ -22,7 +22,7 @@ myApp.config(function ($httpProvider, $routeProvider) {
                     controller : 'recipesController'
                 })
                 .when('/submit-recipe', {
-                    templateUrl : 'views/submit-recipes.html',
+                    templateUrl : 'views/recipe_submit.html',
                     controller : 'submitRecipeController'
                 })
                 .when('/login', {
