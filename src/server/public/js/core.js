@@ -31,8 +31,6 @@ myApp.directive('fileModel', ['$parse', function ($parse) {
     };
 }]);
 
-
-
 myApp.controller('recipeSubmitController', ['$scope', '$http', function($scope, $http){
     $scope.recipes = function() {
         var image = $scope.myFile;
@@ -110,7 +108,6 @@ myApp.controller('registerController', ['$scope', '$http', '$location', function
             });
     };
 }]);
-
 
 
 myApp.controller('loginController', ['$scope', '$http', function($scope, $http) {
