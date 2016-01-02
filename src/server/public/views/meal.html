@@ -2,13 +2,12 @@
 	<header class="hs-header">
 		<div class="container">
 			<p class="entry-meta">
-				<span class="meta-level master">LEVEL: <span>MASTER</span></span>
-				<span class="meta-time">TIME: 2 HOURS</span>
+				<span class="meta-level {{meal.difficulty}}">LEVEL: <span>{{meal.difficulty}}</span></span>
+				<span class="meta-time">TIME: {{meal.cooktime}} HOURS</span>
 			</p>
-			<h2 class="heading">Spicy Lemper Roasted Prawn</h2>
+			<h2 class="heading">{{meal.name}}</h2>
 			<p class="entry-meta meta-author">
-				<img src="images/author/1.jpg" alt="">
-				Post by <a href="#">Robert Lewandoski</a>
+				Post by <a href="#">{{meal.author}}</a>
 			</p>
 		</div>
 	</header>
@@ -18,62 +17,7 @@
 			<div class="row">
 				<div class="col-xs-12 col-sm-6">
 					<div class="entry entry-media">
-						<div id="flexslider-1" class="flexslider sync" data-sync="#sync-carousel-1" data-auto="true" data-effect="slide" data-navi="true" data-pager="false" data-slide-speed="7000" data-animation-speed="1000">
-							<ul class="slides">
-								<li>
-									<img src="images/gallery/1.jpg" alt="">
-								</li>
-								<li>
-									<img src="images/gallery/2.jpg" alt="">
-								</li>
-								<li>
-									<img src="images/gallery/3.jpg" alt="">
-								</li>
-								<li>
-									<img src="images/gallery/4.jpg" alt="">
-								</li>
-								<li>
-									<img src="images/gallery/5.jpg" alt="">
-								</li>
-								<li>
-									<img src="images/gallery/6.jpg" alt="">
-								</li>
-								<li>
-									<img src="images/gallery/7.jpg" alt="">
-								</li>
-								<li>
-									<img src="images/gallery/8.jpg" alt="">
-								</li>
-							</ul>
-						</div>
-						<div id="sync-carousel-1" class="flexslider-sync-carousel">
-							<ul class="slides">
-								<li>
-									<img src="images/gallery/1.jpg" alt="">
-								</li>
-								<li>
-									<img src="images/gallery/2.jpg" alt="">
-								</li>
-								<li>
-									<img src="images/gallery/3.jpg" alt="">
-								</li>
-								<li>
-									<img src="images/gallery/4.jpg" alt="">
-								</li>
-								<li>
-									<img src="images/gallery/5.jpg" alt="">
-								</li>
-								<li>
-									<img src="images/gallery/6.jpg" alt="">
-								</li>
-								<li>
-									<img src="images/gallery/7.jpg" alt="">
-								</li>
-								<li>
-									<img src="images/gallery/8.jpg" alt="">
-								</li>
-							</ul>
-						</div>
+						<img src="/api/v1/meals/image/{{meal.image}}" alt="">
 					</div>
 					<!-- / .entry-media -->
 					<div class="entry entry-action">
@@ -107,61 +51,16 @@
 					<!-- / .entry-action -->
 					<div class="entry entry-description">
 						<h4 class="entry-title">Description</h4>
-						<p>Marzipan sesame snaps tiramisu soufflé jelly-o chocolate apple pie. Chocolate muffin sugar plum soufflé toffee. Jujubes jelly-o wafer cookie bear claw marshmallow sesame snaps toffee. Apple pie tootsie roll apple pie dragée lemon drops sesame snaps sweet croissant. Marshmallow chocolate cake gummi bears tart cupcake. Chupa chups pastry gummies. Jujubes danish jelly beans sesame snaps. Topping chupa chups carrot cake gingerbread halvah topping candy canes marzipan. Unerdwear.com candy pudding biscuit liquorice brownie chocolate sweet candy canes. Gingerbread chocolate cake sesame snaps powder gingerbread dessert pudding. Dessert cotton candy sugar plum brownie icing croissant. Lemon drops chupa chups bear claw brownie.</p>
+						<p>{{meal.description}}</p>
 					</div>
-					<!-- / .entry-description -->
-					<div class="entry entry-nutri">
-						<h4 class="entry-title">Nutrition</h4>
-						<table class="table">
-							<tbody>
-								<tr>
-									<td class="name">Calories</td>
-									<td class="value">102 kcal</td>
-									<td class="percen">5%</td>
-									<td class="percentage"><span><span style="width: 50%"></span></span></td>
-								</tr>
-								<tr>
-									<td class="name">Cholestrerol</td>
-									<td class="value">85 kcal</td>
-									<td class="percen">3%</td>
-									<td class="percentage"><span><span style="width: 30%"></span></span></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-					<!-- / .entry-nutri -->
 				</div>
 				<div class="col-xs-12 col-sm-6">
 					<div class="entry entry-ingredient">
 						<h4 class="entry-title">Ingredient</h4>
 						<table class="table table-tripped">
 							<tbody>
-								<tr class="section-title">
-									<td>Gia vị</td>
-								</tr>
-								<tr>
-									<td>3 pound sesame snaps powder gingerbread</td>
-								</tr>
-								<tr>
-									<td>2 ounce lemon drops chupa chups bear</td>
-								</tr>
-								<tr>
-									<td>3 pound sesame snaps powder gingerbread</td>
-								</tr>
-								<tr>
-									<td class="section-title">Rau thơm</td>
-								</tr>
-								<tr>
-									<td>3 pound sesame snaps powder gingerbread</td>
-								</tr>
-								<tr>
-									<td>2 ounce lemon drops chupa chups bear</td>
-								</tr>
-								<tr>
-									<td>3 pound sesame snaps powder gingerbread</td>
-								</tr>
-								<tr>
-									<td>2 ounce lemon drops chupa chups bear</td>
+								<tr ng-repeat="item in meal.ingredients">
+									<td>{{item}}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -170,12 +69,8 @@
 					<div class="entry entry-instruction">
 						<h4 class="entry-title">Instruction</h4>
 						<dl class="dl-horizontal">
-							<dt>1</dt>
-							<dd>Quaerat labore saepe laudantium officiis, perferendis! Dolorem voluptates quaerat praesentium tempora, asperiores provident earum assumenda ab nulla. Neque, ullam quae repudiandae fugiat.</dd>
-							<dt>2</dt>
-							<dd>Non dolore dicta, odio explicabo deleniti aut, odit reiciendis impedit obcaecati iusto, laudantium error! Maxime ducimus quibusdam rerum ipsam, dolorem ad iste.</dd>
-							<dt>3</dt>
-							<dd>Voluptas, ad vero qui necessitatibus a aliquam nam ea, sunt omnis ratione asperiores vitae suscipit autem. Recusandae quaerat distinctio perferendis non doloremque.</dd>
+							<dt ng-repeat-start="step in meal.instruction" ng-init="nstep=$parent.start+1; $parent.start=$parent.start+1;">{{nstep}}</dt>
+							<dd ng-repeat-end>{{step}}</dd>
 						</dl>
 					</div>
 					<!-- / .entry-instruction -->

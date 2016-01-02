@@ -7,7 +7,7 @@ myApp.config(function ($httpProvider, $routeProvider) {
             $routeProvider
                 .when('/', {
                     templateUrl : 'views/home.html',
-                    controller : 'mainController'
+                    controller : 'homeController'
                 })
                 .when('/register', {
                     templateUrl : 'views/register.html',
@@ -20,6 +20,10 @@ myApp.config(function ($httpProvider, $routeProvider) {
                 .when('/recipes', {
                     templateUrl : 'views/recipes.html',
                     controller : 'recipesController'
+                })
+                .when('/submit-recipe', {
+                    templateUrl : 'views/submit-recipes.html',
+                    controller : 'submitRecipeController'
                 })
                 .when('/login', {
                     templateUrl : 'views/login.html',
@@ -34,12 +38,6 @@ myApp.config(function ($httpProvider, $routeProvider) {
                     controller : 'mealController'
                 });
 });
-
-
-myApp.controller('mainController', function($scope, $http) {
-
-});
-
 
 
 serialize = function(obj) {
@@ -103,13 +101,13 @@ myApp.service('mealService', function($http) {
     this.getData = function() {
         return $http({
             method: 'GET',
-            url: 'http://localhost:3000/api/v1/meals'
+            url: '/api/v1/meals'
            // headers: {'Authorization': 'Token token=' + token}
         });
     }
 });
 
-myApp.controller('mealsController', function($scope, mealService) {
+myApp.controller('homeController', function($scope, mealService) {
     $scope.data = null;
     $scope.meals = null;
     mealService.getData().then(function(dataResponse) {
@@ -118,6 +116,18 @@ myApp.controller('mealsController', function($scope, mealService) {
         console.log($scope.data);
         $scope.meals = dataResponse.data;
         console.log($scope.meals);
+    });
+});
+
+myApp.controller('mealController', function($scope, $http, $routeParams) {
+    var id = $routeParams.id;
+    delete $http.defaults.headers.common['X-Requested-With'];
+    $http({
+        method: 'GET',
+        url: '/api/v1/meals/' + id
+    }).then(function(dataResponse) {
+        console.log(dataResponse.data);
+        $scope.meal = dataResponse.data;
     });
 });
 

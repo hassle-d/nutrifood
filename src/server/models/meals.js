@@ -34,7 +34,7 @@ var MealSchema = new mongoose.Schema({
 		required: true
 	},
 	instruction: {
-		type: String,
+		type: [String],
 		required: true
 	},
     category: {
