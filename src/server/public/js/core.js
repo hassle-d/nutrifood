@@ -67,7 +67,7 @@ myApp.service('mealService', function($http) {
     this.getData = function() {
         return $http({
             method: 'GET',
-            url: 'http://localhost:3000/api/v1/meals'
+            url: '/api/v1/meals'
            // headers: {'Authorization': 'Token token=' + token}
         });
     }
