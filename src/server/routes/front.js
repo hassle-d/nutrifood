@@ -36,7 +36,13 @@ router.get('/category', function(r,q,n){
   q.sendFile(views + 'category.html')
 });
 
+router.get('/profile/:id', function(r,q,n){
+  q.sendFile(views + 'profile.html')
+});
 
+router.get('/meal', function(r,q,n){
+  q.sendFile(views + 'meal.html')
+});
 
 
 module.exports = router;
