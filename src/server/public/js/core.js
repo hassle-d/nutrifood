@@ -27,7 +27,7 @@ myApp.config(function ($httpProvider, $routeProvider) {
                 })
                 .when('/profile', {
                     templateUrl : 'views/profile.html',
-                    controller : 'profilController'
+                    controller : 'profileController'
                 })
                 .when('/meal/:id', {
                     templateUrl : 'views/meal.html',
@@ -98,6 +98,33 @@ myApp.controller('recipeSubmitController', ['$scope', '$http', function($scope, 
     };
 }]);
 
+myApp.service('profileService', function($http) {
+    delete $http.defaults.headers.common['X-Requested-With'];
+    this.getData = function() {
+        return $http({
+            method: 'GET',
+            url: '/api/v1/user',
+            headers: {'Authorization': 'VAlYRtwJ2xhBNgqbBndkGIdvFfDtzGMX1DStQMMb6qkR6Rb5eAgRxTOv5o8ZVtmx1mlS4I7OWAxjpOpPMnbLKaUDkkkk9UyeW8gy'}
+        });
+    }
+});
+
+myApp.controller('profileController', function($scope, profileService) {
+    $scope.profile = null;
+    profileService.getData().then(function(dataResponse) {
+
+        var data = dataResponse.data;
+        data.username = data.username.charAt(0).toUpperCase() + data.username.slice(1);
+        $scope.profile = data;
+        console.log($scope.profile);
+    });
+
+    $scope.update = function(){
+
+    };
+
+});
+
 myApp.service('mealService', function($http) {
     delete $http.defaults.headers.common['X-Requested-With'];
     this.getData = function() {
@@ -135,6 +162,9 @@ myApp.controller('registerController', ['$scope', '$http', '$location', function
             allergy: $scope.allergy,
             religion: $scope.religion
         };
+
+        user = checkValidity(user)
+
         $http.post('/api/v1/users', serialize(user))
             .success(function(user){
                 console.log()

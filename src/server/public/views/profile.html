@@ -1,18 +1,50 @@
 <div class="ht-section hs-contributor">
 	<div class="container">
-		<div class="row">
-			<div class="col-xs-12 col-sm-8">
 				<div class="hs-content">
 					<div class="contributor">
-						<div class="entry-media">
-							<span class="inner">
-								<img src="../../../../../../../Desktop/culinier/images/author/1.jpg" alt="">
-							</span>
-						</div>
 						<div class="entry-description">
-							<h2 class="heading">JOCKO MUNANDAR</h2>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt facere maxime harum in optio enim. Voluptatibus modi tempora, saepe neque. Delectus repudiandae, sed dolor. Ut, ipsam corporis velit quis quae.</p>
-							<p class="connect"><span>Connect with Joko Munandar</span> <a href="#" class="fa fa-facebook"></a> <a href="#" class="fa fa-twitter"></a> <a href="#" class="fa fa-google-plus"></a> <a href="#" class="fa fa-linkedin"></a> <a href="#" class="fa fa-youtube"></a></p>
+							<h2 class="heading">Hello, {{profile.username}}</h2>
+							<p>Here is your profile, you can check and modify information about yourself. <br/> You also consult the recipes that you have submit and also the ones that you bookmarked</p>
+						</div>
+					</div>
+
+					<div class="register-form ">
+						<div ng-controller="profileController">
+							<form method="post">
+						<div>
+							<label class="heading">Username</label>
+							<input type="text" ng-model="username" class="input" placeholder={{profile.username}}>
+						</div>
+
+						<div>
+							<label class="heading">Firstname</label>
+							<input type="text" ng-model="firstname" class="input" placeholder={{profile.firstname}}>
+						</div>
+
+						<div>
+							<label class="heading">Lastname</label>
+							<input type="text" ng-model="lastname" class="input" placeholder={{profile.lastname}}>
+						</div>
+
+						<div>
+							<label class="heading">Description</label>
+							<input type="text" ng-model="description" class="input" placeholder={{profile.description}}>
+						</div>
+
+						<div>
+							<label class="heading">Allergy</label>
+							<input type="text" ng-model="allergy" class="input" placeholder={{profile.allergy}}>
+						</div>
+
+						<div>
+							<label class="heading">Religion</label>
+							<input type="text" ng-model="religion" class="input" placeholder={{profile.religion}}>
+						</div>
+
+						<div>
+							<input ng-click="update()" type="submit" value="Register" class="button-primary">
+						</div>
+							</form>
 						</div>
 					</div>
 
@@ -189,10 +221,7 @@
 					</div>
 				</div>
 
-			</div>
 			<!-- / column -->
-
-		</div>
 		<!-- / .row -->
 	</div>
 	<!-- /.row -->

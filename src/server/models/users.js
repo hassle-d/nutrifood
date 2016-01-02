@@ -28,7 +28,8 @@ var UserSchema = new mongoose.Schema({
 		required: true
 	},
 	description: {
-		type: String
+		type: String,
+		default: null
 	},
 	age: {
 		type: Number, 
@@ -44,10 +45,12 @@ var UserSchema = new mongoose.Schema({
 		default: 'user',
 	},
 	allergy: {
-		type: [String]
+		type: [String],
+		default: null
 	},
 	specialFood: {
-		type: [String]
+		type: [String],
+		default: null
 	}
 });
 
