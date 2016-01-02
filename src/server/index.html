@@ -60,7 +60,15 @@
 			<ul>
 				<li><a href="#/">HOME</a></li>
 				<li><a href="#category">CATEGORY</a></li>
-				<li><a href="#recipes">RECIPES</a></li>
+				<li>
+					<select>
+						<option value="volvo">Volvo</option>
+						<option value="saab">Saab</option>
+						<option value="mercedes">Mercedes</option>
+						<option value="audi">Audi</option>
+					</select>
+					<a href="#recipes">RECIPES</a>
+				</li>
 				<li><a href="#register">REGISTER</a></li>
 				<li><a href="#login">LOGIN</a></li>
 				<li><a href="#">CONTACT</a></li>
@@ -88,8 +96,12 @@
 								<li>
 									<a href="#category">CATEGORY</a>
 								</li>
-								<li>
-									<a href="#recipes">RECIPES</a>
+								<li class="menu-item-has-children dropdown-menu">
+									<a href="#">RECIPES</a>
+									<ul>
+										<li><a href="#">Find</a></li>
+										<li><a href="#">Submit</a></li>
+									</ul>
 								</li>
 							</ul>
 							<ul>

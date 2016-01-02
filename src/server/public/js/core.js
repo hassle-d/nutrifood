@@ -107,7 +107,7 @@ myApp.service('profileService', function($http) {
     }
 });
 
-myApp.controller('profileController', function($scope, profileService) {
+myApp.controller('profileController', function($scope, $http, profileService) {
     $scope.profile = null;
     profileService.getData().then(function(dataResponse) {
 
@@ -118,7 +118,28 @@ myApp.controller('profileController', function($scope, profileService) {
     });
 
     $scope.update = function(){
+        var user = {
+            username: $scope.username,
+            firstname: $scope.firstname,
+            lastname: $scope.lastname,
+            description: $scope.description,
+            allergy: $scope.allergy,
+            religion: $scope.religion
+        };
 
+        user = checkValidity(user)
+
+        /* Need ID UTILISATEUR FOR PUT */
+
+        $http.put('/api/v1/users', serialize(user))
+            .success(function(user){
+                console.log()
+                $location.path('/home');
+                console.log(user);
+            })
+            .error(function(user){
+                console.log(user)
+            });
     };
 
 });
