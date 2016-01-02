@@ -8,10 +8,13 @@ var passport = require('passport');
 var userController = require('../controllers/users');
 var authController = require('../controllers/auth');
 
+router.route('/user')
+	.get(authController.isValidToken, userController.getProfil)
+	.put(authController.isValidToken, userController.updateProfil)
 
 router.route('/users')
 	.post(userController.postUsers)
-	.get(/*authController.isValidToken, /*authController.isAdmin,*/ userController.getUsers);
+	.get(/*authController.isValidToken, */userController.getUsers);
 
 router.route('/users/:id')
 	.get(authController.isValidToken, userController.getUserById)
