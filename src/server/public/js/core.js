@@ -261,13 +261,17 @@ myApp.service('mealService', function($http) {
 
 myApp.controller('homeController', function($scope, mealService, authService) {
     var token = authService.isAuthenticated();
-    $scope.data = null;
     $scope.meals = null;
     mealService.getData(token).then(function(dataResponse) {
 
-        $scope.data = dataResponse;
-        console.log($scope.data);
-        $scope.meals = dataResponse.data;
+        //data.username = data.username.charAt(0).toUpperCase() + data.username.slice(1);
+        var data = dataResponse.data;
+
+        for (var i = 0, j = data.length; i < j; i++) {
+            data[i].title = data[i].title.charAt(0).toUpperCase() + data[i].title.slice(1);
+        }
+
+        $scope.meals = data;
         console.log($scope.meals);
     });
 });
