@@ -41,6 +41,10 @@ myApp.config(function ($httpProvider, $routeProvider) {
                     templateUrl : 'views/meals.html',
                     controller: 'homeController'
                 })
+                .when('/meals/search/:id',{
+                    templateUrl : 'views/meals.html',
+                    controller: 'searchMealsController'
+                })
                 .when('/meal/:id', {
                     templateUrl : 'views/meal.html',
                     controller : 'mealController'
@@ -63,7 +67,11 @@ myApp.service('authService', function($location, $cookies, $rootScope) {
     }
 });
 
-
+myApp.run(function($rootScope, $location) {
+    $rootScope.searchMeals = function () {
+        $location.path("/meals/search/" + $rootScope.searchValue);
+    }
+})
 
 serialize = function(obj) {
   var str = [];
@@ -185,6 +193,14 @@ myApp.service('mealService', function($http) {
             headers: {'Authorization': token}
         });
     }
+    this.searchMeals = function(token, name) {
+        return $http({
+            method: 'GET',
+            url: '/api/v1/meals/name/' + name,
+            headers: {'Authorization': token}
+        });
+
+    }
 });
 
 myApp.controller('homeController', function($scope, mealService, authService) {
@@ -195,6 +211,18 @@ myApp.controller('homeController', function($scope, mealService, authService) {
 
         $scope.data = dataResponse;
         console.log($scope.data);
+        $scope.meals = dataResponse.data;
+        console.log($scope.meals);
+    });
+});
+
+myApp.controller('searchMealsController', function($scope, mealService, authService, $routeParams) {
+    var token = authService.isAuthenticated();
+    var id = $routeParams.id;
+
+    $scope.data = null;
+    $scope.meals = null;
+    mealService.searchMeals(token, id).then(function(dataResponse) {
         $scope.meals = dataResponse.data;
         console.log($scope.meals);
     });

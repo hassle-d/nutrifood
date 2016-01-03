@@ -143,9 +143,9 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-body">
-					<form action="#">
-						<input type="text" placeholder="Type keyword ..." autofocus />
-						<button class="search-button" type="button">
+					<form action='#'>
+						<input type="text" placeholder="Type keyword ..." autofocus ng-model="searchValue" />
+						<button class="search-button" type="button" ng-click="searchMeals();" data-dismiss="modal">
 							<span class="sr-only">Toggle search</span>
 							<i class="fa fa-search"></i>
 						</button>

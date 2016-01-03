@@ -32,7 +32,8 @@ exports.postMeals = function(req, res) {
             if (req.file) {
                 var mealImage = new Image({
                     filename: req.file.filename,
-                    type: req.file.mimetype
+                    type: req.file.mimetype,
+                    meal: mead._id
                 });
                 if (image){
                     mealImage.save(function(err) {
@@ -126,7 +127,8 @@ exports.getMealById = function(req, res) {
 };
 
 exports.getMealByName = function(req, res) {
-    Meal.findOne({'name': req.params.name.toLowerCase()}, function(err, meal){
+    var regex = new RegExp(req.params.name.toLowerCase(), 'i');
+    Meal.find({'name': regex}, function(err, meal){
         if (err)
             res.send(err);
         else
