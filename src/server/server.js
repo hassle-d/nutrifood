@@ -31,6 +31,7 @@ var auth		= require('./routes/auth');
 var token		= require('./routes/token');
 var oauth		= require('./routes/oauth2');
 var category	= require('./routes/category');
+var comment		= require('./routes/comment');
 //-E-- ROUTES FILES
 
 mongoose.connect('mongodb://' + dbServer + ':' + dbPort + '/' + dbName);
@@ -61,6 +62,7 @@ app.use('/api/v' + apiVersion,
 	token,
 	oauth,
 	category,
+	comment,
 	router);
 
 app.use('/', frontroutes);
