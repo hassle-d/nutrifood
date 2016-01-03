@@ -320,8 +320,20 @@ myApp.controller('categoryMealsController', function($scope, mealService, authSe
     });
 });
 
-myApp.controller('mealController', function($scope, $http, $routeParams, $cookies) {
+myApp.controller('mealController', function($scope, $http, $routeParams, $cookies, $location) {
     var id = $routeParams.id;
+    var getComment = function(){
+        $http({
+            method: 'GET',
+            url: '/api/v1/comment/' + id
+        }).then(function(dataResponse) {
+            console.log(dataResponse.data);
+            $scope.comments = dataResponse.data;
+            $scope.nbComment = dataResponse.data.length;
+        });
+    };
+
+
     delete $http.defaults.headers.common['X-Requested-With'];
     $http({
         method: 'GET',
@@ -333,6 +345,8 @@ myApp.controller('mealController', function($scope, $http, $routeParams, $cookie
             $scope.videoUrl = dataResponse.data.video;
     });
 
+    getComment();
+
 
     $scope.addComment = function (){
 
@@ -341,9 +355,11 @@ myApp.controller('mealController', function($scope, $http, $routeParams, $cookie
             comment: $scope.content
         };
 
-        $http.post('/api/v1/comment' + id, serialize(comment))
+        $http.post('/api/v1/comment/' + id, serialize(comment))
             .success(function(comment){
-                console.log(comment)
+                console.log(comment);
+                getComment();
+
             })
             .error(function(comment){
                 console.log(comment)
