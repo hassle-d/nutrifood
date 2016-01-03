@@ -15,7 +15,7 @@ myApp.config(function ($httpProvider, $routeProvider) {
                 })
                 .when('/category', {
                     templateUrl : 'views/category.html',
-                    controller : 'categoryController'
+                    controller : ''
                 })
                 .when('/recipes', {
                     templateUrl : 'views/recipes.html',
@@ -269,9 +269,10 @@ myApp.service('mealService', function($http) {
     }
 });
 
-myApp.controller('homeController', function($scope, mealService, authService) {
-    var token = authService.isAuthenticated();
+myApp.controller('homeController', function($rootScope, $scope, mealService, authService, $cookies) {
     $scope.meals = null;
+    var token = $cookies.get("token");
+    $rootScope.token = token;
     mealService.getData(token).then(function(dataResponse) {
 
         var data = dataResponse.data;
