@@ -51,10 +51,9 @@
 			<h2 class="heading">Editors' Choices</h2>
 			<ul class="isotope-filter" data-target="#grid-1">
 				<li class="is-filtered"><a href="#" data-filter="*">ALL</a></li>
-				<li><a href="#" data-filter=".filter-food">FOODS</a></li>
-				<li><a href="#" data-filter=".filter-beverages">BEVERAGES</a></li>
-				<li><a href="#" data-filter=".filter-dessert">DESSERTS</a></li>
-				<li><a href="#" data-filter=".filter-pudding">PUDDING</a></li>
+				<li><a href="#" data-filter=".filter-easy">Easy</a></li>
+				<li><a href="#" data-filter=".filter-hard">Hard</a></li>
+				<li><a href="#" data-filter=".filter-master">Master</a></li>
 			</ul>
 		</div>
 	</header>
@@ -62,7 +61,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="isotope-grid" id="grid-1">
-					<div class="entry col-xs-12 col-sm-4 filter-food filter-pudding">
+					<div class="entry col-xs-12 col-sm-4 filter-{{meal.difficulty}}">
 						<div class="entry-inner">
 							<div class="entry-media">
 								<img src="images/dishes/dish_1.jpg" alt=""/>
@@ -198,10 +197,9 @@
 		</div>
 		<ul class="isotope-filter" data-target="#grid-2">
 			<li class="is-filtered"><a href="#" data-filter="*">ALL</a></li>
-			<li><a href="#" data-filter=".filter-food">FOODS</a></li>
-			<li><a href="#" data-filter=".filter-beverages">BEVERAGES</a></li>
-			<li><a href="#" data-filter=".filter-dessert">DESSERTS</a></li>
-			<li><a href="#" data-filter=".filter-pudding">PUDDING</a></li>
+			<li><a href="#" data-filter=".filter-easy">Easy</a></li>
+			<li><a href="#" data-filter=".filter-hard">Hard</a></li>
+			<li><a href="#" data-filter=".filter-master">Master</a></li>
 		</ul>
 	</header>
 
@@ -213,7 +211,7 @@
 
 					<div ng-repeat="meal in meals">
 
-					<div class="entry col-xs-12 col-sm-4 col-md-3 filter-food filter-pudding">
+					<div class="entry col-xs-12 col-sm-4  filter-{{meal.difficulty}}">
 						<div class="entry-inner">
 							<div class="entry-media">
 								<img ng-src="/api/v1/meals/image/{{meal.image}}" alt="" />
