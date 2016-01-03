@@ -274,11 +274,10 @@ myApp.controller('homeController', function($scope, mealService, authService) {
     $scope.meals = null;
     mealService.getData(token).then(function(dataResponse) {
 
-        //data.username = data.username.charAt(0).toUpperCase() + data.username.slice(1);
         var data = dataResponse.data;
 
         for (var i = 0, j = data.length; i < j; i++) {
-            data[i].title = data[i].title.charAt(0).toUpperCase() + data[i].title.slice(1);
+            data[i].name = data[i].name.charAt(0).toUpperCase() + data[i].name.slice(1);
         }
 
         $scope.meals = data;
@@ -290,10 +289,16 @@ myApp.controller('searchMealsController', function($scope, mealService, authServ
     var token = authService.isAuthenticated();
     var id = $routeParams.id;
 
-    $scope.data = null;
     $scope.meals = null;
     mealService.searchMeals(token, id).then(function(dataResponse) {
-        $scope.meals = dataResponse.data;
+
+        var data = dataResponse.data;
+
+        for (var i = 0, j = data.length; i < j; i++) {
+            data[i].name = data[i].name.charAt(0).toUpperCase() + data[i].name.slice(1);
+        }
+
+        $scope.meals = data
         console.log($scope.meals);
     });
 });
@@ -302,9 +307,15 @@ myApp.controller('categoryMealsController', function($scope, mealService, authSe
     var token = authService.isAuthenticated();
     var id = $routeParams.id;
 
-    $scope.data = null;
     $scope.meals = null;
     mealService.categoryMeals(token, id).then(function(dataResponse) {
+
+        var data = dataResponse.data;
+
+        for (var i = 0, j = data.length; i < j; i++) {
+            data[i].name = data[i].name.charAt(0).toUpperCase() + data[i].name.slice(1);
+        }
+        
         $scope.meals = dataResponse.data;
         console.log($scope.meals);
     });
