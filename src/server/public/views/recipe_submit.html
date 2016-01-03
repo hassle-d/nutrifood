@@ -1,0 +1,99 @@
+<section class="ht-section hs-recipe submit">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-8">
+				<div ng-controller="recipeSubmitController">
+				<div class="hs-header text-left">
+					<h2>Welcome back, Recipe Contributor!</h2>
+					<p>In this section you can submit one recipe of your choice, make sure to give any detailed information so other users can enjoy your creation.</p>
+					<hr>
+				</div>
+				<div class="hs-content">
+					<form class="row" method="post" name="recipeForm">
+						<div class="form-group col-sm-6">
+							<label>Recipe title</label>
+							<input type="text" name="title" ng-model="name" class="input" required>
+							<p ng-show="recipeForm.title.$error.required" class="help-block">Title required.</p>
+							<p class="des">Keep it short and descriptive</p>
+						</div>
+						<div class="form-group col-sm-7">
+							<label>Recipe photo</label>
+							<input type="file"  name="picture" id="photo-upload" class="upload-visible"  file-model="myFile" class="sr-only" multiple ng-disabled="disabled" required>
+							<div class="upload" data-target="#photo-upload">
+                                    <span class="btn btn-success fileinput-button" ng-class="{disabled: disabled}">
+                                        <i class="glyphicon glyphicon-plus"></i>
+                                    </span>
+							</div>
+							<p ng-show="recipeForm.picture.$error.required" class="help-block">Picture required.</p>
+							<p class="des">Recommended size: 2000px by 600px or larger</p>
+						</div>
+						<div class="form-group col-sm-12">
+							<label>Recipe video</label>
+							<input type="text" ng-model="video" class="input">
+							<p class="des"><b>OPTIONAL:</b> If you have your recipe video on Youtube, Vimeo, or any of the other supported Embed sites, then you'll want to use the field above. Just paste in the URL (ex. http://youtu.be/1O8D_wTCm3s or https://vimeo.com/26140401) and it will show up as a popup by clicking the recipe image.</p>
+						</div>
+						<div class="form-group col-sm-12">
+							<label>Difficulty level</label>
+							<select name="difficulty" ng-model="difficulty" required>
+								<option value="easy">Easy</option>
+								<option value="hard">Hard</option>
+								<option value="master">Master</option>
+							</select>
+							<p ng-show="recipeForm.difficulty.$error.required" class="help-block">Difficulty required.</p>
+						</div>
+						<div class="form-group col-sm-4">
+							<label>RECIPE CATEGORY</label>
+							<select ng-model="category" name="category" required>
+								<option value="" disabled selected>Choose category</option>
+								<option value="Mediterranean">Mediterranean</option>
+								<option value="Asian">Asian</option>
+								<option value="Vegeterian">Vegeterian</option>
+								<option value="French">French</option>
+								<option value="British">British</option>
+								<option value="Indian">Indian</option>
+							</select>
+							<p ng-show="recipeForm.category.$error.required" class="help-block">Category required.</p>
+						</div>
+						<div class="form-group col-sm-12">
+							<label>Short description</label>
+							<textarea cols="30" rows="10" name="description" ng-model="description" class="input" required></textarea>
+							<p ng-show="recipeForm.description.$error.required" class="help-block">Description required.</p>
+						</div>
+						<div class="form-group col-sm-6">
+							<label>cook time</label>
+							<input type="text" name="time" id="cook-time" value="0" ng-model="cooktime" required/>
+							<p ng-show="recipeForm.time.$error.required" class="help-block">Time required.</p>
+							<p class="des">Enter time in minutes.</p>
+						</div>
+						<div class="form-group col-sm-12">
+							<label>Ingredient</label>
+							<div class="ingredient-textarea">
+								<textarea cols="30" rows="10" name="ingredient" ng-model="ingredients" class="input" required></textarea>
+								<p ng-show="recipeForm.ingredient.$error.required" class="help-block">Ingredient required.</p>
+							</div>
+							<p class="des">Enter the different ingredients with a clear name. Separate all different ingredients per a coma. If you need to give a special information, add it between two parentheses.</p>
+						</div>
+						<div class="form-group col-sm-12">
+							<label>Instruction</label>
+							<div class="instruction-textarea">
+								<textarea cols="30" rows="10" name="instruction" ng-model="instruction" required></textarea>
+								<p ng-show="recipeForm.instruction.$error.required" class="help-block">Instruction required.</p>
+							</div>
+							<p class="des">Add all of the cooking steps, one per line.</p>
+						</div>
+						<div class="col-sm-12">
+							<button  ng-click="recipes()" class="ht-button view-more-button" ng-disabled="recipeForm.$invalid">
+								<i class="fa fa-arrow-left"></i> SUBMIT <i class="fa fa-arrow-right"></i>
+							</button>
+						</div>
+					</form>
+					<!-- / form -->
+				</div>
+				</div>
+				<!-- / .hs-content -->
+			</div>
+			<!-- / .columns -->
+		</div>
+	</div>
+	<!-- /.container -->
+</section>

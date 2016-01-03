@@ -1,0 +1,142 @@
+<section class="ht-section hs-recipe single">
+	<header class="hs-header">
+		<div class="container">
+			<p class="entry-meta">
+				<span class="meta-level {{meal.difficulty}}">LEVEL: <span>{{meal.difficulty}}</span></span>
+				<span class="meta-time">TIME: {{meal.cooktime}} Minutes</span>
+			</p>
+			<h2 class="heading">{{meal.name}}</h2>
+			<p class="entry-meta meta-author">
+				Post by <a href="#">{{meal.author}}</a>
+			</p>
+		</div>
+	</header>
+	<div class="hs-content">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12 col-sm-6">
+					<div class="entry entry-media">
+						<img src="/api/v1/meals/image/{{meal.image}}" alt="">
+					</div>
+					<div class="entry entry-action">
+						<a id="bookmarkme" href="http://google.com/" title="Culinier" class="action action-bookmark">
+							<i class="fa fa-bookmark"></i>
+							<p>BOOKMARK</p>
+						</a>
+						<a href="http://localhost/culinier-template/dest/recipe_single_video.html" class="action action-print">
+							<i class="fa fa-print"></i>
+							<p>PRINT</p>
+						</a>
+						<div class="action action-share">
+							<i class="fa fa-share-alt"></i>
+							<p>SHARE</p>
+							<div class="entry-social">
+								<div class="entry-social-inner">
+									<a href="#" class="fa fa-facebook"></a>
+									<a href="#" class="fa fa-twitter"></a>
+									<a href="#" class="fa fa-youtube"></a>
+									<a href="#" class="fa fa-google-plus"></a>
+									<a href="#" class="fa fa-linkedin"></a>
+									<a href="#" class="fa fa-pinterest"></a>
+									<a href="#" class="fa fa-envelope"></a>
+								</div>
+							</div>
+						</div>
+						<div class="action entry-rate">
+							<span><span>DELICOUS</span> <i class="fa fa-star rated"></i><i class="fa fa-star rated"></i><i class="fa fa-star rated"></i><i class="fa fa-star rated"></i><i class="fa fa-star"></i></span>
+						</div>
+					</div>
+					<div class="entry entry-description">
+						<h4 class="entry-title">Description</h4>
+						<p>{{meal.description}}</p>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6">
+					<div class="entry entry-ingredient">
+						<h4 class="entry-title">Ingredient</h4>
+						<table class="table table-tripped">
+							<tbody>
+								<tr ng-repeat="item in meal.ingredients">
+									<td>{{item}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="entry entry-instruction">
+						<h4 class="entry-title">Instruction</h4>
+						<dl class="dl-horizontal">
+							<dt ng-repeat-start="step in meal.instruction" ng-init="nstep=$parent.start+1; $parent.start=$parent.start+1;">{{nstep}}</dt>
+							<dd ng-repeat-end>{{step}}</dd>
+						</dl>
+					</div>
+				</div>
+			</div>
+			<div ng-if="meal.video">
+				<br/>
+				<h4 class="entry-title">Video</h4>
+				<youtube-video video-url="videoUrl"></youtube-video>
+			</div>
+		</div>
+		<!-- / .hs-recipes-related -->
+
+		<div class="ht-section hs-comment related">
+			<div class="container">
+				<div class="row">
+					<!-- thêm col-sm-offset-2 khi ở recipe_single-->
+					<div class="col-xs-12 col-sm-8">
+						<div class="border-top"></div>
+
+						<header class="hs-header">
+							<h2 class="heading">{{nbComment}} Comments</h2>
+						</header>
+						<div class="hs-content">
+
+							<ol class="comment-list">
+								<div ng-repeat="comment in comments">
+								<li class="comment even depth-1 parent">
+									<div id="div-comment-1" class="comment-body">
+										<footer class="comment-meta">
+
+											<div class="comment-metadata">
+												<a href="#" rel="external nofollow" class="author">{{comment.author}}</a>
+												<a href="#comment-1" class="time"><time datetime="2015-02-06T07:02:18+00:00">{{comment.date}}</time></a>
+											</div>
+
+										</footer><!-- .comment-meta -->
+
+										<div class="comment-content">
+											<p>{{comment.comment}}
+											</p>
+										</div><!-- .comment-content -->
+									</div><!-- .comment-body -->
+
+								</li><!-- #comment-## -->
+								</div>
+							</ol>
+
+							<!-- / .comment-list -->
+							<div class="ht-form-block col-xs-12">
+
+								<form>
+									<div class="form-group">
+										<label>Comment<sup>*</sup></label>
+										<textarea ng-model="content" cols="30" rows="5"></textarea>
+									</div>
+									<div class="form-group submit-group">
+										<button ng-click="addComment()" type="submit" class="ht-button view-more-button">
+											<i class="fa fa-arrow-left"></i>SUBMIT<i class="fa fa-arrow-right"></i>
+										</button>
+									</div>
+								</form>
+							</div>
+
+						</div>
+					</div>
+					<!-- / columns -->
+				</div>
+				<!-- / .row -->
+			</div>
+			<!-- / .container -->
+		</div>
+	</div>
+</section>
