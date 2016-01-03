@@ -15,26 +15,13 @@
                                 <p class="des">Keep it short and descriptive</p>
                             </div>
                              <div class="form-group col-sm-7">
-
                                 <label>Recipe photo</label>
-
-
-
                                  <input type="file"  id="photo-upload" class="upload-visible"  file-model="myFile" class="sr-only" multiple ng-disabled="disabled">
-
-                                <!-- Use for display and get file url only -->
-
                                 <div class="upload" data-target="#photo-upload">
-
-
-
-<span class="btn btn-success fileinput-button" ng-class="{disabled: disabled}">
-                    <i class="glyphicon glyphicon-plus"></i>
-
-                </span>
+                                    <span class="btn btn-success fileinput-button" ng-class="{disabled: disabled}">
+                                        <i class="glyphicon glyphicon-plus"></i>
+                                    </span>
                                 </div>
-
-
                                 <img src="/api/v1/meals/image/{{image}}" height="70" width="98">
                                 <p class="des">Recommended size: 2000px by 600px or larger</p>
                             </div>
