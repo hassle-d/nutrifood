@@ -1,0 +1,145 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/all_data"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/roundborder">
+
+                <EditText
+                    android:id="@+id/mealname"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    android:paddingLeft="25dp"
+                    android:hint="@string/editTextMealname"
+                    android:inputType="text"
+                    android:textSize="16dp"
+                    />
+
+                <ExpandableListView
+                    android:id="@+id/expand_data"
+                    android:choiceMode = "singleChoice"
+                    android:layout_below="@+id/mealname"
+                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content" />
+
+
+                <RelativeLayout
+                    android:id="@+id/ingredient_group"
+                    android:layout_below="@+id/expand_data"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp">
+                    <Button
+                        android:id="@+id/add_ingredient"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minHeight="48dp"
+                        android:text="@string/add"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/button"
+                        android:textColor="#FFF"
+                        android:textSize="16dp"/>
+                    <EditText
+                        android:id="@+id/ingredients"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="48dp"
+                        android:hint="@string/editTextIngredients"
+                        android:paddingLeft="25dp"
+                        android:inputType="text"
+                        android:textSize="16dp"
+                        />
+                </RelativeLayout>
+
+                <EditText
+                    android:id="@+id/cooktime"
+                    android:layout_below="@+id/ingredient_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    android:hint="@string/editTextCookTime"
+                    android:paddingLeft="25dp"
+                    android:inputType="text"
+                    android:textSize="16dp"
+                    />
+
+                <EditText
+                    android:id="@+id/instruction"
+                    android:layout_below="@+id/cooktime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    android:hint="@string/editTextInstruction"
+                    android:inputType="text"
+                    android:paddingLeft="25dp"
+                    android:textSize="16dp"
+                    />
+
+                <EditText
+                    android:id="@+id/description"
+                    android:layout_below="@+id/instruction"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    android:hint="@string/editTextDescription"
+                    android:inputType="text"
+                    android:paddingLeft="25dp"
+                    android:textSize="16dp"
+                    />
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/add_image"
+                android:layout_below="@+id/all_data"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:text="@string/image_key"
+                android:gravity="center"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/button"
+                android:textSize="16dp"
+                android:textColor="#FFF" />
+
+            <Button
+                android:id="@+id/create_meal"
+                android:layout_below="@+id/add_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:text="@string/create"
+                android:gravity="center"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/button"
+                android:textSize="16dp"
+                android:textColor="#FFF" />
+            <TextView
+                android:id="@+id/error"
+                android:layout_below="@+id/create_meal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:textColor="#FF0000"
+                android:textStyle="bold"
+                />
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>
