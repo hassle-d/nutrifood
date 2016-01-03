@@ -107,8 +107,8 @@ myApp.directive('fileModel', ['$parse', function ($parse) {
 }]);
 
 myApp.controller('recipeSubmitController', function($scope, $http, $cookies, $location, authService){
+    var token = authService.isAuthenticated();
     $scope.recipes = function() {
-        var token = authService.isAuthenticated();
         var image = $scope.myFile;
 
         console.log($cookies.get('username'));
