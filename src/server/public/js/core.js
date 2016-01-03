@@ -180,9 +180,22 @@ myApp.controller('editMealController', function($scope, $http, profileService, a
         url: '/api/v1/meals/' + id
     }).then(function(dataResponse) {
         console.log(dataResponse.data);
-        $scope.meal = dataResponse.data;
+        var data = dataResponse.data;
+        $scope.name = data.name;
+        $scope.description = data.description;
+        $scope.difficulty = data.difficulty;
+        $scope.cooktime = data.cooktime;
+        $scope.instruction = data.instruction;
+        $scope.category = data.category;
+        $scope.ingredients = data.ingredients;
+        $scope.image = data.image;
     });
 
+    $scope.update = function(){
+        var meal = {
+
+        }
+    }
 
 });
 
@@ -196,12 +209,16 @@ myApp.controller('profileController', function($scope, $http, profileService, au
         var data = dataResponse.data;
         data.username = data.username.charAt(0).toUpperCase() + data.username.slice(1);
         $scope.profile = data;
+        $scope.firstname = data.firstname;
+        $scope.lastname = data.lastname;
+        $scope.description = data.description;
+        $scope.allergy = data.allergy;
+        $scope.religion = data.religion;
         console.log($scope.profile);
     });
 
     $scope.update = function(){
         var user = {
-            username: $scope.username,
             firstname: $scope.firstname,
             lastname: $scope.lastname,
             description: $scope.description,
