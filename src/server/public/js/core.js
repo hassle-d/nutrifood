@@ -315,7 +315,7 @@ myApp.controller('categoryMealsController', function($scope, mealService, authSe
         for (var i = 0, j = data.length; i < j; i++) {
             data[i].name = data[i].name.charAt(0).toUpperCase() + data[i].name.slice(1);
         }
-        
+
         $scope.meals = dataResponse.data;
         console.log($scope.meals);
     });
