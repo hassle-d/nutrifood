@@ -17,11 +17,11 @@ exports.postMeals = function(req, res) {
         name: req.body.name.toLowerCase(),
         description: req.body.description,
         video: req.body.video,
-        instruction: req.body.instruction,
+        instruction: req.body.instruction.split('\n'),
         difficulty: req.body.difficulty,
         cooktime: req.body.cooktime,
         category: req.body.category.toLowerCase(),
-        ingredients: req.body.ingredients,
+        ingredients: req.body.ingredients.split(','),
         nutritionfact: req.body.nutritionfact,
         image: image
     });
