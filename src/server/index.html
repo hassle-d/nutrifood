@@ -28,6 +28,7 @@
 		<script src="js/jquery.js"></script>
 		<script src="/js/angular.js"></script>
 		<script src="/js/angular-route.js"></script>
+		<script src="/js/angular-cookies.js"></script>
 		<script src="/js/plugins.js"></script>
 		<script src="/js/custom.js"></script>
 		<script src="/js/utils.js"></script>
@@ -103,8 +104,10 @@
 								</li>
 							</ul>
 							<ul>
-								<li><a href="#register">REGISTER</a></li>
-								<li><a href="#login">LOGIN</a></li>
+								<li ng-if="token==null"><a href="#register">REGISTER</a></li>
+								<li ng-if="token==null"><a href="#login">LOGIN</a></li>
+								<li ng-if="token!=null"><a href="#profile">PROFILE</a></li>
+								<li ng-if="token!=null"><a href="#logout">LOGOUT</a></li>
 								<li><a href="#">CONTACT</a></li>
 							</ul>
 						</nav>

@@ -1,4 +1,4 @@
-var myApp = angular.module('nutrifood', ['ngRoute'])
+var myApp = angular.module('nutrifood', ['ngRoute', 'ngCookies'])
 
 myApp.config(function ($httpProvider, $routeProvider) {
             $httpProvider.defaults.headers.put['Content-Type'] = 'application/x-www-form-urlencoded';
@@ -29,15 +29,40 @@ myApp.config(function ($httpProvider, $routeProvider) {
                     templateUrl : 'views/login.html',
                     controller : 'loginController'
                 })
+                .when('/logout', {
+                    templateUrl : 'views/logout.html',
+                    controller : 'logoutController'
+                })
                 .when('/profile', {
                     templateUrl : 'views/profile.html',
                     controller : 'profileController'
+                })
+                .when('/meals',{
+                    templateUrl : 'views/meals.html',
+                    controller: 'homeController'
                 })
                 .when('/meal/:id', {
                     templateUrl : 'views/meal.html',
                     controller : 'mealController'
                 });
 });
+
+
+myApp.service('authService', function($location, $cookies, $rootScope) {
+    this.isAuthenticated = function(e) {
+        var token = $cookies.get('token');
+        console.log(token);
+        if (token == null) {
+            $location.path('/login');
+            return null;
+        }
+        else {
+            $rootScope.token = token;
+            return token;
+        }
+    }
+});
+
 
 
 serialize = function(obj) {
@@ -48,8 +73,6 @@ serialize = function(obj) {
     }
   return str.join("&");
 }
-
-var token = "";
 
 myApp.directive('fileModel', ['$parse', function ($parse) {
     return {
@@ -66,6 +89,9 @@ myApp.directive('fileModel', ['$parse', function ($parse) {
         }
     };
 }]);
+
+
+
 
 myApp.controller('recipeSubmitController', ['$scope', '$http', function($scope, $http){
     $scope.recipes = function() {
@@ -96,21 +122,25 @@ myApp.controller('recipeSubmitController', ['$scope', '$http', function($scope, 
     };
 }]);
 
+
 myApp.service('profileService', function($http) {
     delete $http.defaults.headers.common['X-Requested-With'];
-    this.getData = function() {
+    this.getData = function(token) {
+        console.log(token);
         return $http({
             method: 'GET',
             url: '/api/v1/user',
-            headers: {'Authorization': 'VAlYRtwJ2xhBNgqbBndkGIdvFfDtzGMX1DStQMMb6qkR6Rb5eAgRxTOv5o8ZVtmx1mlS4I7OWAxjpOpPMnbLKaUDkkkk9UyeW8gy'}
+            headers: {'Authorization': token}
         });
     }
 });
 
-myApp.controller('profileController', function($scope, $http, profileService) {
+myApp.controller('profileController', function($scope, $http, profileService, authService) {
+    var token = authService.isAuthenticated();
+    
     $scope.profile = null;
-    profileService.getData().then(function(dataResponse) {
 
+    profileService.getData(token).then(function(dataResponse) {
         var data = dataResponse.data;
         data.username = data.username.charAt(0).toUpperCase() + data.username.slice(1);
         $scope.profile = data;
@@ -133,36 +163,35 @@ myApp.controller('profileController', function($scope, $http, profileService) {
 
         user = checkValidity(user)
 
-        /* Need ID UTILISATEUR FOR PUT */
+        $http({
+            method: 'PUT',
+            url: '/api/v1/user',
+            data: serialize(user),
+            headers: {'Authorization': token}
+        }).then(function(dataResponse) {
+            console.log(dataResponse.data);
+        });
 
-        $http.put('/api/v1/users', serialize(user))
-            .success(function(user){
-                console.log()
-                $location.path('/home');
-                console.log(user);
-            })
-            .error(function(user){
-                console.log(user)
-            });
     };
 
 });
 
 myApp.service('mealService', function($http) {
     delete $http.defaults.headers.common['X-Requested-With'];
-    this.getData = function() {
+    this.getData = function(token) {
         return $http({
             method: 'GET',
-            url: '/api/v1/meals'
-           // headers: {'Authorization': 'Token token=' + token}
+            url: '/api/v1/meals',
+            headers: {'Authorization': token}
         });
     }
 });
 
-myApp.controller('homeController', function($scope, mealService) {
+myApp.controller('homeController', function($scope, mealService, authService) {
+    var token = authService.isAuthenticated();
     $scope.data = null;
     $scope.meals = null;
-    mealService.getData().then(function(dataResponse) {
+    mealService.getData(token).then(function(dataResponse) {
 
         $scope.data = dataResponse;
         console.log($scope.data);
@@ -203,7 +232,7 @@ myApp.controller('registerController', ['$scope', '$http', '$location', function
         $http.post('/api/v1/users', serialize(user))
             .success(function(user){
                 console.log()
-                $location.path('/home');
+                $location.path('/login');
             console.log(user);
         })
             .error(function(user){
@@ -213,18 +242,17 @@ myApp.controller('registerController', ['$scope', '$http', '$location', function
 }]);
 
 
-myApp.controller('loginController', ['$scope', '$http', function($scope, $http) {
+myApp.controller('loginController', function($scope, $http, $location, $cookies) {
     $scope.login = function() {
         var datas = {
-			username: $scope.username,
-        	password: $scope.password
+            username: $scope.username,
+            password: $scope.password
         };
-        console.log(datas)
         $http.post('/api/v1/auth/signin', serialize(datas))
             .success(function(data) {
-                console.log(data);
-                token = data;
-                console.log(token);
+                $cookies.put('token', data.token);
+                console.log($cookies.get('token'));
+                $location.path('/');
             })
             .error(function(data) {
                 console.log(data);
@@ -232,6 +260,13 @@ myApp.controller('loginController', ['$scope', '$http', function($scope, $http) 
     };
 
     $scope.logout = function() {
+        console.log("sfsdf");
 
     }
-}]);
+});
+
+myApp.controller('logoutController', function($rootScope, $location, $cookies) {
+    delete $rootScope.token;
+    $cookies.remove('token');
+    $location.path('/login');
+});
