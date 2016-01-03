@@ -33,6 +33,10 @@ myApp.config(function ($httpProvider, $routeProvider) {
                     templateUrl : 'views/profile.html',
                     controller : 'profileController'
                 })
+                .when('/meals',{
+                    templateUrl : 'views/meals.html',
+                    controller: 'homeController'
+                })
                 .when('/meal/:id', {
                     templateUrl : 'views/meal.html',
                     controller : 'mealController'

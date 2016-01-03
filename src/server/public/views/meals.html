@@ -1,0 +1,80 @@
+
+
+<section class="ht-section hs-recipes grid">
+	<header class="hs-header">
+		<div class="container">
+			<h2 class="heading">Meals Timeline</h2>
+		</div>
+		<ul class="isotope-filter" data-target="#grid-2">
+			<li class="is-filtered"><a href="#" data-filter="*">ALL</a></li>
+			<li><a href="#" data-filter=".filter-food">FOODS</a></li>
+			<li><a href="#" data-filter=".filter-beverages">BEVERAGES</a></li>
+			<li><a href="#" data-filter=".filter-dessert">DESSERTS</a></li>
+			<li><a href="#" data-filter=".filter-pudding">PUDDING</a></li>
+		</ul>
+	</header>
+	<div class="hs-content">
+		<div class="container">
+			<div class="row">
+				<div class="isotope-grid" id="grid-2">
+
+					<div ng-repeat="meal in meals">
+
+					<div class="entry col-xs-12 col-sm-4 col-md-3 filter-food filter-pudding">
+						<div class="entry-inner">
+							<div class="entry-media">
+								<img ng-src="/api/v1/meals/image/{{meal.image}}" alt=""/>
+								<div class="entry-action">
+									<div class="entry-action-inner">
+										<span>
+											<a href="#meal/{{meal._id}}">VIEW RECIPE</a>
+										</span>
+										<span>
+											<a href="#">BOOKMARK RECIPE</a>
+										</span>
+									</div>
+								</div>
+							</div>
+							<!-- ./ entry-media -->
+							<div class="content-wrapper">
+								<h3 class="entry-name"><a href="recipe_single.html">{{meal.name}}</a></h3>
+								<p class="entry-author">By {{meal.author}}</p><br/>
+								<p class="entry-author">{{meal.description}}</p>
+								<div class="entry-meta">
+									<div class="foo-wrapper">
+										<span class="meta-difficulty {{meal.difficulty}}" title="">Easy</span>
+										<span class="meta-time">{{meal.cooktime}}</span>
+									</div>
+									<div class="meta-rate" title="4 star">
+										<i class="fa fa-star rated"></i>
+										<i class="fa fa-star rated"></i>
+										<i class="fa fa-star rated"></i>
+										<i class="fa fa-star rated"></i>
+										<i class="fa fa-star"></i>
+									</div>
+								</div>
+							</div>
+							<!-- ./ entry-content -->
+						</div>
+						<!-- /.entry-inner -->
+					</div>
+					<!-- /.entry -->
+
+					</div>
+					<!-- /.entry -->
+				</div>
+				<!-- / .isotope-entry -->
+			</div>
+			<!-- /.row
+			<p class="text-center">
+				<a href="../../../temp/recipe_index.html" class="ht-button view-more-button">
+					<i class="fa fa-arrow-left"></i> VIEW MORE RECIPES <i class="fa fa-arrow-right"></i>
+				</a>
+			</p>-->
+		</div>
+		<!-- /.container -->
+
+	</div>
+	<!-- /.ht-products.grid -->
+</section>
+<!-- /.ht-section -->
