@@ -77,6 +77,7 @@
     <string name="users_URL">/users</string>
     <string name="user_URL">/user</string>
     <string name="meals_URL">/meals</string>
+    <string name="search_URL">/meals/name</string>
     <string name="image_URL">/meals/image</string>
     <string name="category_URL">/category</string>
 

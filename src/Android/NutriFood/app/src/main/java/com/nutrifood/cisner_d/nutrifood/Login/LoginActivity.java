@@ -92,13 +92,11 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     };
 
     public void onLogin() {
-        Log.d("onLogin", "1");
         RequestParams params = new RequestParams();
         String _login = login.getText().toString();
         String _password = password.getText().toString();
         params.put(getString(R.string.username_key), _login);
         params.put(getString(R.string.password_key), _password);
-        Log.d("onLogin", "2");
         Client.post(getString(R.string.login_URL), params, new JsonHttpResponseHandler() {
 
             @Override
@@ -134,7 +132,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             }
 
         });
-        Log.d("onLogin", "3");
     }
 
     @Override
