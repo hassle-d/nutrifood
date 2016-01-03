@@ -202,7 +202,6 @@ myApp.controller('editMealController', function($scope, $http, profileService, a
 
 });
 
-
 myApp.controller('profileController', function($scope, $http, profileService, authService) {
     var token = authService.isAuthenticated();
     
@@ -322,8 +321,20 @@ myApp.controller('categoryMealsController', function($scope, mealService, authSe
     });
 });
 
-myApp.controller('mealController', function($scope, $http, $routeParams) {
+myApp.controller('mealController', function($scope, $http, $routeParams, $cookies, $location) {
     var id = $routeParams.id;
+    var getComment = function(){
+        $http({
+            method: 'GET',
+            url: '/api/v1/comment/' + id
+        }).then(function(dataResponse) {
+            console.log(dataResponse.data);
+            $scope.comments = dataResponse.data;
+            $scope.nbComment = dataResponse.data.length;
+        });
+    };
+
+
     delete $http.defaults.headers.common['X-Requested-With'];
     $http({
         method: 'GET',
@@ -334,6 +345,27 @@ myApp.controller('mealController', function($scope, $http, $routeParams) {
         if (dataResponse.data.video)
             $scope.videoUrl = dataResponse.data.video;
     });
+
+    getComment();
+
+
+    $scope.addComment = function (){
+
+        var comment = {
+            author: $cookies.get('username'),
+            comment: $scope.content
+        };
+
+        $http.post('/api/v1/comment/' + id, serialize(comment))
+            .success(function(comment){
+                console.log(comment);
+                getComment();
+
+            })
+            .error(function(comment){
+                console.log(comment)
+            });
+    };
 });
 
 
