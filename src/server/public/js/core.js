@@ -49,6 +49,10 @@ myApp.config(function ($httpProvider, $routeProvider) {
                     templateUrl : 'views/meals.html',
                     controller: 'searchMealsController'
                 })
+                .when('/meals/category/:id',{
+                    templateUrl : 'views/meals.html',
+                    controller: 'categoryMealsController'
+                })
                 .when('/meal/:id', {
                     templateUrl : 'views/meal.html',
                     controller : 'mealController'
@@ -255,7 +259,13 @@ myApp.service('mealService', function($http) {
             url: '/api/v1/meals/name/' + name,
             headers: {'Authorization': token}
         });
-
+    }
+    this.categoryMeals = function(token, name) {
+        return $http({
+            method: 'GET',
+            url: '/api/v1/meals/category/' + name,
+            headers: {'Authorization': token}
+        });
     }
 });
 
@@ -279,6 +289,18 @@ myApp.controller('searchMealsController', function($scope, mealService, authServ
     $scope.data = null;
     $scope.meals = null;
     mealService.searchMeals(token, id).then(function(dataResponse) {
+        $scope.meals = dataResponse.data;
+        console.log($scope.meals);
+    });
+});
+
+myApp.controller('categoryMealsController', function($scope, mealService, authService, $routeParams) {
+    var token = authService.isAuthenticated();
+    var id = $routeParams.id;
+
+    $scope.data = null;
+    $scope.meals = null;
+    mealService.categoryMeals(token, id).then(function(dataResponse) {
         $scope.meals = dataResponse.data;
         console.log($scope.meals);
     });
