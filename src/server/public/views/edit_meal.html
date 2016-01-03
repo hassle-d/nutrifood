@@ -2,12 +2,10 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-sm-8">
-
                     <div class="hs-header text-left">
                         <h2>Welcome back, Recipe Contributor!</h2>
                         <p>In this section you can submit one recipe of your choice, make sure to give any detailed information so other users can enjoy your creation.</p>
                         <hr>
-                        <p>{{meal.name}} dsds</p>
                     </div>
                     <div class="hs-content">
                         <form class="row" method="post">
@@ -16,19 +14,28 @@
                                 <input type="text" ng-model="name"  class="input">
                                 <p class="des">Keep it short and descriptive</p>
                             </div>
-                            <div class="form-group col-sm-6">
-                                <label>Author</label>
-                                <input type="text" ng-model="author" class="input">
-                                <p class="des">Stay classy</p>
-                            </div>
-                            <div class="form-group col-sm-6">
+                             <div class="form-group col-sm-7">
+
                                 <label>Recipe photo</label>
-                                <input type="file" id="photo-upload" file-model="myFile" class="sr-only">
+
+
+
+                                 <input type="file"  id="photo-upload" class="upload-visible"  file-model="myFile" class="sr-only" multiple ng-disabled="disabled">
+
                                 <!-- Use for display and get file url only -->
+
                                 <div class="upload" data-target="#photo-upload">
-                                    <input type="text" class="upload-visible">
-                                    <a class="upload-trigger" href='#'>Choose file</a>
+
+
+
+<span class="btn btn-success fileinput-button" ng-class="{disabled: disabled}">
+                    <i class="glyphicon glyphicon-plus"></i>
+
+                </span>
                                 </div>
+
+
+                                <img src="/api/v1/meals/image/{{image}}" height="70" width="98">
                                 <p class="des">Recommended size: 2000px by 600px or larger</p>
                             </div>
                             <div class="form-group col-sm-12">
@@ -96,73 +103,10 @@
                                 </div>
                                 <p class="des">Add all of the cooking steps, one per line.</p>
                             </div>
-                            <div class="col-sm-12">
-                                <div class="nutri-facts">
-                                    <div class="col-sm-12">
-                                        <p class="sub-heading">NUTRITION FACTS</p>
-                                    </div>
-                                    <div class="form-group col-sm-4">
-                                        <label>Serving Size</label>
-                                        <input type="text">
-                                    </div>
-                                    <div class="form-group col-sm-4">
-                                        <label>Calories</label>
-                                        <input type="text">
-                                    </div>
-                                    <div class="form-group col-sm-4">
-                                        <label>Total Fat</label>
-                                        <input type="text">
-                                    </div>
-                                    <div class="form-group col-sm-4">
-                                        <label>Saturated Fat</label>
-                                        <input type="text">
-                                    </div>
-                                    <div class="form-group col-sm-4">
-                                        <label>Polyunsaturated Fat</label>
-                                        <input type="text">
-                                    </div>
-                                    <div class="form-group col-sm-4">
-                                        <label>Monounsaturated Fat</label>
-                                        <input type="text">
-                                    </div>
-                                    <div class="form-group col-sm-4">
-                                        <label>Trans Fat</label>
-                                        <input type="text">
-                                    </div>
-                                    <div class="form-group col-sm-4">
-                                        <label>Cholesterol</label>
-                                        <input type="text">
-                                    </div>
-                                    <div class="form-group col-sm-4">
-                                        <label>Sodium</label>
-                                        <input type="text">
-                                    </div>
-                                    <div class="form-group col-sm-4">
-                                        <label>Potassium</label>
-                                        <input type="text">
-                                    </div>
-                                    <div class="form-group col-sm-4">
-                                        <label>Total Carbohydrate</label>
-                                        <input type="text">
-                                    </div>
-                                    <div class="form-group col-sm-4">
-                                        <label>Fiber</label>
-                                        <input type="text">
-                                    </div>
-                                    <div class="form-group col-sm-4">
-                                        <label>Sugar</label>
-                                        <input type="text">
-                                    </div>
-                                    <div class="form-group col-sm-4">
-                                        <label>Protein</label>
-                                        <input type="text">
-                                    </div>
-                                </div>
-                                <!-- / .nutri-facts -->
-                            </div>
+
                             <!-- / column -->
                             <div class="col-sm-12">
-                                <button  ng-click="recipes()" class="ht-button view-more-button">
+                                <button  ng-click="update()" class="ht-button view-more-button">
                                     <i class="fa fa-arrow-left"></i> SUBMIT <i class="fa fa-arrow-right"></i>
                                 </button>
                             </div>

@@ -48,6 +48,8 @@ exports.postMeals = function(req, res) {
 
 exports.updateMeal = function(req, res) {
     var updateFields = {};
+    image = null;
+
     if (req.file)
         updateFields.image = req.file.filename;
     if (req.body.author)
@@ -70,10 +72,27 @@ exports.updateMeal = function(req, res) {
         updateFields.ingredients = req.body.ingredients;
     if (req.body.nutritionfact)
         updateFields.nutritionfact = req.body.nutritionfact;
+
     Meal.update({_id: req.params.id}, updateFields, function (err, doc){
+        if (req.file)
+            image = req.file.filename;
         if (err) { res.json(err); return; }
+        else{
+        var mealImage = new Image({
+            filename: req.file.filename,
+            type: req.file.mimetype
+        });
+        if (image){
+            mealImage.save(function(err) {
+                if (err)
+                    res.status(500).send(err);
+            });
+        }
         res.json(doc);
+        }
     });
+
+
 };
 
 exports.getImage = function(req, res) {
