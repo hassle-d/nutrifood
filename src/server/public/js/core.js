@@ -25,6 +25,10 @@ myApp.config(function ($httpProvider, $routeProvider) {
                     templateUrl : 'views/recipe_submit.html',
                     controller : 'submitRecipeController'
                 })
+                .when('/edit-recipe/:id', {
+                    templateUrl : 'views/edit_meal.html',
+                    controller : 'editMealController'
+                })
                 .when('/login', {
                     templateUrl : 'views/login.html',
                     controller : 'loginController'
@@ -122,6 +126,35 @@ myApp.controller('recipeSubmitController', ['$scope', '$http', function($scope, 
     };
 }]);
 
+myApp.controller('editRecipeController', ['$scope', '$http', function($scope, $http){
+    $scope.recipes = function() {
+        var image = $scope.myFile;
+
+        var fd = new FormData();
+
+        fd.append('image', image);
+        fd.append('author', $scope.author);
+        fd.append('date', Date.now);
+        fd.append('name', $scope.name);
+        fd.append('description', $scope.description);
+        fd.append('instruction', $scope.instruction);
+        fd.append('difficulty', $scope. difficulty);
+        fd.append('category', $scope.category);
+        fd.append('ingredients', $scope.ingredients);
+        fd.append('cooktime', $scope.cooktime);
+
+        $http.put('/api/v1/meals', fd,{
+                transformRequest: angular.identity,
+                headers: {'Content-Type': undefined}
+            })
+            .success(function(){
+                console.log('ok');
+            })
+            .error(function(){
+            });
+    };
+}]);
+
 
 myApp.service('profileService', function($http) {
     delete $http.defaults.headers.common['X-Requested-With'];
@@ -134,6 +167,25 @@ myApp.service('profileService', function($http) {
         });
     }
 });
+
+
+
+myApp.controller('editMealController', function($scope, $http, profileService, authService, $routeParams){
+    var token = authService.isAuthenticated();
+    $scope.meal = null;
+    var id = $routeParams.id;
+    delete $http.defaults.headers.common['X-Requested-With'];
+    $http({
+        method: 'GET',
+        url: '/api/v1/meals/' + id
+    }).then(function(dataResponse) {
+        console.log(dataResponse.data);
+        $scope.meal = dataResponse.data;
+    });
+
+
+});
+
 
 myApp.controller('profileController', function($scope, $http, profileService, authService) {
     var token = authService.isAuthenticated();
@@ -195,6 +247,8 @@ myApp.controller('homeController', function($scope, mealService, authService) {
         console.log($scope.meals);
     });
 });
+
+
 
 myApp.controller('mealController', function($scope, $http, $routeParams) {
     var id = $routeParams.id;
