@@ -1,0 +1,123 @@
+<section class="ht-section hs-recipe submit">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-8">
+                    <div class="hs-header text-left">
+                        <h2>Welcome back, Recipe Contributor!</h2>
+                        <p>In this section you can submit one recipe of your choice, make sure to give any detailed information so other users can enjoy your creation.</p>
+                        <hr>
+                    </div>
+                    <div class="hs-content">
+                        <form class="row" method="post">
+                            <div class="form-group col-sm-6">
+                                <label>Recipe title</label>
+                                <input type="text" ng-model="name"  class="input">
+                                <p class="des">Keep it short and descriptive</p>
+                            </div>
+                             <div class="form-group col-sm-7">
+
+                                <label>Recipe photo</label>
+
+
+
+                                 <input type="file"  id="photo-upload" class="upload-visible"  file-model="myFile" class="sr-only" multiple ng-disabled="disabled">
+
+                                <!-- Use for display and get file url only -->
+
+                                <div class="upload" data-target="#photo-upload">
+
+
+
+<span class="btn btn-success fileinput-button" ng-class="{disabled: disabled}">
+                    <i class="glyphicon glyphicon-plus"></i>
+
+                </span>
+                                </div>
+
+
+                                <img src="/api/v1/meals/image/{{image}}" height="70" width="98">
+                                <p class="des">Recommended size: 2000px by 600px or larger</p>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <label>Recipe video</label>
+                                <input type="text">
+                                <p class="des"><b>OPTIONAL:</b> If you have your recipe video on Youtube, Vimeo, or any of the other supported Embed sites, then you'll want to use the field above. Just paste in the URL (ex. http://youtu.be/1O8D_wTCm3s or https://vimeo.com/26140401) and it will show up as a popup by clicking the recipe image.</p>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <label>Difficulty level</label>
+                                <select ng-model="difficulty">
+                                    <option value="easy">Easy</option>
+                                    <option value="medium">Medium</option>
+                                    <option value="high">High</option>
+                                    <option value="master">Master</option>
+                                </select>
+                                <p class="des">Keep it short and descriptive</p>
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label>RECIPE CATEGORY</label>
+                                <select ng-model="category">
+                                    <option value="" disabled selected>Choose category</option>
+                                    <option value="Asian">Asian</option>
+                                    <option value="Western">Western</option>
+                                    <option value="Eastern">Eastern</option>
+                                    <option value="Muslim">Muslim</option>
+                                    <option value="Exotic">Exotic</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <label>Short description</label>
+                                <textarea cols="30" rows="10" ng-model="description" class="input"></textarea>
+                            </div>
+                            <div class="form-group range-slider col-sm-6">
+                                <label>pre time</label>
+                                <input type="text" id="pre-time" value="00:00" ng-model="pretime"/>
+                                <div  ng-cloak>
+                                    <md-slider flex md-discrete ng-model="rating1" step="1" min="1" max="5" aria-label="rating"></md-slider>
+                                </div>
+                                <div class="flexslider" data-target="#pre-time" data-max="6"></div>
+                                <p class="des">
+                                    <span class="left">00:00</span><span class="right">06:00</span>
+                                    <span class="time-format"><span>HH:MM</span></span>
+                                </p>
+                            </div>
+                            <div class="form-group range-slider col-sm-6">
+                                <label>cook time</label>
+                                <input type="text" id="cook-time" value="00:00" ng-model="cooktime" />
+                                <div class="range-slider" data-target="#cook-time" data-max="6"></div>
+                                <p class="des">
+                                    <span class="left">00:00</span><span class="right">06:00</span>
+                                    <span class="time-format"><span>HH:MM</span></span>
+                                </p>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <label>Ingredient</label>
+                                <div class="ingredient-textarea">
+                                    <textarea cols="30" rows="10" ng-model="ingredients" class="input"></textarea>
+                                </div>
+                                <p class="des">Enter the different ingredients with a clear name. Separate all different ingredients per a coma. If you need to give a special information, add it between two parentheses.</p>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <label>Instruction</label>
+                                <div class="ingredient-textarea">
+                                    <textarea cols="30" rows="10" ng-model="instruction"></textarea>
+                                </div>
+                                <p class="des">Add all of the cooking steps, one per line.</p>
+                            </div>
+
+                            <!-- / column -->
+                            <div class="col-sm-12">
+                                <button  ng-click="update()" class="ht-button view-more-button">
+                                    <i class="fa fa-arrow-left"></i> SUBMIT <i class="fa fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </form>
+                        <!-- / form -->
+                    </div>
+                </div>
+                <!-- / .hs-content -->
+            </div>
+            <!-- / .columns -->
+        </div>
+    </div>
+    <!-- /.container -->
+</section>
