@@ -202,7 +202,6 @@ myApp.controller('editMealController', function($scope, $http, profileService, a
 
 });
 
-
 myApp.controller('profileController', function($scope, $http, profileService, authService) {
     var token = authService.isAuthenticated();
     
@@ -306,7 +305,7 @@ myApp.controller('categoryMealsController', function($scope, mealService, authSe
     });
 });
 
-myApp.controller('mealController', function($scope, $http, $routeParams) {
+myApp.controller('mealController', function($scope, $http, $routeParams, $cookies) {
     var id = $routeParams.id;
     delete $http.defaults.headers.common['X-Requested-With'];
     $http({
@@ -318,6 +317,23 @@ myApp.controller('mealController', function($scope, $http, $routeParams) {
         if (dataResponse.data.video)
             $scope.videoUrl = dataResponse.data.video;
     });
+
+
+    $scope.addComment = function (){
+
+        var comment = {
+            author: $cookies.get('username'),
+            comment: $scope.content
+        };
+
+        $http.post('/api/v1/comment' + id, serialize(comment))
+            .success(function(comment){
+                console.log(comment)
+            })
+            .error(function(comment){
+                console.log(comment)
+            });
+    };
 });
 
 
