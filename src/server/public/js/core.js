@@ -15,7 +15,7 @@ myApp.config(function ($httpProvider, $routeProvider) {
                 })
                 .when('/category', {
                     templateUrl : 'views/category.html',
-                    controller : 'categoryController'
+                    controller : ''
                 })
                 .when('/recipes', {
                     templateUrl : 'views/recipes.html',
@@ -107,8 +107,8 @@ myApp.directive('fileModel', ['$parse', function ($parse) {
 }]);
 
 myApp.controller('recipeSubmitController', function($scope, $http, $cookies, $location, authService){
+    var token = authService.isAuthenticated();
     $scope.recipes = function() {
-        var token = authService.isAuthenticated();
         var image = $scope.myFile;
 
         console.log($cookies.get('username'));
@@ -268,9 +268,10 @@ myApp.service('mealService', function($http) {
     }
 });
 
-myApp.controller('homeController', function($scope, mealService, authService) {
-    var token = authService.isAuthenticated();
+myApp.controller('homeController', function($rootScope, $scope, mealService, authService, $cookies) {
     $scope.meals = null;
+    var token = $cookies.get("token");
+    $rootScope.token = token;
     mealService.getData(token).then(function(dataResponse) {
 
         var data = dataResponse.data;
@@ -425,5 +426,5 @@ myApp.controller('logoutController', function($rootScope, $location, $cookies) {
     delete $rootScope.token;
     $cookies.remove('token');
     $cookies.remove('username');
-    $location.path('/login');
+    $location.path('/');
 });
