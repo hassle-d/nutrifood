@@ -22,7 +22,7 @@
                                         <i class="glyphicon glyphicon-plus"></i>
                                     </span>
                                 </div>
-                                <img src="/api/v1/meals/image/{{image}}" height="70" width="98">
+                                <img  ng-if="{{image}}" src="/api/v1/meals/image/{{image}}" height="70" width="98">
                                 <p class="des">Recommended size: 2000px by 600px or larger</p>
                             </div>
                             <div class="form-group col-sm-12">
@@ -34,8 +34,7 @@
                                 <label>Difficulty level</label>
                                 <select ng-model="difficulty">
                                     <option value="easy">Easy</option>
-                                    <option value="medium">Medium</option>
-                                    <option value="high">High</option>
+                                    <option value="hard">Hard</option>
                                     <option value="master">Master</option>
                                 </select>
                                 <p class="des">Keep it short and descriptive</p>
@@ -44,11 +43,12 @@
                                 <label>RECIPE CATEGORY</label>
                                 <select ng-model="category">
                                     <option value="" disabled selected>Choose category</option>
+                                    <option value="Mediterranean">Mediterranean</option>
                                     <option value="Asian">Asian</option>
-                                    <option value="Western">Western</option>
-                                    <option value="Eastern">Eastern</option>
-                                    <option value="Muslim">Muslim</option>
-                                    <option value="Exotic">Exotic</option>
+                                    <option value="Vegeterian">Vegeterian</option>
+                                    <option value="French">French</option>
+                                    <option value="British">British</option>
+                                    <option value="Indian">Indian</option>
                                 </select>
                             </div>
                             <div class="form-group col-sm-12">

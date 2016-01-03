@@ -23,7 +23,7 @@ myApp.config(function ($httpProvider, $routeProvider) {
                 })
                 .when('/submit-recipe', {
                     templateUrl : 'views/recipe_submit.html',
-                    controller : 'submitRecipeController'
+                    controller : 'recipeSubmitController'
                 })
                 .when('/edit-recipe/:id', {
                     templateUrl : 'views/edit_meal.html',
@@ -102,14 +102,16 @@ myApp.directive('fileModel', ['$parse', function ($parse) {
     };
 }]);
 
-myApp.controller('recipeSubmitController', ['$scope', '$http', function($scope, $http){
+myApp.controller('recipeSubmitController', function($scope, $http, $cookies, $location, authService){
     $scope.recipes = function() {
+        var token = authService.isAuthenticated();
         var image = $scope.myFile;
 
+        console.log($cookies.get('username'));
         var fd = new FormData();
 
         fd.append('image', image);
-        fd.append('author', $scope.author);
+        fd.append('author', $cookies.get('username'));
         fd.append('date', Date.now);
         fd.append('video', $scope.video);
         fd.append('name', $scope.name);
@@ -126,11 +128,12 @@ myApp.controller('recipeSubmitController', ['$scope', '$http', function($scope, 
             })
             .success(function(){
                 console.log('ok');
+                $location.path('/');
             })
             .error(function(){
             });
     };
-}]);
+});
 
 myApp.service('profileService', function($http) {
     delete $http.defaults.headers.common['X-Requested-With'];
@@ -334,6 +337,7 @@ myApp.controller('loginController', function($scope, $http, $location, $cookies)
         $http.post('/api/v1/auth/signin', serialize(datas))
             .success(function(data) {
                 $cookies.put('token', data.token);
+                $cookies.put('username', datas.username);
                 console.log($cookies.get('token'));
                 $location.path('/');
             })
@@ -351,5 +355,6 @@ myApp.controller('loginController', function($scope, $http, $location, $cookies)
 myApp.controller('logoutController', function($rootScope, $location, $cookies) {
     delete $rootScope.token;
     $cookies.remove('token');
+    $cookies.remove('username');
     $location.path('/login');
 });
