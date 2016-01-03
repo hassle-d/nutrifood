@@ -394,5 +394,5 @@ myApp.controller('logoutController', function($rootScope, $location, $cookies) {
     delete $rootScope.token;
     $cookies.remove('token');
     $cookies.remove('username');
-    $location.path('/login');
+    $location.path('/');
 });
