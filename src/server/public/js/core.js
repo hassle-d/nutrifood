@@ -1,4 +1,4 @@
-var myApp = angular.module('nutrifood', ['ngRoute', 'ngCookies'])
+var myApp = angular.module('nutrifood', ['ngRoute', 'ngCookies', 'youtube-embed'])
 
 myApp.config(function ($httpProvider, $routeProvider) {
             $httpProvider.defaults.headers.put['Content-Type'] = 'application/x-www-form-urlencoded';
@@ -287,6 +287,8 @@ myApp.controller('mealController', function($scope, $http, $routeParams) {
     }).then(function(dataResponse) {
         console.log(dataResponse.data);
         $scope.meal = dataResponse.data;
+        if (dataResponse.data.video)
+            $scope.videoUrl = dataResponse.data.video;
     });
 });
 
