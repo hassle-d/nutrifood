@@ -111,6 +111,7 @@ myApp.controller('recipeSubmitController', ['$scope', '$http', function($scope, 
         fd.append('image', image);
         fd.append('author', $scope.author);
         fd.append('date', Date.now);
+        fd.append('video', $scope.video);
         fd.append('name', $scope.name);
         fd.append('description', $scope.description);
         fd.append('instruction', $scope.instruction);
@@ -156,6 +157,7 @@ myApp.controller('editMealController', function($scope, $http, profileService, a
 
         var data = dataResponse.data;
         $scope.name = data.name;
+        $scope.video = data.video;
         $scope.description = data.description;
         $scope.difficulty = data.difficulty;
         $scope.cooktime = data.cooktime;
@@ -172,6 +174,7 @@ myApp.controller('editMealController', function($scope, $http, profileService, a
 
         fd.append('image', image);
         fd.append('name', $scope.name);
+        fd.append('video', $scope.video);
         fd.append('description', $scope.description);
         fd.append('instruction', $scope.instruction);
         fd.append('difficulty', $scope. difficulty);
