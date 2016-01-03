@@ -7,7 +7,7 @@
 		</div>
 		<ul class="isotope-filter" data-target="#grid-2">
 			<li class="is-filtered"><a href="#" data-filter="*">ALL</a></li>
-			<li><a href="#" data-filter=".filter-food">FOODS</a></li>
+			<li><a href="#" data-filter=".filter-food">Hard</a></li>
 			<li><a href="#" data-filter=".filter-beverages">BEVERAGES</a></li>
 			<li><a href="#" data-filter=".filter-dessert">DESSERTS</a></li>
 			<li><a href="#" data-filter=".filter-pudding">PUDDING</a></li>
@@ -15,6 +15,7 @@
 	</header>
 	<div class="hs-content">
 		<div class="container">
+			<h4 ng-if="meals.length==0">C'est vide bitch</h4>
 			<div class="row">
 				<div class="isotope-grid" id="grid-2">
 

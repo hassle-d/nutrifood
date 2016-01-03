@@ -15,19 +15,20 @@
 							<input type="text" ng-model="name" class="input">
 							<p class="des">Keep it short and descriptive</p>
 						</div>
-						<div class="form-group col-sm-6">
+						<div class="form-group col-sm-7">
 							<label>Recipe photo</label>
-							<input type="file" id="photo-upload" file-model="myFile" class="sr-only">
-							<!-- Use for display and get file url only -->
+							<input type="file"  id="photo-upload" class="upload-visible"  file-model="myFile" class="sr-only" multiple ng-disabled="disabled">
 							<div class="upload" data-target="#photo-upload">
-								<input type="text" class="upload-visible">
-								<a class="upload-trigger" href='#'>Choose file</a>
+                                    <span class="btn btn-success fileinput-button" ng-class="{disabled: disabled}">
+                                        <i class="glyphicon glyphicon-plus"></i>
+                                    </span>
 							</div>
+							<img src="/api/v1/meals/image/{{image}}" height="70" width="98">
 							<p class="des">Recommended size: 2000px by 600px or larger</p>
 						</div>
 						<div class="form-group col-sm-12">
 							<label>Recipe video</label>
-							<input type="text">
+							<input type="text" ng-model="video" class="input">
 							<p class="des"><b>OPTIONAL:</b> If you have your recipe video on Youtube, Vimeo, or any of the other supported Embed sites, then you'll want to use the field above. Just paste in the URL (ex. http://youtu.be/1O8D_wTCm3s or https://vimeo.com/26140401) and it will show up as a popup by clicking the recipe image.</p>
 						</div>
 						<div class="form-group col-sm-12">

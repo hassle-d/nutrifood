@@ -1,4 +1,4 @@
-var myApp = angular.module('nutrifood', ['ngRoute', 'ngCookies'])
+var myApp = angular.module('nutrifood', ['ngRoute', 'ngCookies', 'youtube-embed'])
 
 myApp.config(function ($httpProvider, $routeProvider) {
             $httpProvider.defaults.headers.put['Content-Type'] = 'application/x-www-form-urlencoded';
@@ -25,6 +25,10 @@ myApp.config(function ($httpProvider, $routeProvider) {
                     templateUrl : 'views/recipe_submit.html',
                     controller : 'submitRecipeController'
                 })
+                .when('/edit-recipe/:id', {
+                    templateUrl : 'views/edit_meal.html',
+                    controller : 'editMealController'
+                })
                 .when('/login', {
                     templateUrl : 'views/login.html',
                     controller : 'loginController'
@@ -40,6 +44,10 @@ myApp.config(function ($httpProvider, $routeProvider) {
                 .when('/meals',{
                     templateUrl : 'views/meals.html',
                     controller: 'homeController'
+                })
+                .when('/meals/search/:id',{
+                    templateUrl : 'views/meals.html',
+                    controller: 'searchMealsController'
                 })
                 .when('/meal/:id', {
                     templateUrl : 'views/meal.html',
@@ -63,7 +71,11 @@ myApp.service('authService', function($location, $cookies, $rootScope) {
     }
 });
 
-
+myApp.run(function($rootScope, $location) {
+    $rootScope.searchMeals = function () {
+        $location.path("/meals/search/" + $rootScope.searchValue);
+    }
+})
 
 serialize = function(obj) {
   var str = [];
@@ -90,9 +102,6 @@ myApp.directive('fileModel', ['$parse', function ($parse) {
     };
 }]);
 
-
-
-
 myApp.controller('recipeSubmitController', ['$scope', '$http', function($scope, $http){
     $scope.recipes = function() {
         var image = $scope.myFile;
@@ -102,6 +111,7 @@ myApp.controller('recipeSubmitController', ['$scope', '$http', function($scope, 
         fd.append('image', image);
         fd.append('author', $scope.author);
         fd.append('date', Date.now);
+        fd.append('video', $scope.video);
         fd.append('name', $scope.name);
         fd.append('description', $scope.description);
         fd.append('instruction', $scope.instruction);
@@ -122,7 +132,6 @@ myApp.controller('recipeSubmitController', ['$scope', '$http', function($scope, 
     };
 }]);
 
-
 myApp.service('profileService', function($http) {
     delete $http.defaults.headers.common['X-Requested-With'];
     this.getData = function(token) {
@@ -134,6 +143,58 @@ myApp.service('profileService', function($http) {
         });
     }
 });
+
+myApp.controller('editMealController', function($scope, $http, profileService, authService, $routeParams){
+    var token = authService.isAuthenticated();
+    $scope.meal = null;
+    var id = $routeParams.id;
+    delete $http.defaults.headers.common['X-Requested-With'];
+    $http({
+        method: 'GET',
+        url: '/api/v1/meals/' + id
+    }).then(function(dataResponse) {
+        console.log(dataResponse.data);
+
+        var data = dataResponse.data;
+        $scope.name = data.name;
+        $scope.video = data.video;
+        $scope.description = data.description;
+        $scope.difficulty = data.difficulty;
+        $scope.cooktime = data.cooktime;
+        $scope.instruction = data.instruction;
+        $scope.category = data.category;
+        $scope.ingredients = data.ingredients;
+        $scope.image = data.image;
+    });
+
+    $scope.update = function(){
+        var image = $scope.myFile;
+
+        var fd = new FormData();
+
+        fd.append('image', image);
+        fd.append('name', $scope.name);
+        fd.append('video', $scope.video);
+        fd.append('description', $scope.description);
+        fd.append('instruction', $scope.instruction);
+        fd.append('difficulty', $scope. difficulty);
+        fd.append('category', $scope.category);
+        fd.append('ingredients', $scope.ingredients);
+        fd.append('cooktime', $scope.cooktime);
+
+        $http.put('/api/v1/meals/' + id, fd,{
+                transformRequest: angular.identity,
+                headers: {'Content-Type': undefined}
+            })
+            .success(function(){
+                console.log('ok');
+            })
+            .error(function(){
+            });
+    };
+
+});
+
 
 myApp.controller('profileController', function($scope, $http, profileService, authService) {
     var token = authService.isAuthenticated();
@@ -185,6 +246,14 @@ myApp.service('mealService', function($http) {
             headers: {'Authorization': token}
         });
     }
+    this.searchMeals = function(token, name) {
+        return $http({
+            method: 'GET',
+            url: '/api/v1/meals/name/' + name,
+            headers: {'Authorization': token}
+        });
+
+    }
 });
 
 myApp.controller('homeController', function($scope, mealService, authService) {
@@ -200,6 +269,18 @@ myApp.controller('homeController', function($scope, mealService, authService) {
     });
 });
 
+myApp.controller('searchMealsController', function($scope, mealService, authService, $routeParams) {
+    var token = authService.isAuthenticated();
+    var id = $routeParams.id;
+
+    $scope.data = null;
+    $scope.meals = null;
+    mealService.searchMeals(token, id).then(function(dataResponse) {
+        $scope.meals = dataResponse.data;
+        console.log($scope.meals);
+    });
+});
+
 myApp.controller('mealController', function($scope, $http, $routeParams) {
     var id = $routeParams.id;
     delete $http.defaults.headers.common['X-Requested-With'];
@@ -209,6 +290,8 @@ myApp.controller('mealController', function($scope, $http, $routeParams) {
     }).then(function(dataResponse) {
         console.log(dataResponse.data);
         $scope.meal = dataResponse.data;
+        if (dataResponse.data.video)
+            $scope.videoUrl = dataResponse.data.video;
     });
 });
 

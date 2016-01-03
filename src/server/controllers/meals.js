@@ -17,11 +17,11 @@ exports.postMeals = function(req, res) {
         name: req.body.name.toLowerCase(),
         description: req.body.description,
         video: req.body.video,
-        instruction: req.body.instruction,
+        instruction: req.body.instruction.split('\n'),
         difficulty: req.body.difficulty,
         cooktime: req.body.cooktime,
         category: req.body.category.toLowerCase(),
-        ingredients: req.body.ingredients,
+        ingredients: req.body.ingredients.split(','),
         nutritionfact: req.body.nutritionfact,
         image: image
     });
@@ -32,7 +32,7 @@ exports.postMeals = function(req, res) {
             if (req.file) {
                 var mealImage = new Image({
                     filename: req.file.filename,
-                    type: req.file.mimetype
+                    type: req.file.mimetype,
                 });
                 if (image){
                     mealImage.save(function(err) {
@@ -48,6 +48,8 @@ exports.postMeals = function(req, res) {
 
 exports.updateMeal = function(req, res) {
     var updateFields = {};
+    image = null;
+
     if (req.file)
         updateFields.image = req.file.filename;
     if (req.body.author)
@@ -70,10 +72,27 @@ exports.updateMeal = function(req, res) {
         updateFields.ingredients = req.body.ingredients;
     if (req.body.nutritionfact)
         updateFields.nutritionfact = req.body.nutritionfact;
+
     Meal.update({_id: req.params.id}, updateFields, function (err, doc){
+        if (req.file)
+            image = req.file.filename;
         if (err) { res.json(err); return; }
+        else{
+        var mealImage = new Image({
+            filename: req.file.filename,
+            type: req.file.mimetype
+        });
+        if (image){
+            mealImage.save(function(err) {
+                if (err)
+                    res.status(500).send(err);
+            });
+        }
         res.json(doc);
+        }
     });
+
+
 };
 
 exports.getImage = function(req, res) {
@@ -126,7 +145,8 @@ exports.getMealById = function(req, res) {
 };
 
 exports.getMealByName = function(req, res) {
-    Meal.findOne({'name': req.params.name.toLowerCase()}, function(err, meal){
+    var regex = new RegExp(req.params.name.toLowerCase(), 'i');
+    Meal.find({'name': regex}, function(err, meal){
         if (err)
             res.send(err);
         else

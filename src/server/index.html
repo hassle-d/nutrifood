@@ -30,6 +30,8 @@
 		<script src="/js/angular-route.js"></script>
 		<script src="/js/angular-cookies.js"></script>
 		<script src="/js/angular-messages.js"></script>
+		<script src="/js/iframe_api.js"></script>
+		<script src="/js/angular-youtube-embed.js"></script>
 		<script src="/js/plugins.js"></script>
 		<script src="/js/custom.js"></script>
 		<script src="/js/utils.js"></script>
@@ -63,10 +65,10 @@
 				<li><a href="#/">HOME</a></li>
 				<li><a href="#category">CATEGORY</a></li>
 				<li class="menu-item-has-children dropdown-menu">
-					<a href="#">RECIPES</a>
+					<a href="#meals">RECIPES</a>
 					<ul>
-						<li><a href="#">All</a></li>
-						<li><a href="#">Submit</a></li>
+						<li><a href="#meals">All Recipes</a></li>
+						<li><a href="#submit-recipe">Submit</a></li>
 					</ul>
 				</li>
 				<li><a href="#register">REGISTER</a></li>
@@ -97,10 +99,10 @@
 									<a href="#category">CATEGORY</a>
 								</li>
 								<li class="menu-item-has-children dropdown-menu">
-									<a href="#">RECIPES</a>
+									<a href="#meals">RECIPES</a>
 									<ul>
-										<li><a href="#">All</a></li>
-										<li><a href="#">Submit</a></li>
+										<li><a href="#meals">All Meals</a></li>
+										<li><a href="#submit-recipe">Submit</a></li>
 									</ul>
 								</li>
 							</ul>
@@ -144,9 +146,9 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-body">
-					<form action="#">
-						<input type="text" placeholder="Type keyword ..." autofocus />
-						<button class="search-button" type="button">
+					<form action='#'>
+						<input type="text" placeholder="Type keyword ..." autofocus ng-model="searchValue" />
+						<button class="search-button" type="button" ng-click="searchMeals();" data-dismiss="modal">
 							<span class="sr-only">Toggle search</span>
 							<i class="fa fa-search"></i>
 						</button>
