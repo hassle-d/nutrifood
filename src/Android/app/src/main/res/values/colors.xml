@@ -2,5 +2,9 @@
 <resources>
     <color name="colorPrimary">#333333</color>
     <color name="colorPrimaryDark">#000000</color>
-    <color name="colorAccent">#FFA500</color>
+    <color name="colorPrimaryTrans">#80333333</color>
+    <color name="colorButton">#FFA500</color>
+    <color name="colorButtonPressed">#FF8C00</color>
+    <color name="colorAccent">#FF8C00</color>
+    <color name="colorLight">#FFFFFF</color>
 </resources>

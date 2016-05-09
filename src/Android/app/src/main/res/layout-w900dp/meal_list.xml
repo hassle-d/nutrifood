@@ -9,7 +9,7 @@
     android:divider="?android:attr/dividerHorizontal"
     android:orientation="horizontal"
     android:showDividers="middle"
-    tools:context="com.nutrifood.cisner_d.nutrifood2.MealListActivity">
+    tools:context=".Meals.MealListFragment">
 
     <!--
     This layout is a two-pane layout for the Meals
@@ -20,13 +20,13 @@
     <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/meal_list"
-        android:name="com.nutrifood.cisner_d.nutrifood2.MealListFragment"
+        android:name="com.nutrifood2.MealListFragment"
         android:layout_width="@dimen/item_width"
         android:layout_height="match_parent"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         app:layoutManager="LinearLayoutManager"
-        tools:context="com.nutrifood.cisner_d.nutrifood2.MealListActivity"
+        tools:context=".Meals.MealListActivity"
         tools:listitem="@layout/meal_list_content" />
 
     <FrameLayout

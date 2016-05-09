@@ -3,11 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/meal_list"
-    android:name="com.nutrifood.cisner_d.nutrifood2.MealListFragment"
+    android:name="com.nutrifood2.MealListFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context="com.nutrifood.cisner_d.nutrifood2.MealListActivity"
+    tools:context=".Meals.MealListFragment"
     tools:listitem="@layout/meal_list_content" />

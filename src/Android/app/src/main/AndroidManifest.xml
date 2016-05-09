@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.nutrifood.cisner_d.nutrifood2">
+    package="com.nutrifood2">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -31,21 +31,29 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Profil.LoginActivity" />
-        <activity android:name=".Profil.RegisterActivity" />
         <activity
-            android:name=".MealListActivity"
+            android:name=".Profil.LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Profil.RegisterActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Meals.MealListActivity"
             android:label="@string/title_meal_list"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".MealDetailActivity"
+            android:name=".Meals.MealDetailActivity"
             android:label="@string/title_meal_detail"
-            android:parentActivityName=".MealListActivity"
+            android:parentActivityName=".Meals.MealListActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.nutrifood.cisner_d.nutrifood2.MealListActivity" />
+                android:value=".Meals.MealListActivity" />
         </activity>
+        <activity
+            android:name=".CreateMealActivity"
+            android:label="@string/title_create_meal"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
