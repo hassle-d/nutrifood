@@ -13,15 +13,34 @@
             android:layout_height="wrap_content"
             android:scaleType="centerCrop" />
 
-        <TextView
-            android:id="@+id/id"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:textAlignment="center"
-            android:textColor="@color/colorLight"
-            android:background="@color/colorPrimaryTrans"
-            android:textAppearance="?attr/textAppearanceListItem" />
+            android:background="@color/colorPrimaryTrans">
+
+            <TextView
+                android:id="@+id/id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:gravity="center_vertical"
+                android:textColor="@color/colorLight"
+                android:text="Name"
+                android:textAppearance="?attr/textAppearanceListItem" />
+
+            <RatingBar
+                android:id="@+id/ratingBar"
+                android:isIndicator="true"
+                android:layout_below="@id/id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/ratingBarStyleSmall"
+                android:numStars="5"
+                android:rating="2.5"
+                android:stepSize="0.1" />
+
+        </RelativeLayout>
 
     </RelativeLayout>
 

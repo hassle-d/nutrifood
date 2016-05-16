@@ -4,18 +4,24 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.nutrifood2.Adapter.ListRecyclerViewAdapter;
+import com.nutrifood2.Adapter.ViewPagerAdapter;
+import com.nutrifood2.Categories.CategoryFragment;
 import com.nutrifood2.Models.BasicItem;
 import com.nutrifood2.Models.Meal;
 import com.nutrifood2.Models.MealContent;
+import com.nutrifood2.Profil.ProfilFragment;
 import com.nutrifood2.R;
 
 import java.util.ArrayList;
@@ -58,10 +64,15 @@ public class MealDetailFragment extends Fragment {
 
             Activity activity = this.getActivity();
             CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
+            TextView author = (TextView) activity.findViewById(R.id.author);
             ImageView imageParalax = (ImageView) activity.findViewById(R.id.image_paralax);
 
             if (appBarLayout != null)
                 appBarLayout.setTitle(mItem.Name());
+
+            if (author != null)
+                author.setText(mItem.Author());
+
             if (imageParalax != null)
             {
                 Bitmap bitmap = mItem.Bitmap();
@@ -76,24 +87,36 @@ public class MealDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.meal_detail, container, false);
 
-        // Show the meal content
-        if (mItem != null)
-        {
-            List<BasicItem> list = new ArrayList<BasicItem>();
+        ViewPager viewPager = (ViewPager) rootView.findViewById(R.id.viewpager);
+        setupViewPager(viewPager);
 
-            list.add(new BasicItem("Author", mItem.Author()));
-            list.add(new BasicItem("Difficulty", mItem.Difficulty()));
-            list.add(new BasicItem("Category", mItem.Category()));
-            list.add(new BasicItem("Description", mItem.Description()));
-            list.add(new BasicItem("Cooktime", mItem.Cooktime()));
-            list.add(new BasicItem("Ingredients", mItem.Ingredients().toString()));
-            list.add(new BasicItem("Instruction", mItem.Instruction()));
-
-            RecyclerView detail_recyclerview = (RecyclerView)rootView.findViewById(R.id.detail_recyclerview);
-            detail_recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
-            detail_recyclerview.setAdapter(new ListRecyclerViewAdapter(list, R.integer.CARD_VIEW));
-        }
+        TabLayout tabLayout = (TabLayout) rootView.findViewById(R.id.tabLayout);
+        tabLayout.setupWithViewPager(viewPager);
 
         return rootView;
+    }
+
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
+
+        Bundle arguments = new Bundle();
+        arguments.putString(MealDetailFragment.ARG_ITEM_ID, mItem.Id());
+
+        MealDirectionFragment directionFragment = new MealDirectionFragment();
+        MealIngredientsFragment ingredientsFragment = new MealIngredientsFragment();
+        MealReviewFragment reviewFragment = new MealReviewFragment();
+        MealInformationFragment infoFragment = new MealInformationFragment();
+
+        infoFragment.setArguments(arguments);
+        directionFragment.setArguments(arguments);
+        ingredientsFragment.setArguments(arguments);
+        reviewFragment.setArguments(arguments);
+
+        adapter.addFragment(infoFragment, "INFORMATION");
+        adapter.addFragment(directionFragment, "INSTRUCTION");
+        adapter.addFragment(ingredientsFragment, "INGREDIENT");
+        adapter.addFragment(reviewFragment, "REVIEW COMMENT");
+
+        viewPager.setAdapter(adapter);
     }
 }

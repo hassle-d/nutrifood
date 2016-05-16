@@ -5,11 +5,11 @@ import java.util.ArrayList;
 public class Meal extends BasicItem {
     private String mAuthor;
     private String mDescription;
-    private String mInstruction;
     private String mDifficulty;
     private String mCategory;
     private String mOldCategory;
     private String mCooktime;
+    private ArrayList<String> mInstruction;
     private ArrayList<String> mIngredients;
 
     void Meal() {}
@@ -24,14 +24,14 @@ public class Meal extends BasicItem {
         mAuthor = str;
     }
 
-    public String Instruction()
+    public ArrayList<String> Instruction()
     {
         return mInstruction;
     }
 
-    public void Instruction(String str)
+    public void Instruction(ArrayList<String> list)
     {
-        mInstruction = str;
+        mInstruction = list;
     }
 
     public String Difficulty()
