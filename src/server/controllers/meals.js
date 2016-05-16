@@ -9,6 +9,8 @@ var Image = require('../models/image');
 exports.postMeals = function(req, res) {
     image = null;
     console.log(req.file);
+    console.log(req.body.author);
+    console.log("INGREDIENTS: " + req.body.ingredients);
     if (req.file)
         image = req.file.filename;
     var meal = new Meal({
@@ -21,7 +23,7 @@ exports.postMeals = function(req, res) {
         difficulty: req.body.difficulty,
         cooktime: req.body.cooktime,
         category: req.body.category.toLowerCase(),
-        ingredients: req.body.ingredients.split(','),
+        ingredients: JSON.parse(req.body.ingredients),
         nutritionfact: req.body.nutritionfact,
         image: image
     });

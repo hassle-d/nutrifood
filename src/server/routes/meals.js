@@ -30,7 +30,7 @@ router.route('/meals/category/:category')
     .get(authController.isValidToken, mealController.getMealByCategory);
 
 router.route('/meals')
-    .post(authController.isValidToken, mealController.postMeals)
+    .post(/*authController.isValidToken, */mealController.postMeals)
     .get(authController.isValidToken, mealController.getMeals);
 
 router.route('/meals/:id')

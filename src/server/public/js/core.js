@@ -1,4 +1,4 @@
-var myApp = angular.module('nutrifood', ['ngRoute', 'ngCookies', 'youtube-embed'])
+var myApp = angular.module('nutrifood', ['ngRoute', 'ngCookies', 'youtube-embed', 'bootstrap.fileField'])
 
 myApp.config(function ($httpProvider, $routeProvider) {
             $httpProvider.defaults.headers.put['Content-Type'] = 'application/x-www-form-urlencoded';
@@ -59,6 +59,19 @@ myApp.config(function ($httpProvider, $routeProvider) {
                 });
 });
 
+myApp.directive('myEnter', function () {
+    return function (scope, element, attrs) {
+        element.bind("keydown keypress", function (event) {
+            if(event.which === 13) {
+                scope.$apply(function (){
+                    scope.$eval(attrs.myEnter);
+                });
+
+                event.preventDefault();
+            }
+        });
+    };
+});
 
 myApp.service('authService', function($location, $cookies, $rootScope) {
     this.isAuthenticated = function(e) {
@@ -109,10 +122,17 @@ myApp.directive('fileModel', ['$parse', function ($parse) {
 myApp.controller('recipeSubmitController', function($scope, $http, $cookies, $location, authService){
     var token = authService.isAuthenticated();
     $scope.recipes = function() {
-        var image = $scope.myFile;
+        var image = $scope.uploadFile;
 
         console.log($cookies.get('username'));
         var fd = new FormData();
+
+        var ingredients  = [];
+        for (var i = 0; i < $scope.ingredients.length; i++) {
+            ingredients.push(($scope.ingredients[i]).val);
+        }
+
+        console.log(ingredients);
 
         fd.append('image', image);
         fd.append('author', $cookies.get('username'));
@@ -123,7 +143,7 @@ myApp.controller('recipeSubmitController', function($scope, $http, $cookies, $lo
         fd.append('instruction', $scope.instruction);
         fd.append('difficulty', $scope. difficulty);
         fd.append('category', $scope.category);
-        fd.append('ingredients', $scope.ingredients);
+        fd.append('ingredients', JSON.stringify(ingredients));
         fd.append('cooktime', $scope.cooktime);
 
         $http.post('/api/v1/meals', fd,{
@@ -136,6 +156,21 @@ myApp.controller('recipeSubmitController', function($scope, $http, $cookies, $lo
             })
             .error(function(){
             });
+    };
+    $scope.addIngredient = function() {
+        if ($scope.ingredientInput && $scope.ingredientInput != "") {
+            var ingredients = $scope.ingredients;
+            if (ingredients == null) {
+                ingredients = [];
+            }
+            ingredients.push({val:$scope.ingredientInput});
+            $scope.ingredients = ingredients;
+            $scope.ingredientInput = "";
+            document.getElementById("test").focus();
+        }
+    };
+    $scope.deleteIngredient = function(id) {
+        $scope.ingredients.splice(id, 1);
     };
 });
 

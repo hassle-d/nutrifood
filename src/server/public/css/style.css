@@ -107,6 +107,37 @@ audio:not([controls]) {
   height: 0;
 }
 
+.color-danger {
+  background-color: #d9534f;
+  background: #d9534f;
+}
+
+.color-success {
+  background-color: #5cb85c;
+}
+
+.button-add {
+  background-color: #5cb85c;
+  border: none;
+  /*border-top-right-radius: 50px;*/
+  color: white;
+  line-height: 34px;
+}
+.button-add:hover {
+  background-color: #449d44;
+}
+
+.button-delete {
+  background-color: #d9534f;
+  border: none;
+  width: 100%;
+  height: 100%;
+}
+
+.button-delete:hover {
+  background-color: #c9302c;
+}
+
 [hidden],
 template {
   display: none;

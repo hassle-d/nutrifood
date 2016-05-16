@@ -13,8 +13,3 @@ var checkValidity = function(user){
     return (user);
 };
 
-var test = function() {
-
-
-
-}
