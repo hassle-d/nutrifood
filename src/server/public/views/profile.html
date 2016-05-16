@@ -1,0 +1,240 @@
+<div class="ht-section hs-contributor">
+	<div class="container">
+				<div class="hs-content">
+					<div class="contributor">
+						<div class="entry-description">
+							<h2 class="heading">Hello, {{profile.username}}</h2>
+							<p>Here is your profile, you can check and modify information about yourself. <br/> You also consult the recipes that you have submit and also the ones that you bookmarked</p>
+						</div>
+					</div>
+
+					<div class="register-form ">
+						<div ng-controller="profileController">
+							<form method="post" name="edituserForm">
+						<div>
+							<p>
+							<label class="heading">Firstname</label>
+							<input type="text" name="firstname" ng-model="firstname" class="input" required>
+							<p ng-show="edituserForm.firstname.$error.minlength" class="help-block">Firstname is too short, need 2 character at least.</p>
+							<p ng-show="edituserForm.firstname.$error.maxlength" class="help-block">Firstname is too long, need to be lower than 30 character.</p>
+							</p>
+						</div>
+
+						<div>
+							<p>
+							<label class="heading">Lastname</label>
+							<input type="text" name="lastname" ng-model="lastname" class="input" required>
+							<p ng-show="edituserForm.lastname.$error.minlength" class="help-block">Lastname is too short, need 2 character at least.</p>
+							<p ng-show="edituserForm.lastname.$error.maxlength" class="help-block">Lastname is too long, need to be lower than 30 character.</p>
+							</p>
+						</div>
+
+						<div>
+							<p>
+							<label class="heading">Description</label>
+							<input type="text" ng-model="description" class="input">
+							</p>
+						</div>
+
+						<div>
+							<p>
+							<label class="heading">Allergy</label>
+							<input type="text" ng-model="allergy" class="input">
+							</p>
+						</div>
+
+						<div>
+							<p>
+							<label class="heading">Specificity</label>
+							<input type="text" ng-model="religion" class="input">
+							</p>
+						</div>
+
+						<div>
+							<p>
+							<input ng-click="update()" type="submit" value="Update" class="button-primary" ng-disabled="edituserForm.$invalid">
+							</p>
+						</div>
+							</form>
+						</div>
+					</div>
+
+				<!--	<div class="main-content">
+						<ul class="nav-tab" role="tablist">
+							<li role="presentation" class="active">
+								<a href="#hc-tab-recipes" aria-controls="hc-tab-recipes" role="tab" data-toggle="tab">Receipt <span class="count">(5)</span></a>
+							</li>
+							<li role="presentation">
+								<a href="#hc-tab-bookmarks" aria-controls="hc-tab-bookmarks" role="tab" data-toggle="tab">Bookmark <span class="count">(5)</span></a>
+							</li>
+						</ul>
+						<!-- Tab panes -->
+					<!--	<div class="tab-content">
+
+							<div role="tabpanel" class="tab-pane fade" id="hc-tab-recipes">
+								<article class="recipe">
+									<div class="entry-inner">
+										<div class="entry-media">
+											<img src="../../../../../../../Desktop/culinier/images/dishes/dish_2.jpg" alt=""/>
+											<div class="entry-action">
+												<div class="entry-action-inner">
+													<span>
+														<a href="../../../../../../../Desktop/culinier/recipe_single.html">VIEW RECIPE</a>
+													</span>
+													<span>
+														<a href="#">BOOKMARK RECIPE</a>
+													</span>
+												</div>
+											</div>
+										</div>
+										<!-- ./ entry-media -->
+					<!--					<div class="content-wrapper">
+											<h3 class="entry-name"><a href="../../../../../../../Desktop/culinier/recipe_single.html">Khatulistiwa Fruit Salad</a></h3>
+											<p class="entry-author">By Lina Sukowati</p>
+											<div class="entry-meta">
+												<div class="foo-wrapper">
+													<span class="meta-difficulty hard" title="">Hard</span>
+													<span class="meta-time">3 minutes</span>
+												</div>
+												<div class="meta-rate" title="4 star">
+													<i class="fa fa-star rated"></i>
+													<i class="fa fa-star rated"></i>
+													<i class="fa fa-star rated"></i>
+													<i class="fa fa-star rated"></i>
+													<i class="fa fa-star"></i>
+												</div>
+											</div>
+										</div>
+										<!-- ./ entry-content -->
+					<!--				</div>
+									<!-- / .entry-inner -->
+					<!--			</article>
+								<!-- / .recipe -->
+					<!--			<article class="recipe">
+									<div class="entry-inner">
+										<div class="entry-media">
+											<img src="../../../../../../../Desktop/culinier/images/dishes/dish_2.jpg" alt=""/>
+											<div class="entry-action">
+												<div class="entry-action-inner">
+													<span>
+														<a href="../../../../../../../Desktop/culinier/recipe_single.html">VIEW RECIPE</a>
+													</span>
+													<span>
+														<a href="#">BOOKMARK RECIPE</a>
+													</span>
+												</div>
+											</div>
+										</div>
+										<!-- ./ entry-media -->
+						<!--				<div class="content-wrapper">
+											<h3 class="entry-name"><a href="../../../../../../../Desktop/culinier/recipe_single.html">Khatulistiwa Fruit Salad</a></h3>
+											<p class="entry-author">By Lina Sukowati</p>
+											<div class="entry-meta">
+												<div class="foo-wrapper">
+													<span class="meta-difficulty hard" title="">Hard</span>
+													<span class="meta-time">3 minutes</span>
+												</div>
+												<div class="meta-rate" title="4 star">
+													<i class="fa fa-star rated"></i>
+													<i class="fa fa-star rated"></i>
+													<i class="fa fa-star rated"></i>
+													<i class="fa fa-star rated"></i>
+													<i class="fa fa-star"></i>
+												</div>
+											</div>
+										</div>
+										<!-- ./ entry-content -->
+						<!--			</div>
+									<!-- / .entry-inner -->
+						<!--		</article>
+								<!-- / .recipe -->
+					<!--		</div>
+							<div role="tabpanel" class="tab-pane fade" id="hc-tab-bookmarks">
+								<article class="recipe">
+									<div class="entry-inner">
+										<div class="entry-media">
+											<img src="../../../../../../../Desktop/culinier/images/dishes/dish_2.jpg" alt=""/>
+											<div class="entry-action">
+												<div class="entry-action-inner">
+													<span>
+														<a href="../../../../../../../Desktop/culinier/recipe_single.html">VIEW RECIPE</a>
+													</span>
+													<span>
+														<a href="#">BOOKMARK RECIPE</a>
+													</span>
+												</div>
+											</div>
+										</div>
+										<!-- ./ entry-media -->
+						<!--				<div class="content-wrapper">
+											<h3 class="entry-name"><a href="../../../../../../../Desktop/culinier/recipe_single.html">Khatulistiwa Fruit Salad</a></h3>
+											<p class="entry-author">By Lina Sukowati</p>
+											<div class="entry-meta">
+												<div class="foo-wrapper">
+													<span class="meta-difficulty hard" title="">Hard</span>
+													<span class="meta-time">3 minutes</span>
+												</div>
+												<div class="meta-rate" title="4 star">
+													<i class="fa fa-star rated"></i>
+													<i class="fa fa-star rated"></i>
+													<i class="fa fa-star rated"></i>
+													<i class="fa fa-star rated"></i>
+													<i class="fa fa-star"></i>
+												</div>
+											</div>
+										</div>
+										<!-- ./ entry-content -->
+							<!--		</div>
+									<!-- / .entry-inner -->
+						<!--		</article>
+								<!-- / .recipe -->
+						<!--		<article class="recipe">
+									<div class="entry-inner">
+										<div class="entry-media">
+											<img src="../../../../../../../Desktop/culinier/images/dishes/dish_2.jpg" alt=""/>
+											<div class="entry-action">
+												<div class="entry-action-inner">
+													<span>
+														<a href="../../../../../../../Desktop/culinier/recipe_single.html">VIEW RECIPE</a>
+													</span>
+													<span>
+														<a href="#">BOOKMARK RECIPE</a>
+													</span>
+												</div>
+											</div>
+										</div>
+										<!-- ./ entry-media -->
+						<!--				<div class="content-wrapper">
+											<h3 class="entry-name"><a href="../../../../../../../Desktop/culinier/recipe_single.html">Khatulistiwa Fruit Salad</a></h3>
+											<p class="entry-author">By Lina Sukowati</p>
+											<div class="entry-meta">
+												<div class="foo-wrapper">
+													<span class="meta-difficulty hard" title="">Hard</span>
+													<span class="meta-time">3 minutes</span>
+												</div>
+												<div class="meta-rate" title="4 star">
+													<i class="fa fa-star rated"></i>
+													<i class="fa fa-star rated"></i>
+													<i class="fa fa-star rated"></i>
+													<i class="fa fa-star rated"></i>
+													<i class="fa fa-star"></i>
+												</div>
+											</div>
+										</div>
+										<!-- ./ entry-content -->
+							<!--		</div>
+									<!-- / .entry-inner -->
+							<!--	</article>
+								<!-- / .recipe -->
+					<!--		</div>
+						</div>
+						<!-- / .tab-content -->
+			<!--		</div>
+				</div>
+
+			<!-- / column -->
+		<!-- / .row -->
+<!--	</div>
+	<!-- /.row -->
+<!-- </div>
+<!-- / .hs-recipe -->
