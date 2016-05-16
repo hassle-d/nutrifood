@@ -10,8 +10,7 @@ var MealSchema = new mongoose.Schema({
     	required: true
     },
     date: {
-    	type: Date, 
-    	default: Date.now, 
+    	type: Date,
     	required: true
     },
     name: {
@@ -22,6 +21,22 @@ var MealSchema = new mongoose.Schema({
     	type: String, 
     	required: true
     },
+    video: {
+        type: String,
+        default: null
+    },
+	difficulty: {
+		type: String,
+		required: true
+	},
+	cooktime: {
+		type: String,
+		required: true
+	},
+	instruction: {
+		type: [String],
+		required: true
+	},
     category: {
     	type: String, 
     	required: true
@@ -29,6 +44,14 @@ var MealSchema = new mongoose.Schema({
     ingredients: {
     	type: [String], 
     	required: true
+    },
+	nutritionfact: {
+		type: String,
+		default: null
+	},
+    image: {
+        type: String,
+        default: null
     }
 });
 

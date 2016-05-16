@@ -54,7 +54,7 @@ passport.use(new BearerStrategy(
 exports.getNewToken = function(req, res, next) {
 	if (!req.body.username) { res.status(400).json({message: 'Field username missing'}); return;}
 	if (!req.body.password) { res.status(400).json({message: 'Field password missing'}); return;}
-	User.findOne({username: req.body.username}, function(err, user) {
+	User.findOne({username: req.body.username.toLowerCase()}, function(err, user) {
 		if (err) { res.status(500).json({message: 'Server Error'}); return; }
 		if (!user) { res.status(400).json({message: 'Wrong username or/and password'}); return; }
 		user.verifyPassword(req.body.password, function(err, isMatch){
@@ -74,8 +74,22 @@ exports.getNewToken = function(req, res, next) {
 	});
 };
 
-exports.isValidToken = function(req, res, next) {
+exports.logout = function(req, res, next) {
 	var token = req.get('token');
+	if (!token) { res.status(401).json({message: 'Missing token'}); return; }
+	Token.findOneAndRemove({value: token}, function(err, count) {
+		if (err) {
+			res.json(err);
+		}
+		else {
+			res.json(count);
+		}
+	});
+
+};
+
+exports.isValidToken = function(req, res, next) {
+	var token = req.get('Authorization');
 	if (!token) { res.status(401).json({message: 'Missing token'}); return; }
 	Token.findOne({value: token}, function(err, myToken) {
 		if (err) { res.status(500).json({message: 'Server Error'}); return; }
