@@ -13,34 +13,40 @@
 		            <p>
 		            	<label>Username</label>	
 			            <input type="text" name="username" ng-model="username" class="input" ng-minlength="2" ng-maxlength="30" required>
+						<p ng-show="userForm.username.$error.required" class="help-block">Username required.</p>
 						<p ng-show="userForm.username.$error.minlength" class="help-block">Username is too short, need 2 character at least.</p>
 						<p ng-show="userForm.username.$error.maxlength" class="help-block">Username is too long, need to be lower than 30 character.</p>
 						</p>
 						<p>
 							<label>Password</label>
 							<input type="password" name="password" ng-model="password" class="input" ng-minlength="8" required>
+						<p ng-show="userForm.password.$error.required" class="help-block">Password required.</p>
 						<p ng-show="userForm.password.$error.minlength" class="help-block">Password is too short, need 8 character at least.</p>
 						</p>
 		            <p>
 		            	<label>Email</label>
 						<input type="email" name="email" ng-model="email" class="input" required>
+						<p ng-show="userForm.email.$error.required" class="help-block">Email required.</p>
 						<p ng-show="userForm.email.$error.email" class="help-block">Email not valid.</p>
 						</p>
 						<p>
 							<label>Firstname</label>
 							<input type="text" name="firstname" ng-model="firstname" class="input" ng-minlength="2" ng-maxlength="30" required>
+						<p ng-show="userForm.firstname.$error.required" class="help-block">Firstname required.</p>
 						<p ng-show="userForm.firstname.$error.minlength" class="help-block">Firstname is too short, need 2 character at least.</p>
 						<p ng-show="userForm.firstname.$error.maxlength" class="help-block">Firstname is too long, need to be lower than 30 character.</p>
 						</p>
 						<p>
 							<label>Lastname</label>
 							<input type="text" name="lastname" ng-model="lastname" class="input" ng-minlength="2" ng-maxlength="30" required>
+						<p ng-show="userForm.lastname.$error.required" class="help-block">Lastname required.</p>
 						<p ng-show="userForm.lastname.$error.minlength" class="help-block">Lastname is too short, need 2 character at least.</p>
 						<p ng-show="userForm.lastname.$error.maxlength" class="help-block">Lastname is too long, need to be lower than 30 character.</p>
 						</p>
 						<p>
 							<label>Age</label>
 							<input type="text" name="age" ng-model="age" class="input" ng-pattern="/^(\d)+$/" required>
+						<p ng-show="userForm.age.$error.required" class="help-block">Age required.</p>
 						<p ng-show="userForm.age.$error.pattern" class="help-block">Only number expected.</p>
 						</p>
 						<p>

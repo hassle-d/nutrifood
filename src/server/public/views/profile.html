@@ -14,7 +14,8 @@
 						<div>
 							<p>
 							<label class="heading">Firstname</label>
-							<input type="text" name="firstname" ng-model="firstname" class="input" required>
+							<input type="text" name="firstname" ng-model="firstname" class="input" required ng-minlength="2" ng-maxlength="30">
+							<p ng-show="edituserForm.firstname.$error.required" class="help-block">Firstname required.</p>
 							<p ng-show="edituserForm.firstname.$error.minlength" class="help-block">Firstname is too short, need 2 character at least.</p>
 							<p ng-show="edituserForm.firstname.$error.maxlength" class="help-block">Firstname is too long, need to be lower than 30 character.</p>
 							</p>
@@ -23,7 +24,8 @@
 						<div>
 							<p>
 							<label class="heading">Lastname</label>
-							<input type="text" name="lastname" ng-model="lastname" class="input" required>
+							<input type="text" name="lastname" ng-model="lastname" class="input" required ng-minlength="2" ng-maxlength="30">
+							<p ng-show="edituserForm.lastname.$error.required" class="help-block">Lastname required.</p>
 							<p ng-show="edituserForm.lastname.$error.minlength" class="help-block">Lastname is too short, need 2 character at least.</p>
 							<p ng-show="edituserForm.lastname.$error.maxlength" class="help-block">Lastname is too long, need to be lower than 30 character.</p>
 							</p>

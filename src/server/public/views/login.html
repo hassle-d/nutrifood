@@ -5,15 +5,19 @@
                     <div class="login-form col-md-offset-2 col-md-8 ">
                         <h2>Login</h2>
                         <div ng-controller="loginController">
-                        <form method="post">
+                        <form method="post" name="loginForm">
 
                             <p class="login-username">
                                 <label>Username</label>
-                                <input type="text" class="input" ng-model="username" size="20">
+                                <input type="text" name="username" class="input" ng-model="username" size="20" required>
+                            <p ng-show="loginForm.username.$error.required" class="help-block">Username required.</p>
+                            <!--<p class="des">Please fill every field.</p>-->
                             </p>
                             <p class="login-password">
                                 <label>Password</label>
-                                <input type="password" class="input" ng-model="password" size="20">
+                                <input type="password" name="password" class="input" ng-model="password" size="20" required>
+                            <p ng-show="loginForm.password.$error.required" class="help-block">Password required.</p>
+                            <!--<p class="des">Please fill every field</p>-->
                             </p>
 
                             <p class="login-remember"><label><input name="rememberme" type="checkbox" id="rememberme" value="forever"> Remember Me</label></p>

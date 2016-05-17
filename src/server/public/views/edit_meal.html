@@ -8,40 +8,44 @@
                         <hr>
                     </div>
                     <div class="hs-content">
-                        <form class="row" method="post">
+                        <form class="row" method="post" name="editMealForm">
                             <div class="form-group col-sm-6">
                                 <label>Recipe title</label>
-                                <input type="text" ng-model="name"  class="input">
+                                <input type="text" ng-model="name" name="recipeTitle" class="input" required>
+                                <p ng-show="editMealForm.recipeTitle.$error.required" class="help-block">Recipe title required.</p>
                                 <p class="des">Keep it short and descriptive</p>
                             </div>
                              <div class="form-group col-sm-7">
                                 <label>Recipe photo</label>
-                                 <input type="file"  id="photo-upload" class="upload-visible"  file-model="myFile" class="sr-only" multiple ng-disabled="disabled">
+                                 <input type="file" name="recipePhoto" id="photo-upload" class="upload-visible"  file-model="myFile" class="sr-only" multiple ng-disabled="disabled" required>
                                 <div class="upload" data-target="#photo-upload">
                                     <span class="btn btn-success fileinput-button" ng-class="{disabled: disabled}">
                                         <i class="glyphicon glyphicon-plus"></i>
                                     </span>
                                 </div>
                                 <img  ng-if="{{image}}" src="/api/v1/meals/image/{{image}}" height="70" width="98">
-                                <p class="des">Recommended size: 2000px by 600px or larger</p>
+                                 <p ng-show="editMealForm.recipePhoto.$error.required" class="help-block">Recipe photo required.</p>
+                                 <p class="des">Recommended size: 2000px by 600px or larger</p>
                             </div>
                             <div class="form-group col-sm-12">
                                 <label>Recipe video</label>
-                                <input type="text" ng-model="video" class="input">
+                                <input type="text" name="recipeVideo" ng-model="video" class="input" required>
+                                <p ng-show="editMealForm.recipeVideo.$error.required" class="help-block">Recipe video required.</p>
                                 <p class="des"><b>OPTIONAL:</b> If you have your recipe video on Youtube, Vimeo, or any of the other supported Embed sites, then you'll want to use the field above. Just paste in the URL (ex. http://youtu.be/1O8D_wTCm3s or https://vimeo.com/26140401) and it will show up as a popup by clicking the recipe image.</p>
                             </div>
                             <div class="form-group col-sm-12">
                                 <label>Difficulty level</label>
-                                <select ng-model="difficulty">
+                                <select ng-model="difficulty" name="difficultyLevel" required>
                                     <option value="easy">Easy</option>
                                     <option value="hard">Hard</option>
                                     <option value="master">Master</option>
                                 </select>
-                                <p class="des">Keep it short and descriptive</p>
+                                <p ng-show="editMealForm.difficultyLevel.$error.required" class="help-block">Difficulty level required.</p>
+                                <p class="des">Make sure to well determine the difficulty</p>
                             </div>
                             <div class="form-group col-sm-4">
                                 <label>RECIPE CATEGORY</label>
-                                <select ng-model="category">
+                                <select ng-model="category" name="recipeCategory" required>
                                     <option value="" disabled selected>Choose category</option>
                                     <option value="Mediterranean">Mediterranean</option>
                                     <option value="Asian">Asian</option>
@@ -50,14 +54,16 @@
                                     <option value="British">British</option>
                                     <option value="Indian">Indian</option>
                                 </select>
+                                <p ng-show="editMealForm.recipeCategory.$error.required" class="help-block">Recipe category required.</p>
                             </div>
                             <div class="form-group col-sm-12">
                                 <label>Short description</label>
-                                <textarea cols="30" rows="10" ng-model="description" class="input"></textarea>
+                                <textarea cols="30" rows="10" name="shortDescription" ng-model="description" class="input" required></textarea>
+                                <p ng-show="editMealForm.shortDescription.$error.required" class="help-block">Short description required.</p>
                             </div>
                             <div class="form-group range-slider col-sm-6">
                                 <label>pre time</label>
-                                <input type="text" id="pre-time" value="00:00" ng-model="pretime"/>
+                                <input type="text" id="pre-time" name="preTime" value="00:00" ng-model="pretime" required/>
                                 <div  ng-cloak>
                                     <md-slider flex md-discrete ng-model="rating1" step="1" min="1" max="5" aria-label="rating"></md-slider>
                                 </div>
@@ -66,28 +72,32 @@
                                     <span class="left">00:00</span><span class="right">06:00</span>
                                     <span class="time-format"><span>HH:MM</span></span>
                                 </p>
+                                <p ng-show="editMealForm.preTime.$error.required" class="help-block">Warmup time required.</p>
                             </div>
                             <div class="form-group range-slider col-sm-6">
                                 <label>cook time</label>
-                                <input type="text" id="cook-time" value="00:00" ng-model="cooktime" />
+                                <input type="text" id="cook-time" name="cookTime" value="00:00" ng-model="cooktime" required/>
                                 <div class="range-slider" data-target="#cook-time" data-max="6"></div>
                                 <p class="des">
                                     <span class="left">00:00</span><span class="right">06:00</span>
                                     <span class="time-format"><span>HH:MM</span></span>
                                 </p>
+                                <p ng-show="editMealForm.cookTime.$error.required" class="help-block">Cook time required.</p>
                             </div>
                             <div class="form-group col-sm-12">
                                 <label>Ingredient</label>
                                 <div class="ingredient-textarea">
-                                    <textarea cols="30" rows="10" ng-model="ingredients" class="input"></textarea>
+                                    <textarea cols="30" rows="10" ng-model="ingredients" name="ingredient" class="input" required></textarea>
                                 </div>
+                                <p ng-show="editMealForm.ingredient.$error.required" class="help-block">Ingredient required.</p>
                                 <p class="des">Enter the different ingredients with a clear name. Separate all different ingredients per a coma. If you need to give a special information, add it between two parentheses.</p>
                             </div>
                             <div class="form-group col-sm-12">
                                 <label>Instruction</label>
                                 <div class="ingredient-textarea">
-                                    <textarea cols="30" rows="10" ng-model="instruction"></textarea>
+                                    <textarea cols="30" rows="10" name="instructions" ng-model="instruction" required></textarea>
                                 </div>
+                                <p ng-show="editMealForm.instructions.$error.required" class="help-block">Instruction required.</p>
                                 <p class="des">Add all of the cooking steps, one per line.</p>
                             </div>
 
