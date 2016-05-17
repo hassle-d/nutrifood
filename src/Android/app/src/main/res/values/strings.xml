@@ -75,8 +75,10 @@
 
     <!-- URL Relative -->
     <!-- <string name="Base_URL">http://10.0.2.2:3000/api/v1</string> -->
-    <string name="Base_URL">https://nutrifood.ovh/api/v1</string>
+    <!-- <string name="Base_URL">https://nutrifood.ovh/api/v1</string> -->
+    <string name="Base_URL">http://192.168.1.102:3000/api/v1</string>
     <string name="login_URL">/auth/signin</string>
+    <string name="comment_URL">/comment</string>
     <string name="users_URL">/users</string>
     <string name="user_URL">/user</string>
     <string name="meals_URL">/meals</string>

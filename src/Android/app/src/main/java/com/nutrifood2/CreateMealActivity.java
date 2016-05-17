@@ -99,6 +99,8 @@ public class CreateMealActivity extends AppCompatActivity {
                                 SELECT_FILE);
                     } else if (items[item].equals("Cancel")) {
                         dialog.dismiss();
+                    } else {
+                        Log.d("selectImage","ERROR");
                     }
                 }
             });

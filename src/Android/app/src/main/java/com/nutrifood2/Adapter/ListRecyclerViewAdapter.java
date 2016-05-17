@@ -3,6 +3,7 @@ package com.nutrifood2.Adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,6 +73,7 @@ public class ListRecyclerViewAdapter
         mViewTypeMap.put(R.integer.CARD_VIEW, R.layout.card_item);
         mViewTypeMap.put(R.integer.CARD_IMG_VIEW, R.layout.card_img_item);
         mViewTypeMap.put(R.integer.BASIC_VIEW, R.layout.basic_item);
+        mViewTypeMap.put(R.integer.LIST_ITEM_VIEW, R.layout.list_item);
     }
 
     @Override
@@ -93,13 +95,14 @@ public class ListRecyclerViewAdapter
         String content = holder.mItem.Content();
         int img_id = holder.mItem.ImageId();
 
-
-
         if (name != null && holder.mIdView != null)
             holder.mIdView.setText(name);
         if (content != null && holder.mContentView != null)
             holder.mContentView.setText(content);
+        if (holder.mPosView != null)
+            holder.mPosView.setText(String.valueOf(position+1));
         if (holder.mImageView != null) {
+            Log.d("mImageView","in");
             if (img_id != -1)
                 holder.mImageView.setImageResource(img_id);
         }
@@ -123,19 +126,28 @@ public class ListRecyclerViewAdapter
         public final TextView mIdView;
         public final TextView mContentView;
         public final ImageView mImageView;
+        public final TextView mPosView;
         public BasicItem mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
             mIdView = (TextView) view.findViewById(R.id.item_title);
-            if (mViewType != R.integer.CARD_IMG_VIEW) {
+
+            if (mViewType == R.integer.CARD_VIEW || mViewType == R.integer.BASIC_VIEW) {
                 mContentView = (TextView) view.findViewById(R.id.item_content);
+                mImageView = null;
+                mPosView = null;
+            }
+            else if (mViewType == R.integer.LIST_ITEM_VIEW) {
+                mPosView = (TextView) view.findViewById(R.id.item_position);
+                mContentView = null;
                 mImageView = null;
             }
             else {
                 mImageView = (ImageView) view.findViewById(R.id.item_img);
                 mContentView = null;
+                mPosView = null;
             }
         }
     }

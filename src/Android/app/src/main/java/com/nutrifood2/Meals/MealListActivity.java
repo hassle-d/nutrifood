@@ -144,7 +144,7 @@ public class MealListActivity extends AppCompatActivity {
             meal.Cooktime(obj.getString(getString(R.string.cooktime_key)));
             meal.Description(obj.getString(getString(R.string.description_key)));
             meal.Ingredients(DataHolder.getArrayList(new ArrayList<String>(), obj.getJSONArray(getString(R.string.ingredients_key))));
-            meal.Instruction(obj.getString(getString(R.string.instruction_key)));
+            meal.Instruction(DataHolder.getArrayList(new ArrayList<String>(), obj.getJSONArray(getString(R.string.instruction_key))));
             meal.StrImage(obj.getString(getString(R.string.image_key)));
             //           meal.Image(obj.getString(getString(R.string.image_key)), getActivity());
         } catch (JSONException e) {

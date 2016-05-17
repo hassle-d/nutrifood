@@ -5,6 +5,7 @@
     <integer name="CARD_VIEW">0</integer>
     <integer name="CARD_IMG_VIEW">1</integer>
     <integer name="BASIC_VIEW">2</integer>
+    <integer name="LIST_ITEM_VIEW">3</integer>
 
     <integer name="GRID_COLUMNS">2</integer>
 </resources>
