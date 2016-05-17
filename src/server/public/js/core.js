@@ -125,7 +125,7 @@ myApp.directive('fileModel', ['$parse', function ($parse) {
 
 myApp.controller('bookmarkMealsController', function($scope, $http, $cookies, $location, authService){
     var token = authService.isAuthenticated();
-    
+
 });
 
 myApp.controller('recipeSubmitController', function($scope, $http, $cookies, $location, authService){
@@ -380,6 +380,31 @@ myApp.controller('mealController', function($scope, $http, $routeParams, $cookie
         });
     };
 
+    $scope.addBookmark = function() {
+        $http.post('/api/v1/bookmark/' + id, {}, {
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined, 'Authorization': token}
+        })
+        .success(function(){
+            console.log('ok');
+            $scope.meal.bookmarked = true;
+        })
+        .error(function(){
+        });
+    };
+
+    $scope.delBookmark = function() {
+        $http.delete('/api/v1/bookmark/' + id, {
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined, 'Authorization': token}
+        })
+        .success(function(){
+            console.log('ok');
+            $scope.meal.bookmarked = false;
+        })
+        .error(function(){
+        });
+    };
 
     delete $http.defaults.headers.common['X-Requested-With'];
     $http({
@@ -394,7 +419,6 @@ myApp.controller('mealController', function($scope, $http, $routeParams, $cookie
     });
 
     getComment();
-
 
     $scope.addComment = function (){
 

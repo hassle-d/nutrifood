@@ -57,6 +57,10 @@ var MealSchema = new mongoose.Schema({
     vote: {
         type: Number,
         default: 2.5
+    },
+    bookmarked: {
+        type: Boolean,
+        default: false
     }
 });
 

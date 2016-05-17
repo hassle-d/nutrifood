@@ -19,7 +19,11 @@
 						<img src="/api/v1/meals/image/{{meal.image}}" alt="">
 					</div>
 					<div class="entry entry-action">
-						<a id="bookmarkme" href="http://google.com/" title="Culinier" class="action action-bookmark">
+						<a ng-if="meal.bookmarked==true" ng-click="delBookmark();" title="Unbookmark" class="action action-bookmark" style="background-color:#f8c231;">
+							<i class="fa fa-bookmark"></i>
+							<p>BOOKMARKED</p>
+						</a>
+						<a ng-if="meal.bookmarked==false" ng-click="addBookmark();" id="bookmarkme" title="Bookmark" class="action action-bookmark">
 							<i class="fa fa-bookmark"></i>
 							<p>BOOKMARK</p>
 						</a>

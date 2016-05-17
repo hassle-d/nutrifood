@@ -6,6 +6,7 @@ var fs = require('fs');
 var Meal = require('../models/meals');
 var Image = require('../models/image');
 var Vote = require('../models/vote');
+var Bookmark = require('../models/bookmark');
 
 exports.postMeals = function(req, res) {
     image = null;
@@ -142,8 +143,17 @@ exports.getMealById = function(req, res) {
     Meal.findById(req.params.id, function(err, meal){
         if (err)
             res.send(err);
-        else
-            res.json(meal);
+        else {
+            Bookmark.findOne({'meal': req.params.id, 'user':req.user.username}, function (err, result) {
+                if (err)
+                    res.json(err);
+                else {
+                    if (result)
+                        meal.bookmarked = true;
+                    res.json(meal);
+                }
+            })
+        }
     });
 };
 

@@ -13,6 +13,7 @@ router.route('/bookmark')
 
 
 router.route('/bookmark/:meal')
-	.post(authController.isValidToken, bookmarkController.addBookmark);
+	.post(authController.isValidToken, bookmarkController.addBookmark)
+	.delete(authController.isValidToken, bookmarkController.deleteBookmark);
 
 module.exports = router;
