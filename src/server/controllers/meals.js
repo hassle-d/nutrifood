@@ -5,6 +5,7 @@
 var fs = require('fs');
 var Meal = require('../models/meals');
 var Image = require('../models/image');
+var Vote = require('../models/vote');
 
 exports.postMeals = function(req, res) {
     image = null;
@@ -50,7 +51,7 @@ exports.postMeals = function(req, res) {
 
 exports.updateMeal = function(req, res) {
     var updateFields = {};
-    image = null;
+    var image = null;
 
     if (req.file)
         updateFields.image = req.file.filename;
@@ -132,7 +133,7 @@ exports.getMeals = function(req, res){
     Meal.find({}, options, {sort: opsort}, function(err, meals){
         if (err)
             res.send(err);
-        else
+        else 
             res.json(meals);
     });
 };

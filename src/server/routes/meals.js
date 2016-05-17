@@ -22,7 +22,6 @@ router.route('/test').get(function (req, res){
 			"</body></html>");
 	});
 
-
 router.route('/meals/name/:name')
     .get(authController.isValidToken, mealController.getMealByName);
 

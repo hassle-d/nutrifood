@@ -45,6 +45,10 @@ myApp.config(function ($httpProvider, $routeProvider) {
                     templateUrl : 'views/meals.html',
                     controller: 'homeController'
                 })
+                .when('/meals/',{
+                    templateUrl : 'views/meals.html',
+                    controller: 'BookmarkMealsController'
+                })
                 .when('/meals/search/:id',{
                     templateUrl : 'views/meals.html',
                     controller: 'searchMealsController'
@@ -118,6 +122,11 @@ myApp.directive('fileModel', ['$parse', function ($parse) {
         }
     };
 }]);
+
+myApp.controller('bookmarkMealsController', function($scope, $http, $cookies, $location, authService){
+    var token = authService.isAuthenticated();
+    
+});
 
 myApp.controller('recipeSubmitController', function($scope, $http, $cookies, $location, authService){
     var token = authService.isAuthenticated();
@@ -356,8 +365,10 @@ myApp.controller('categoryMealsController', function($scope, mealService, authSe
     });
 });
 
-myApp.controller('mealController', function($scope, $http, $routeParams, $cookies, $location) {
+myApp.controller('mealController', function($scope, $http, $routeParams, $cookies, $location, authService) {
+    var token = authService.isAuthenticated();
     var id = $routeParams.id;
+    console.log('ID = ' + id);
     var getComment = function(){
         $http({
             method: 'GET',
@@ -373,7 +384,8 @@ myApp.controller('mealController', function($scope, $http, $routeParams, $cookie
     delete $http.defaults.headers.common['X-Requested-With'];
     $http({
         method: 'GET',
-        url: '/api/v1/meals/' + id
+        url: '/api/v1/meals/' + id,
+        headers: {'Authorization': token}
     }).then(function(dataResponse) {
         console.log(dataResponse.data);
         $scope.meal = dataResponse.data;

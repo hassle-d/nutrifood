@@ -3,6 +3,7 @@
 */
 
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
 var MealSchema = new mongoose.Schema({
     author: {
@@ -52,6 +53,10 @@ var MealSchema = new mongoose.Schema({
     image: {
         type: String,
         default: null
+    },
+    vote: {
+        type: Number,
+        default: 2.5
     }
 });
 

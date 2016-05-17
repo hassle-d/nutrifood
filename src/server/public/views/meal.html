@@ -43,7 +43,18 @@
 							</div>
 						</div>
 						<div class="action entry-rate">
-							<span><span>DELICOUS</span> <i class="fa fa-star rated"></i><i class="fa fa-star rated"></i><i class="fa fa-star rated"></i><i class="fa fa-star rated"></i><i class="fa fa-star"></i></span>
+							<span  style="margin-top:5px;">
+								<i ng-if="meal.vote>0" class="fa fa-star rated" style="font-size:2em;"></i>
+								<i ng-if="meal.vote>1" class="fa fa-star rated" style="font-size:2em;"></i>
+								<i ng-if="meal.vote>2" class="fa fa-star rated" style="font-size:2em;"></i>
+								<i ng-if="meal.vote>3" class="fa fa-star rated" style="font-size:2em;"></i>
+								<i ng-if="meal.vote==5" class="fa fa-star rated" style="font-size:2em;"></i>
+								<i ng-if="meal.vote==0" class="fa fa-star" style="font-size:2em;"></i>
+								<i ng-if="meal.vote<=1" class="fa fa-star" style="font-size:2em;"></i>
+								<i ng-if="meal.vote<=2" class="fa fa-star" style="font-size:2em;"></i>
+								<i ng-if="meal.vote<=3" class="fa fa-star" style="font-size:2em;"></i>
+								<i ng-if="meal.vote<=4" class="fa fa-star" style="font-size:2em;"></i>
+							</span>
 						</div>
 					</div>
 					<div class="entry entry-description">
