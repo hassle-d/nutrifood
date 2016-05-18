@@ -1,5 +1,6 @@
 package com.nutrifood2;
 
+// Import needed to execute the code
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -35,13 +36,31 @@ import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 
+/**
+ * Activity for the main page
+ *
+ * @author DimitriAndMathias
+ * @version 2016.0501
+ * @since 2.0
+ */
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
-
+        implements NavigationView.OnNavigationItemSelectedListener
+{
+    // Private variables
     private NavigationView navigationView = null;
 
+    /**
+     * This method simply .
+     *
+     * @author DimitriAndMathias
+     * @param savedInstanceState The given bundle
+     * @version 2010.1105
+     * @since 1.0
+     * @return nothing
+     */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -70,8 +89,17 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * This method simply .
+     *
+     * @author DimitriAndMathias
+     * @version 2010.1105
+     * @since 1.0
+     * @return nothing
+     */
     @Override
-    protected void onStop() {
+    protected void onStop()
+    {
         if (DataHolder.token != null) {
             SharedPreferences settings = getApplicationContext().getSharedPreferences("SETTINGS", MODE_PRIVATE);
             SharedPreferences.Editor editor = settings.edit();
@@ -81,8 +109,17 @@ public class MainActivity extends AppCompatActivity
         super.onStop();
     }
 
+    /**
+     * This method simply .
+     *
+     * @author DimitriAndMathias
+     * @version 2010.1105
+     * @since 1.0
+     * @return nothing
+     */
     @Override
-    public void onBackPressed() {
+    public void onBackPressed()
+    {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -91,15 +128,35 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * This method simply .
+     *
+     * @author DimitriAndMathias
+     * @param menu The given menu
+     * @version 2016.0501
+     * @return True
+     * @since 2.0
+     */
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
+    /**
+     * This method simply .
+     *
+     * @author DimitriAndMathias
+     * @param item The given menu item
+     * @version 2016.0501
+     * @return The option's value
+     * @since 2.0
+     */
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
@@ -123,6 +180,15 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * This method simply .
+     *
+     * @author DimitriAndMathias
+     * @param id The given fragment's id
+     * @version 2016.0501
+     * @return The operation's status
+     * @since 2.0
+     */
     private boolean setFragment(int id)
     {
         Fragment fragment = null;
@@ -156,6 +222,15 @@ public class MainActivity extends AppCompatActivity
         return false;
     }
 
+    /**
+     * This method simply .
+     *
+     * @author DimitriAndMathias
+     * @param id The given item's id
+     * @version 2016.0501
+     * @return nothing
+     * @since 2.0
+     */
     public void setNavigationItem(int id)
     {
         MenuItem item = navigationView.getMenu().findItem(id);
@@ -166,9 +241,19 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * This method simply .
+     *
+     * @author DimitriAndMathias
+     * @param item The given menu item
+     * @version 2016.0501
+     * @return The operation's value
+     * @since 2.0
+     */
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(MenuItem item)
+    {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         boolean ret = false;
@@ -183,7 +268,17 @@ public class MainActivity extends AppCompatActivity
         return ret;
     }
 
-    private void newUser(JSONObject obj) {
+    /**
+     * This method simply .
+     *
+     * @author DimitriAndMathias
+     * @param obj The given json object
+     * @version 2016.0501
+     * @return nothing
+     * @since 2.0
+     */
+    private void newUser(JSONObject obj)
+    {
         if (DataHolder.user == null)
             DataHolder.user = new User();
         try {
@@ -200,31 +295,87 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * This method simply .
+     *
+     * @author DimitriAndMathias
+     * @version 2016.0501
+     * @return nothing
+     * @since 2.0
+     */
     private void getUserProfile()
     {
-        Client.get(getString(R.string.user_URL), null, new JsonHttpResponseHandler() {
-
+        Client.get(getString(R.string.user_URL), null, new JsonHttpResponseHandler()
+        {
+            /**
+             * This method simply .
+             *
+             * @author DimitriAndMathias
+             * @param statusCode The given status' code
+             * @param headers The given headers
+             * @param response The given json array
+             * @version 2010.1105
+             * @since 1.0
+             * @return nothing
+             */
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response)
+            {
                 Log.d("SUCCESS ONE", String.valueOf(response));
             }
 
+            /**
+             * This method simply .
+             *
+             * @author DimitriAndMathias
+             * @param statusCode The given status' code
+             * @param headers The given headers
+             * @param object The given json object
+             * @version 2010.1105
+             * @since 1.0
+             * @return nothing
+             */
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject object) {
+            public void onSuccess(int statusCode, Header[] headers, JSONObject object)
+            {
                 Log.d("SUCCESS TWO", String.valueOf(object));
                 newUser(object);
             }
 
+            /**
+             * This method simply .
+             *
+             * @author DimitriAndMathias
+             * @param statusCode The given status' code
+             * @param headers The given headers
+             * @param throwable The given throwable
+             * @version 2010.1105
+             * @since 1.0
+             * @return nothing
+             */
             @Override
-            public void onFailure(int statusCode, Header[] headers, String string, Throwable throwable) {
+            public void onFailure(int statusCode, Header[] headers, String string, Throwable throwable)
+            {
                 Log.d("ERROR ONE", String.valueOf(statusCode));
             }
 
+            /**
+             * This method simply .
+             *
+             * @author DimitriAndMathias
+             * @param statusCode The given status' code
+             * @param headers The given headers
+             * @param throwable The given throwable
+             * @param errorResponse The given json array
+             * @version 2010.1105
+             * @since 1.0
+             * @return nothing
+             */
             @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse)
+            {
                 Log.d("ERROR TWO", String.valueOf(statusCode));
             }
-
         });
     }
 }

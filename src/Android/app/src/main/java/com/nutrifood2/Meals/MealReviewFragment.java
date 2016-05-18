@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -46,6 +47,7 @@ public class MealReviewFragment extends Fragment implements View.OnClickListener
     private Button mSubmit;
     private EditText mComment;
     private TextView mNbView;
+    private RatingBar mRating;
 
     public MealReviewFragment() {
         // Required empty public constructor
@@ -79,6 +81,8 @@ public class MealReviewFragment extends Fragment implements View.OnClickListener
 
         mNbView = (TextView) rootView.findViewById(R.id.nb_review);
 
+        mRating = (RatingBar)rootView.findViewById(R.id.rating);
+
         getListComments();
 
         return rootView;
@@ -97,7 +101,9 @@ public class MealReviewFragment extends Fragment implements View.OnClickListener
             comment.Name(obj.getString(getString(R.string.author_key)));
             comment.Id(obj.getString(getString(R.string.id_key)));
             comment.MealId(obj.getString(getString(R.string.mealid_key)));
-            comment.Date(obj.getString(getString(R.string.date_key)));
+
+            //Tmp debug - Fix the buggy date on the API
+            comment.Date(obj.getString(getString(R.string.date_key)).substring(0, 10));
             comment.Content(obj.getString(getString(R.string.content_key)));
         } catch (JSONException e) {
             e.printStackTrace();
@@ -122,13 +128,14 @@ public class MealReviewFragment extends Fragment implements View.OnClickListener
                 mNbView.setText(String.valueOf(length) + " Comments");
                 Log.d("SUCCESS", response.toString());
 
+                adapter.clearList();
+
                 try {
                     for (int i = 0; i < length; ++i) {
                         obj = response.getJSONObject(i);
                         if (obj != null) {
                             Comment item = newComment(obj);
-                            if (!CommentContent.ITEM_MAP.containsKey(item.Id()))
-                                adapter.addItem(item);
+                            adapter.addItem(item);
                             CommentContent.addItem(item);
                         }
                         adapter.notifyDataSetChanged();
@@ -141,6 +148,37 @@ public class MealReviewFragment extends Fragment implements View.OnClickListener
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject object) {
 
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String string, Throwable throwable) {
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+            }
+        });
+    }
+
+    private void onRating(double value)
+    {
+        String url = "/" + getString(R.string.rating_key) + "/" + mItem.Id();
+        RequestParams params = new RequestParams();
+        params.add(getString(R.string.value_key), String.valueOf(value));
+
+        Client.post(url, params, new JsonHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                Log.d("SUCCESS", "ONE");
+                mRating.setRating(0);
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject object) {
+                Log.d("SUCCESS", "TWO");
+                mRating.setRating(0);
             }
 
             @Override
@@ -184,6 +222,12 @@ public class MealReviewFragment extends Fragment implements View.OnClickListener
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             }
         });
+
+        double rating = mRating.getRating();
+        if (rating > 0)
+        {
+            onRating(rating);
+        }
     }
 
     @Override

@@ -56,7 +56,7 @@ exports.updateMeal = function(req, res) {
     var image = null;
 
     if (req.file)
-        updateFields.image = req.file.filename;
+        updateFields.image = req.body.image;
     if (req.body.author)
         updateFields.author = req.body.author;
     if (req.body.name)
@@ -78,15 +78,14 @@ exports.updateMeal = function(req, res) {
     if (req.body.nutritionfact)
         updateFields.nutritionfact = req.body.nutritionfact;
 
+    console.log(req.body.author);
     Meal.update({_id: req.params.id}, updateFields, function (err, doc){
+        console.log(req.params.id);
         if (req.file)
             image = req.file.filename;
         if (err) { res.json(err); return; }
         else{
-        var mealImage = new Image({
-            filename: req.file.filename,
-            type: req.file.mimetype
-        });
+
         if (image){
             mealImage.save(function(err) {
                 if (err)
@@ -196,6 +195,15 @@ exports.deleteMeal = function(req, res) {
     }
 };
 
+exports.getOwnerMeal = function(req, res){
+  Meal.find({author : req.params.author}, function(err, meal){
+        if (err)
+            res.send(err);
+        else
+            res.json(meal);
+    });
+};
+
 exports.getMealByName = function(req, res) {
     var regex = new RegExp(req.params.name.toLowerCase(), 'i');
     Meal.find({'name': regex}, function(err, meal){
@@ -214,3 +222,4 @@ exports.getMealByCategory = function(req, res) {
             res.json(meal);
     });
 };
+

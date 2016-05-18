@@ -1,6 +1,6 @@
 package com.nutrifood2.Adapter;
 
-
+// Import needed to execute the code
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -19,17 +19,37 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Adapter for the recycler view list
+ *
+ * @author DimitriAndMathias
+ * @version 2016.0501
+ * @since 2.0
+ */
 public class ListRecyclerViewAdapter
-        extends RecyclerView.Adapter<ListRecyclerViewAdapter.ViewHolder> {
+        extends RecyclerView.Adapter<ListRecyclerViewAdapter.ViewHolder>
+{
 
+    // Private variables
     private final List<BasicItem> mValues;
     private final Map<Integer, Integer> mViewTypeMap = new HashMap<>();
     private int mViewType = R.integer.BASIC_VIEW;
     private CallBack mCallBack = null;
     private Context mContext;
 
+    /**
+     * Public constructor that saves the given context, items, view type and action
+     *
+     * @author DimitriAndMathias
+     * @param context The given layout's context
+     * @param items The given layout's items
+     * @param viewType The given layout's view type
+     * @param action The given layout's action
+     * @version 2016.0501
+     */
     public ListRecyclerViewAdapter(Context context, List<BasicItem> items,
-                                   int viewType, CallBack action) {
+                                   int viewType, CallBack action)
+    {
         mValues = items;
         mCallBack = action;
         mContext = context;
@@ -38,7 +58,17 @@ public class ListRecyclerViewAdapter
         initialize();
     }
 
-    public ListRecyclerViewAdapter(Context context, List<BasicItem> items, CallBack action) {
+    /**
+     * Public constructor that saves the given context, items and action
+     *
+     * @author DimitriAndMathias
+     * @param context The given layout's context
+     * @param items The given layout's items
+     * @param action The given layout's action
+     * @version 2016.0501
+     */
+    public ListRecyclerViewAdapter(Context context, List<BasicItem> items, CallBack action)
+    {
         mValues = items;
         mCallBack = action;
         mContext = context;
@@ -46,7 +76,17 @@ public class ListRecyclerViewAdapter
         initialize();
     }
 
-    public ListRecyclerViewAdapter(Context context, List<BasicItem> items, int viewType) {
+    /**
+     * Public constructor that saves the given context, items and view type
+     *
+     * @author DimitriAndMathias
+     * @param context The given layout's context
+     * @param items The given layout's items
+     * @param viewType The given layout's view type
+     * @version 2016.0501
+     */
+    public ListRecyclerViewAdapter(Context context, List<BasicItem> items, int viewType)
+    {
         mValues = items;
         mViewType = viewType;
         mContext = context;
@@ -54,7 +94,17 @@ public class ListRecyclerViewAdapter
         initialize();
     }
 
-    public ListRecyclerViewAdapter(List<BasicItem> items, int viewType, CallBack callBack) {
+    /**
+     * Public constructor that saves the given items, view type and call back
+     *
+     * @author DimitriAndMathias
+     * @param items The given layout's items
+     * @param viewType The given layout's view type
+     * @param callBack The given layout's call back
+     * @version 2016.0501
+     */
+    public ListRecyclerViewAdapter(List<BasicItem> items, int viewType, CallBack callBack)
+    {
         mValues = items;
         mViewType = viewType;
         mCallBack = callBack;
@@ -62,25 +112,69 @@ public class ListRecyclerViewAdapter
         initialize();
     }
 
-    public ListRecyclerViewAdapter(List<BasicItem> items, int viewType) {
+    /**
+     * Public constructor that saves the given items and view type
+     *
+     * @author DimitriAndMathias
+     * @param items The given layout's items
+     * @param viewType The given layout's view type
+     * @version 2016.0501
+     */
+    public ListRecyclerViewAdapter(List<BasicItem> items, int viewType)
+    {
         mValues = items;
         mViewType = viewType;
 
         initialize();
     }
 
-    public ListRecyclerViewAdapter(int viewType) {
+    /**
+     * Public constructor that saves the given view type
+     *
+     * @author DimitriAndMathias
+     * @param viewType The given layout's view type
+     * @version 2016.0501
+     */
+    public ListRecyclerViewAdapter(int viewType)
+    {
         mValues = new ArrayList<>();
         mViewType = viewType;
 
         initialize();
     }
 
+    /**
+     * This method simply .
+     *
+     * @author DimitriAndMathias
+     * @version 2010.1105
+     * @since 1.0
+     * @return nothing
+     */
+    public void clearList() { mValues.clear(); }
+
+    /**
+     * This method simply .
+     *
+     * @author DimitriAndMathias
+     * @param item The given item
+     * @version 2010.1105
+     * @since 1.0
+     * @return nothing
+     */
     public void addItem(BasicItem item)
     {
         mValues.add(item);
     }
 
+    /**
+     * This method simply .
+     *
+     * @author DimitriAndMathias
+     * @version 2010.1105
+     * @since 1.0
+     * @return nothing
+     */
     private void initialize()
     {
         mViewTypeMap.put(R.integer.CARD_VIEW, R.layout.card_item);
@@ -90,8 +184,19 @@ public class ListRecyclerViewAdapter
         mViewTypeMap.put(R.integer.COMMENT_VIEW, R.layout.comment_item);
     }
 
+    /**
+     * This method simply .
+     *
+     * @author DimitriAndMathias
+     * @param parent The given view group
+     * @param viewType The given view type
+     * @version 2010.1105
+     * @since 1.0
+     * @return The view holder
+     */
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+    {
         View view = null;
 
         if (mViewTypeMap.containsKey(mViewType))
@@ -101,8 +206,19 @@ public class ListRecyclerViewAdapter
         return new ViewHolder(view);
     }
 
+    /**
+     * This method simply .
+     *
+     * @author DimitriAndMathias
+     * @param holder The given holder
+     * @param position The given positon
+     * @version 2010.1105
+     * @since 1.0
+     * @return nothing
+     */
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position)
+    {
         holder.mItem = mValues.get(position);
 
         String name = holder.mItem.Name();
@@ -132,12 +248,29 @@ public class ListRecyclerViewAdapter
             });
     }
 
+    /**
+     * This method simply .
+     *
+     * @author DimitriAndMathias
+     * @version 2010.1105
+     * @since 1.0
+     * @return The list's count
+     */
     @Override
     public int getItemCount() {
         return mValues.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    /**
+     * Class for the view holder
+     *
+     * @author DimitriAndMathias
+     * @version 2016.0501
+     * @since 2.0
+     */
+    public class ViewHolder extends RecyclerView.ViewHolder
+    {
+        // Private variables
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
@@ -146,7 +279,15 @@ public class ListRecyclerViewAdapter
         public final TextView mPosView;
         public BasicItem mItem;
 
-        public ViewHolder(View view) {
+        /**
+         * Public constructor that saves the given view
+         *
+         * @author DimitriAndMathias
+         * @param view The given view
+         * @version 2016.0501
+         */
+        public ViewHolder(View view)
+        {
             super(view);
             mView = view;
             mIdView = (TextView) view.findViewById(R.id.item_title);

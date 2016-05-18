@@ -1,5 +1,6 @@
 package com.nutrifood2;
 
+// Import needed to execute the code
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -23,6 +24,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 
@@ -41,14 +43,25 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.util.TextUtils;
 
-public class CreateMealActivity extends AppCompatActivity implements View.OnClickListener  {
-
+/**
+ * Activity for the meal's creation
+ *
+ * @author DimitriAndMathias
+ * @version 2016.0501
+ * @since 2.0
+ */
+public class CreateMealActivity extends AppCompatActivity implements View.OnClickListener
+{
+    // Private variables
     static final int REQUEST_CAMERA = 1;
     static final int SELECT_FILE = 2;
-    private Bitmap mImage = null;
+    private File mImage = null;
     private ListView mIngredients;
     private ListView mInstructions;
     private EditText mIngredient;
@@ -59,8 +72,18 @@ public class CreateMealActivity extends AppCompatActivity implements View.OnClic
     private Spinner mDifficulty;
     private Spinner mCategory;
 
+    /**
+     * This method simply .
+     *
+     * @author DimitriAndMathias
+     * @param savedInstanceState The given bundle
+     * @version 2010.1105
+     * @since 1.0
+     * @return nothing
+     */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_meal);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -107,8 +130,18 @@ public class CreateMealActivity extends AppCompatActivity implements View.OnClic
         createButton.setOnClickListener(this);
     }
 
+    /**
+     * This method simply .
+     *
+     * @author DimitriAndMathias
+     * @param item The given menu's item
+     * @version 2010.1105
+     * @since 1.0
+     * @return The option's value
+     */
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
         int id = item.getItemId();
         if (id == android.R.id.home) {
             // This ID represents the Home or Up button. In the case of this
@@ -125,7 +158,16 @@ public class CreateMealActivity extends AppCompatActivity implements View.OnClic
         return super.onOptionsItemSelected(item);
     }
 
-    private void selectImage() {
+    /**
+     * This method simply .
+     *
+     * @author DimitriAndMathias
+     * @version 2010.1105
+     * @since 1.0
+     * @return nothing
+     */
+    private void selectImage()
+    {
         try {
             final CharSequence[] items = { "Take Photo", "Choose from Library", "Cancel" };
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -158,56 +200,80 @@ public class CreateMealActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
+    /**
+     * This method simply .
+     *
+     * @author DimitriAndMathias
+     * @param permission The given permission
+     * @version 2010.1105
+     * @since 1.0
+     * @return The permission's status
+     */
     private boolean checkWriteExternalPermission(String permission)
     {
         int res = checkCallingOrSelfPermission(permission);
         return (res == PackageManager.PERMISSION_GRANTED);
     }
 
+    /**
+     * This method simply .
+     *
+     * @author DimitriAndMathias
+     * @param filename The given bitmap's filename
+     * @param bitmap The given bitmap
+     * @version 2010.1105
+     * @since 1.0
+     * @return The saved file
+     */
+    private File savebitmap(String filename, Bitmap bitmap)
+    {
+        String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
+        OutputStream outStream = null;
+
+        File file = new File(getFilesDir(), filename + ".png");
+        if (file.exists()) {
+            file.delete();
+            file = new File(extStorageDirectory, filename + ".png");
+            Log.e("file exist", "" + file + ",Bitmap= " + filename);
+        }
+        try {
+            Log.d("savebitmap","in");
+            outStream = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outStream);
+            outStream.flush();
+            outStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Log.e("file", "" + file);
+        return file;
+
+    }
+
+    /**
+     * This method simply .
+     *
+     * @author DimitriAndMathias
+     * @param requestCode The given request code
+     * @param resultCode The given result code
+     * @param data The given data
+     * @version 2010.1105
+     * @since 1.0
+     * @return nothing
+     */
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == 1) {
-                File f = new File(Environment.getExternalStorageDirectory().toString());
-                for (File temp : f.listFiles()) {
-                    if (temp.getName().equals("temp.jpg")) {
-                        f = temp;
-                        break;
-                    }
-                }
-                try {
-                    Bitmap bitmap;
-                    BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
-
-                    bitmap = BitmapFactory.decodeFile(f.getAbsolutePath(),
-                            bitmapOptions);
-
-                    mImage = bitmap;
-
-                    String path = Environment
-                            .getExternalStorageDirectory()
-                            + File.separator
-                            + "Phoenix" + File.separator + "default";
-                    f.delete();
-                    OutputStream outFile = null;
-                    File file = new File(path, String.valueOf(System.currentTimeMillis()) + ".jpg");
-                    try {
-                        outFile = new FileOutputStream(file);
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 85, outFile);
-                        outFile.flush();
-                        outFile.close();
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            } else if (requestCode == 2) {
+            if (requestCode == REQUEST_CAMERA) {
+                Bundle extras = data.getExtras();
+                Bitmap imageBitmap = (Bitmap) extras.get("data");
+                mImage = savebitmap("tmp", imageBitmap);
+                ImageView image = (ImageView) findViewById(R.id.meal_image);
+                image.setImageBitmap(imageBitmap);
+            }
+            else if (requestCode == SELECT_FILE) {
 
                 Uri selectedImage = data.getData();
                 String[] filePath = { MediaStore.Images.Media.DATA };
@@ -218,20 +284,34 @@ public class CreateMealActivity extends AppCompatActivity implements View.OnClic
                 c.close();
                 Bitmap thumbnail = (BitmapFactory.decodeFile(picturePath));
                 Log.d("PATH", picturePath);
-                mImage = thumbnail;
+                try {
+                    mImage = new File(new URI(picturePath));
+                } catch (URISyntaxException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
 
+    /**
+     * This method simply .
+     *
+     * @author DimitriAndMathias
+     * @version 2010.1105
+     * @since 1.0
+     * @return nothing
+     */
     private void onCreateMeal()
     {
         JSONArray ingredients = new JSONArray();
         JSONArray instructions = new JSONArray();
+        String instruction = null;
         CustomListAdapter ingredientAdapter = (CustomListAdapter)mIngredients.getAdapter();
         CustomListAdapter instructionAdapter = (CustomListAdapter)mInstructions.getAdapter();
         try {
             ingredients = DataHolder.getJsonArray(ingredientAdapter.getList(), ingredients);
-            instructions = DataHolder.getJsonArray(instructionAdapter.getList(), instructions);
+            //instructions = DataHolder.getJsonArray(instructionAdapter.getList(), instructions);
+            instruction = DataHolder.strJoin(instructionAdapter.getList(), "\n");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -243,37 +323,107 @@ public class CreateMealActivity extends AppCompatActivity implements View.OnClic
 
         RequestParams params = new RequestParams();
         params.put(getString(R.string.name_key), mealName);
+        if (DataHolder.user != null)
+            params.put(getString(R.string.author_key), DataHolder.user.Username());
         params.put(getString(R.string.cooktime_key), cookTime);
         params.put(getString(R.string.description_key), description);
         params.put(getString(R.string.difficulty_key), difficulty);
         params.put(getString(R.string.category_key), category);
         params.put(getString(R.string.ingredients_key), ingredients);
-        params.put(getString(R.string.instruction_key), instructions);
+        params.put(getString(R.string.instruction_key), instruction);
+        try {
+            params.put(getString(R.string.image_key), mImage);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
         Client.post(getString(R.string.meals_URL), params, new JsonHttpResponseHandler() {
 
+            /**
+             * This method simply .
+             *
+             * @author DimitriAndMathias
+             * @param statusCode The given status' code
+             * @param headers The given headers
+             * @param response The given json array
+             * @version 2010.1105
+             * @since 1.0
+             * @return nothing
+             */
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response)
+            {
                 Log.d("create", "SUCCESS");
+                finish();
             }
 
+            /**
+             * This method simply .
+             *
+             * @author DimitriAndMathias
+             * @param statusCode The given status' code
+             * @param headers The given headers
+             * @param object The given json object
+             * @version 2010.1105
+             * @since 1.0
+             * @return nothing
+             */
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject object) {
+            public void onSuccess(int statusCode, Header[] headers, JSONObject object)
+            {
                 Log.d("create", "SUCCESS");
+                finish();
             }
 
+            /**
+             * This method simply .
+             *
+             * @author DimitriAndMathias
+             * @param statusCode The given status' code
+             * @param headers The given headers
+             * @param throwable The given throwable
+             * @version 2010.1105
+             * @since 1.0
+             * @return nothing
+             */
             @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable)
+            {
+                Log.d("create", responseString);
             }
 
+            /**
+             * This method simply .
+             *
+             * @author DimitriAndMathias
+             * @param statusCode The given status' code
+             * @param headers The given headers
+             * @param throwable The given throwable
+             * @param errorResponse The given json array
+             * @version 2010.1105
+             * @since 1.0
+             * @return nothing
+             */
             @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse)
+            {
+                Log.d("create", "FAILURE");
             }
         });
     }
 
+    /**
+     * This method simply .
+     *
+     * @author DimitriAndMathias
+     * @param v The given view
+     * @version 2010.1105
+     * @since 1.0
+     * @return nothing
+     */
     @Override
-    public void onClick(View v) {
+    public void onClick(View v)
+    {
         switch(v.getId()){
             case R.id.add_ingredient:
                 String ingredient = String.valueOf(mIngredient.getText());

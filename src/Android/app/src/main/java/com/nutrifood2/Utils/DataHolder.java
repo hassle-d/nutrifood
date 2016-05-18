@@ -26,4 +26,14 @@ public class DataHolder {
             array.put(list.get(i));
         return array;
     }
+
+    public static String strJoin(ArrayList<String> aArr, String sSep) {
+        StringBuilder sbStr = new StringBuilder();
+        for (int i = 0, il = aArr.size(); i < il; i++) {
+            if (i > 0)
+                sbStr.append(sSep);
+            sbStr.append(aArr.get(i));
+        }
+        return sbStr.toString();
+    }
 }

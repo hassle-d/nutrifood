@@ -71,6 +71,7 @@
 						<li><a href="#meals">All Recipes</a></li>
 						<li><a href="#submit-recipe">Submit</a></li>
 						<li><a href="#/meals/bookmark">Bookmarked</a></li>
+						<li><a href="#mymeals">My Meals</a></li>
 					</ul>
 				</li>
 				<li><a href="#register">REGISTER</a></li>
@@ -106,7 +107,9 @@
 										<li><a href="#meals">All Meals</a></li>
 										<li><a href="#submit-recipe">Submit</a></li>
 										<li><a href="#/meals/bookmark">Bookmarked</a></li>
-									</ul>
+										<li ng-if="usermeal">
+											<a href="#/mymeals/{{usermeal}}">My Meals</a></li>
+										</ul>
 								</li>
 							</ul>
 							<ul>
