@@ -261,11 +261,13 @@ public class CreateMealActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 Log.d("create", "SUCCESS");
+                finish();
             }
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject object) {
                 Log.d("create", "SUCCESS");
+                finish();
             }
 
             @Override

@@ -55,6 +55,9 @@ public class MealInformationFragment extends Fragment {
         TextView category = (TextView) rootView.findViewById(R.id.category);
         category.setText(mItem.Category());
 
+        TextView difficulty = (TextView) rootView.findViewById(R.id.difficulty);
+        difficulty.setText(mItem.Difficulty());
+
         return rootView;
     }
 }

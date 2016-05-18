@@ -172,13 +172,13 @@ public class MealReviewFragment extends Fragment implements View.OnClickListener
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 Log.d("SUCCESS", "ONE");
+                mRating.setRating(0);
             }
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject object) {
                 Log.d("SUCCESS", "TWO");
                 mRating.setRating(0);
-                getListComments();
             }
 
             @Override

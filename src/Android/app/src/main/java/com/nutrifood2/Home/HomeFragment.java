@@ -38,6 +38,8 @@ public class                HomeFragment extends Fragment {
     private View            home_view;
     private RecyclerView    recyclerView;
 
+    private final int       MAX_MEALS = 6;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
@@ -118,10 +120,9 @@ public class                HomeFragment extends Fragment {
 
                 adapter = (SimpleRecyclerViewAdapter) recyclerView.getAdapter();
                 length = response.length();
-                length = length > 6 ? 6 : length;
+                length = length > MAX_MEALS ? MAX_MEALS : length;
                 try {
-
-                    for (int i = 0; i < length; ++i) {
+                    for (int i = length - 1; i >= 0; --i) {
                         obj = response.getJSONObject(i);
                         if (obj != null) {
                             Meal item = newMeal(obj);

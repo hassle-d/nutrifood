@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
@@ -68,9 +69,13 @@ public class SimpleRecyclerViewAdapter
         String name = holder.mItem.Name();
         final String img = holder.mItem.StrImage();
         Bitmap bitmap = holder.mItem.Bitmap();
+        double rating = holder.mItem.Rating();
 
         if (name != null)
             holder.mIdView.setText(name);
+
+        if (rating != 2.5)
+            holder.mRatingView.setRating((float) rating);
 
         holder.mContentView.setImageResource(R.mipmap.ic_launcher);
 
@@ -122,6 +127,7 @@ public class SimpleRecyclerViewAdapter
         public final View mView;
         public final TextView mIdView;
         public final ImageView mContentView;
+        public final RatingBar mRatingView;
         public Meal mItem;
 
         public ViewHolder(View view) {
@@ -129,6 +135,7 @@ public class SimpleRecyclerViewAdapter
             mView = view;
             mIdView = (TextView) view.findViewById(R.id.id);
             mContentView = (ImageView) view.findViewById(R.id.image);
+            mRatingView = (RatingBar) view.findViewById(R.id.ratingBar);
         }
     }
 }
