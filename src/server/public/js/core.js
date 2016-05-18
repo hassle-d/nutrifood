@@ -153,6 +153,14 @@ myApp.controller('myMealsController', function($scope, $http, $cookies, $locatio
         $scope.meals = data;
         console.log('lfoloerlferf' + JSON.stringify(dataResponse));
     });
+
+    $scope.deleteMeal = function(id){
+        mealService.deleteMeal(token, id).success(function(){
+            $location.path('/meals/mymeals/' + username)
+        });
+
+    };
+
 });
 
 myApp.controller('recipeSubmitController', function($scope, $http, $cookies, $location, authService){
@@ -167,6 +175,8 @@ myApp.controller('recipeSubmitController', function($scope, $http, $cookies, $lo
         for (var i = 0; i < $scope.ingredients.length; i++) {
             ingredients.push(($scope.ingredients[i]).val);
         }
+
+
 
         console.log(ingredients);
 
@@ -223,7 +233,7 @@ myApp.service('profileService', function($http) {
     }
 });
 
-myApp.controller('editMealController', function($scope, $http, $cookies, profileService, authService, $routeParams){
+myApp.controller('editMealController', function($scope, $http, $location, $cookies, profileService, authService, $routeParams){
     var token = authService.isAuthenticated();
     $scope.meal = null;
     var id = $routeParams.id;
@@ -245,64 +255,74 @@ myApp.controller('editMealController', function($scope, $http, $cookies, profile
         $scope.cooktime = data.cooktime;
         $scope.instruction = data.instruction;
         $scope.category = data.category;
-        $scope.ingredients = data.ingredients;
+        $scope.nutritionfact = data.nutritionfact;
+
+        $scope.ingredients  = [];
+        for (var i = 0; i < data.ingredients.length; i++) {
+            $scope.ingredients.push({'val' : data.ingredients[i]});
+        }
+
         $scope.image = data.image;
     });
+
+    $scope.addIngredient = function() {
+        if ($scope.ingredientInput && $scope.ingredientInput != "") {
+            var ingredients = $scope.ingredients;
+            if (ingredients == null) {
+                ingredients = [];
+            }
+            ingredients.push({val:$scope.ingredientInput});
+            $scope.ingredients = ingredients;
+            $scope.ingredientInput = "";
+            document.getElementById("test").focus();
+        }
+    };
+
+    $scope.deleteIngredient = function(id) {
+        $scope.ingredients.splice(id, 1);
+    };
 
 
     $scope.updateMeal = function(){
 
+        var ingredients  = [];
+        for (var i = 0; i < $scope.ingredients.length; i++) {
+            ingredients.push(($scope.ingredients[i]).val);
+        }
 
-        var fd = new FormData();
-
+        console.log(ingredients);
         var recipe = {
-            image: $scope.image,
-            author: $cookies.get('username'),
-            date: Date.now,
-            name: $scope.name,
-            description: $scope.description,
-            instruction: $scope.instruction,
-            difficulty: $scope.difficulty,
-            category: $scope.category,
-            ingredients: JSON.stringify($scope.ingredients),
-            cooktime: $scope.cooktime,
-            video: $scope.video
-        };
-
-        fd.append('image', $scope.image);
-        fd.append('author', "admin");
-        fd.append('date', Date.now);
-        fd.append('video', $scope.video);
-        fd.append('name', $scope.name);
-        fd.append('description', $scope.description);
-        fd.append('instruction', $scope.instruction);
-        fd.append('difficulty', $scope. difficulty);
-        fd.append('category', $scope.category);
-        fd.append('ingredients',JSON.stringify($scope.ingredients));
-        fd.append('cooktime', $scope.cooktime);
-        console.log(recipe);
-
-        $http({
+                author: $cookies.get('username'),
+                date: Date.now(),
+                video: $scope.video,
+                name: $scope.name,
+                description: $scope.description,
+                instruction: $scope.instruction,
+                difficulty: $scope.difficulty,
+                nutritionfact: $scope.nutritionfact,
+                category: $scope.category,
+                ingredients: JSON.stringify(ingredients),
+                cooktime: $scope.cooktime
+            };
+            console.log(id);
+            $http({
                 method: 'PUT',
-                transformRequest: angular.identity,
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': token },
                 url: '/api/v1/meals/' + id,
-                data: serialize(recipe)
-            })
-            .success(function(){
-                console.log('ok');
-            })
-            .error(function(){
+                data: serialize(recipe),
+                headers: {'Authorization': token}
+            }).then(function(dataResponse) {
+                console.log(dataResponse.data);
+                $location.path('/meal/' + id);
+
             });
+
     };
 
 });
 
 myApp.controller('profileController', function($scope, $http, profileService, authService) {
     var token = authService.isAuthenticated();
-    
+
     $scope.profile = null;
 
     profileService.getData(token).then(function(dataResponse) {
@@ -357,15 +377,19 @@ myApp.service('mealService', function($http) {
             headers: {'Authorization': token}
         });
     };
+    this.deleteMeal = function(token, id) {
+        return $http({
+            method: 'DELETE',
+            url: '/api/v1/meals/' + id,
+            headers: {'Authorization': token}
+        });
+    };
     this.searchMeals = function(token, name) {
         return $http({
             method: 'GET',
             url: '/api/v1/meals/name/' + name,
             headers: {'Authorization': token}
         });
-    };
-    this.updateMeal = function(token, name) {
-
     };
     this.categoryMeals = function(name) {
         return $http({
@@ -464,7 +488,7 @@ myApp.controller('mealController', function($scope, $http, $routeParams, $cookie
             if (dataResponse.data.video)
                 $scope.videoUrl = dataResponse.data.video;
         });
-    }
+    };
     $scope.addVote = function(note) {
         var fd = new FormData();
         fd.append('note', note);

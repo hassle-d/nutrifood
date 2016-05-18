@@ -15,15 +15,15 @@
                                 <a href="#"><img ng-src="/api/v1/meals/image/{{meal.image}}" alt=""></a>
                             </div>
                             <div class="entry-content">
-                                <h3 class="title"><a href="recipe_single.html">{{meal.name | uppercase}}</a></h3>
+                                <h3 class="title"><a href="#/meal/{{meal._id}}">{{meal.name | uppercase}}</a></h3>
                                 <p class="meta-time">{{meal.author}}</p>
                                 <p class="brief">{{meal.description}}</p>
                                 <div class="meta">
 
-                                    <img ng-click="editRecipe()"class="pull-right"  src="../images/delete.png" height="50px">
+                                   <img ng-click="deleteMeal(meal._id)" class="pull-right"  src="../images/delete.png"  style="cursor: pointer" height="50px">
                                     <p class="pull-right" style="padding-left: 5px; padding-right: 5px;"></p>
-                                    <img ng-click="deleteRecipe()" class="pull-right"  src="../images/interface.png" height="50px">
-
+                                    <a href="#/edit-recipe/{{meal._id}}"> <img   class="pull-right"  src="../images/interface.png" height="50px">
+                                    </a>
                                 </div>
 
 
