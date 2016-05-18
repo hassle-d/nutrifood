@@ -97,7 +97,9 @@ public class MealReviewFragment extends Fragment implements View.OnClickListener
             comment.Name(obj.getString(getString(R.string.author_key)));
             comment.Id(obj.getString(getString(R.string.id_key)));
             comment.MealId(obj.getString(getString(R.string.mealid_key)));
-            comment.Date(obj.getString(getString(R.string.date_key)));
+
+            //Tmp debug - Fix the buggy date on the API
+            comment.Date(obj.getString(getString(R.string.date_key)).substring(0, 10));
             comment.Content(obj.getString(getString(R.string.content_key)));
         } catch (JSONException e) {
             e.printStackTrace();
