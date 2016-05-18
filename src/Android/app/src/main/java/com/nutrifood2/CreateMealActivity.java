@@ -47,6 +47,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.util.TextUtils;
 
 /**
  * Activity for the meal's creation
@@ -304,11 +305,13 @@ public class CreateMealActivity extends AppCompatActivity implements View.OnClic
     {
         JSONArray ingredients = new JSONArray();
         JSONArray instructions = new JSONArray();
+        String instruction = null;
         CustomListAdapter ingredientAdapter = (CustomListAdapter)mIngredients.getAdapter();
         CustomListAdapter instructionAdapter = (CustomListAdapter)mInstructions.getAdapter();
         try {
             ingredients = DataHolder.getJsonArray(ingredientAdapter.getList(), ingredients);
             instructions = DataHolder.getJsonArray(instructionAdapter.getList(), instructions);
+            instruction = DataHolder.strJoin(instructionAdapter.getList(), "\n");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -327,7 +330,7 @@ public class CreateMealActivity extends AppCompatActivity implements View.OnClic
         params.put(getString(R.string.difficulty_key), difficulty);
         params.put(getString(R.string.category_key), category);
         params.put(getString(R.string.ingredients_key), ingredients);
-        params.put(getString(R.string.instruction_key), instructions);
+        params.put(getString(R.string.instruction_key), instruction);
         try {
             params.put(getString(R.string.image_key), mImage);
         } catch (FileNotFoundException e) {
