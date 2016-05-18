@@ -14,6 +14,7 @@ import com.nutrifood2.Models.BasicItem;
 import com.nutrifood2.R;
 import com.nutrifood2.Utils.CallBack;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,12 +69,25 @@ public class ListRecyclerViewAdapter
         initialize();
     }
 
+    public ListRecyclerViewAdapter(int viewType) {
+        mValues = new ArrayList<>();
+        mViewType = viewType;
+
+        initialize();
+    }
+
+    public void addItem(BasicItem item)
+    {
+        mValues.add(item);
+    }
+
     private void initialize()
     {
         mViewTypeMap.put(R.integer.CARD_VIEW, R.layout.card_item);
         mViewTypeMap.put(R.integer.CARD_IMG_VIEW, R.layout.card_img_item);
         mViewTypeMap.put(R.integer.BASIC_VIEW, R.layout.basic_item);
         mViewTypeMap.put(R.integer.LIST_ITEM_VIEW, R.layout.list_item);
+        mViewTypeMap.put(R.integer.COMMENT_VIEW, R.layout.comment_item);
     }
 
     @Override
@@ -93,16 +107,18 @@ public class ListRecyclerViewAdapter
 
         String name = holder.mItem.Name();
         String content = holder.mItem.Content();
+        String date = holder.mItem.Date();
         int img_id = holder.mItem.ImageId();
 
         if (name != null && holder.mIdView != null)
             holder.mIdView.setText(name);
         if (content != null && holder.mContentView != null)
             holder.mContentView.setText(content);
+        if (date != null && holder.mDateView != null)
+            holder.mDateView.setText(date);
         if (holder.mPosView != null)
             holder.mPosView.setText(String.valueOf(position+1));
         if (holder.mImageView != null) {
-            Log.d("mImageView","in");
             if (img_id != -1)
                 holder.mImageView.setImageResource(img_id);
         }
@@ -125,6 +141,7 @@ public class ListRecyclerViewAdapter
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
+        public final TextView mDateView;
         public final ImageView mImageView;
         public final TextView mPosView;
         public BasicItem mItem;
@@ -138,16 +155,25 @@ public class ListRecyclerViewAdapter
                 mContentView = (TextView) view.findViewById(R.id.item_content);
                 mImageView = null;
                 mPosView = null;
+                mDateView = null;
             }
             else if (mViewType == R.integer.LIST_ITEM_VIEW) {
                 mPosView = (TextView) view.findViewById(R.id.item_position);
                 mContentView = null;
+                mImageView = null;
+                mDateView = null;
+            }
+            else if (mViewType == R.integer.COMMENT_VIEW) {
+                mDateView = (TextView) view.findViewById(R.id.item_date);
+                mContentView = (TextView) view.findViewById(R.id.item_content);
+                mPosView = null;
                 mImageView = null;
             }
             else {
                 mImageView = (ImageView) view.findViewById(R.id.item_img);
                 mContentView = null;
                 mPosView = null;
+                mDateView = null;
             }
         }
     }

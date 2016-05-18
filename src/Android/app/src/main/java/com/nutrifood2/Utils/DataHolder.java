@@ -18,4 +18,12 @@ public class DataHolder {
             list.add((T)array.get(i));
         return list;
     }
+
+    static public <T> JSONArray getJsonArray(ArrayList<T> list, JSONArray array) throws JSONException
+    {
+        int lenght = list.size();
+        for (int i = 0; i < lenght; ++i)
+            array.put(list.get(i));
+        return array;
+    }
 }

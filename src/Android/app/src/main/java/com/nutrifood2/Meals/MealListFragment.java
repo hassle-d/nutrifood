@@ -144,7 +144,7 @@ public class MealListFragment extends Fragment {
                 JSONObject obj;
                 SimpleRecyclerViewAdapter adapter;
                 adapter = (SimpleRecyclerViewAdapter) recyclerView.getAdapter();
-                Log.d("SUCCESS", String.valueOf(length));
+                Log.d("SUCCESS", response.toString());
                 try {
                     for (int i = 0; i < length; ++i) {
                         obj = response.getJSONObject(i);
@@ -175,6 +175,4 @@ public class MealListFragment extends Fragment {
             }
         });
     }
-
-
 }

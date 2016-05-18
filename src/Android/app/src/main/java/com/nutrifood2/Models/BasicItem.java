@@ -3,12 +3,13 @@ package com.nutrifood2.Models;
 import android.graphics.Bitmap;
 
 public class BasicItem {
-    private String mName;
-    private String mId;
-    private String mContent;
+    private String mName = null;
+    private String mId = null;
+    private String mContent = null;
     private int mResId = -1;
-    private String mStrimage;
-    private Bitmap mBitmap;
+    private String mStrimage = null;
+    private Bitmap mBitmap = null;
+    private String mDate = null;
 
     public BasicItem() {}
 
@@ -56,4 +57,8 @@ public class BasicItem {
     public void ImageId(int id) { mResId = id; }
 
     public int ImageId() { return mResId; }
+
+    public void Date(String str) { mDate = str; }
+
+    public String Date() { return mDate; }
 }

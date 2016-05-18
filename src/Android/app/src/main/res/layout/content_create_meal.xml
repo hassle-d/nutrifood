@@ -43,23 +43,6 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/editTextAuthor"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"/>
-            <EditText
-                android:id="@+id/author"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:background="@color/colorLight"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:text="@string/editTextCategory"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
@@ -147,19 +130,44 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"/>
-            <EditText
-                android:id="@+id/ingredients"
+
+            <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textMultiLine"
-                android:background="@color/colorLight"
-                android:lines="5"
-                android:scrollbars="vertical"
-                android:gravity="top|left"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginTop="10dp">
+
+                <EditText
+                    android:id="@+id/ingredient"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:background="@color/colorLight"
+                    android:paddingRight="40dp"/>
+
+                <ImageButton
+                    android:id="@+id/add_ingredient"
+                    android:background="#00CC00"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@android:drawable/ic_menu_add"
+                    android:layout_centerVertical="true"
+                    android:layout_alignTop="@+id/ingredient"
+                    android:layout_alignBottom="@+id/ingredient"
+                    android:layout_alignRight="@+id/ingredient" />
+
+            </RelativeLayout>
+
+            <com.nutrifood2.Utils.NonScrollListView
+                android:id="@+id/ingredient_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp">
+
+            </com.nutrifood2.Utils.NonScrollListView>
 
             <TextView
                 android:layout_width="match_parent"
@@ -168,21 +176,47 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"/>
-            <EditText
-                android:id="@+id/instruction"
+
+            <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textMultiLine"
-                android:scrollbars="vertical"
-                android:gravity="top|left"
-                android:background="@color/colorLight"
-                android:lines="5"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="10dp">
+
+                <EditText
+                    android:id="@+id/instruction"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:background="@color/colorLight"
+                    android:paddingRight="40dp"/>
+
+                <ImageButton
+                    android:id="@+id/add_instruction"
+                    android:background="#00CC00"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@android:drawable/ic_menu_add"
+                    android:layout_centerVertical="true"
+                    android:layout_alignTop="@+id/instruction"
+                    android:layout_alignBottom="@+id/instruction"
+                    android:layout_alignRight="@+id/instruction" />
+
+            </RelativeLayout>
+
+            <com.nutrifood2.Utils.NonScrollListView
+                android:id="@+id/instruction_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp">
+
+            </com.nutrifood2.Utils.NonScrollListView>
 
             <Button
-                android:id="@+id/register_button"
+                android:id="@+id/create_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="CREATE"
