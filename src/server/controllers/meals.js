@@ -7,6 +7,7 @@ var Meal = require('../models/meals');
 var Image = require('../models/image');
 var Vote = require('../models/vote');
 var Bookmark = require('../models/bookmark');
+var Comment = require('../models/comment');
 
 exports.postMeals = function(req, res) {
     image = null;
@@ -155,6 +156,44 @@ exports.getMealById = function(req, res) {
             })
         }
     });
+};
+
+exports.deleteMeal = function(req, res) {
+    Meals.findById(req.params.id, function err, meal) {
+        if (err)
+            res.status(500).json(err);
+        else {
+            if (meal == null || meal.author != req.user.username)
+                res.status(403).json("you are not allowed to delete this meal");
+            else {
+                Meal.remove({'_id':req.params.id}, function(err, result) {
+                    if (err)
+                        res.status(500).json(err);
+                    else {
+                        Vote.remove({'meal': req.params.id}, function(err, result) {
+                            if (err)
+                                res.status(500).json(err);
+                            else {
+                                Bookmark.remove({'meal': req.params.id}, function(err, result) {
+                                    if (err)
+                                        res.status(500).json(err);
+                                    else {
+                                        Comment.remove({'meal': req.params.id}, function(err, remove) {
+                                            if (err)
+                                                res.status(500).json(err);
+                                            else {
+                                                res.json('meal deleted');
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+        }
+    }
 };
 
 exports.getMealByName = function(req, res) {

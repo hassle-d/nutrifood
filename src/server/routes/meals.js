@@ -34,6 +34,8 @@ router.route('/meals')
 
 router.route('/meals/:id')
     .get(authController.isValidToken, mealController.getMealById)
-    .put(authController.isValidToken, mealController.updateMeal);
+    .put(authController.isValidToken, mealController.updateMeal)
+    .delete(authController.isValidToken, mealController.deleteMeal);
+
 
 module.exports = router;
