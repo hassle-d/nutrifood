@@ -9,6 +9,7 @@ public class Meal extends BasicItem {
     private String mCategory;
     private String mOldCategory;
     private String mCooktime;
+    private int mRating;
     private ArrayList<String> mInstruction;
     private ArrayList<String> mIngredients;
 
@@ -82,4 +83,7 @@ public class Meal extends BasicItem {
         mIngredients = list;
     }
 
+    public int Rating() { return mRating; }
+
+    public void Rating(int rating) { mRating = rating; }
 }

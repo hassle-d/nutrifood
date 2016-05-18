@@ -72,6 +72,7 @@
     <string name="mealid_key">meal</string>
     <string name="date_key">date</string>
     <string name="content_key">comment</string>
+    <string name="rating_key">rating</string>
 
     <string name="token_key">token</string>
     <string name="error_key">message</string>
@@ -79,8 +80,9 @@
 
     <!-- URL Relative -->
     <!-- <string name="Base_URL">http://10.0.2.2:3000/api/v1</string> -->
-    <string name="Base_URL">https://nutrifood.ovh/api/v1</string> -->
+    <!-- <string name="Base_URL">https://nutrifood.ovh/api/v1</string> -->
     <!-- <string name="Base_URL">http://192.168.1.102:3000/api/v1</string> -->
+    <string name="Base_URL">http://192.168.1.103:3000/api/v1</string> -->
     <string name="login_URL">/auth/signin</string>
     <string name="comment_URL">/comment</string>
     <string name="users_URL">/users</string>
