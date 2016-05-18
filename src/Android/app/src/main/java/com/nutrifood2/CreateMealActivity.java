@@ -21,6 +21,20 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.Spinner;
+
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+import com.nutrifood2.Adapter.CustomListAdapter;
+import com.nutrifood2.Utils.Client;
+import com.nutrifood2.Utils.DataHolder;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -28,11 +42,22 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-public class CreateMealActivity extends AppCompatActivity {
+import cz.msebera.android.httpclient.Header;
+
+public class CreateMealActivity extends AppCompatActivity implements View.OnClickListener  {
 
     static final int REQUEST_CAMERA = 1;
     static final int SELECT_FILE = 2;
     private Bitmap mImage = null;
+    private ListView mIngredients;
+    private ListView mInstructions;
+    private EditText mIngredient;
+    private EditText mInstruction;
+    private EditText mMealName;
+    private EditText mCookTime;
+    private EditText mDescription;
+    private Spinner mDifficulty;
+    private Spinner mCategory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +82,29 @@ public class CreateMealActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle(R.string.title_create_meal);
         }
+
+        mIngredient = (EditText) findViewById(R.id.ingredient);
+
+        mInstruction = (EditText) findViewById(R.id.instruction);
+
+        mIngredients = (ListView) findViewById(R.id.ingredient_list);
+        mIngredients.setAdapter(new CustomListAdapter(this));
+
+        mInstructions = (ListView) findViewById(R.id.instruction_list);
+        mInstructions.setAdapter(new CustomListAdapter(this));
+
+        mMealName = (EditText) findViewById(R.id.mealname);
+        mDescription = (EditText) findViewById(R.id.description);
+        mCookTime = (EditText) findViewById(R.id.cooktime);
+        mCategory = (Spinner) findViewById(R.id.category);
+        mDifficulty = (Spinner) findViewById(R.id.difficulty);
+
+        ImageButton addIngredient = (ImageButton) findViewById(R.id.add_ingredient);
+        addIngredient.setOnClickListener(this);
+        ImageButton addInstruction = (ImageButton) findViewById(R.id.add_instruction);
+        addInstruction.setOnClickListener(this);
+        Button createButton = (Button) findViewById(R.id.create_button);
+        createButton.setOnClickListener(this);
     }
 
     @Override
@@ -175,4 +223,71 @@ public class CreateMealActivity extends AppCompatActivity {
         }
     }
 
+    private void onCreateMeal()
+    {
+        JSONArray ingredients = new JSONArray();
+        JSONArray instructions = new JSONArray();
+        CustomListAdapter ingredientAdapter = (CustomListAdapter)mIngredients.getAdapter();
+        CustomListAdapter instructionAdapter = (CustomListAdapter)mInstructions.getAdapter();
+        try {
+            ingredients = DataHolder.getJsonArray(ingredientAdapter.getList(), ingredients);
+            instructions = DataHolder.getJsonArray(instructionAdapter.getList(), instructions);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        String mealName = String.valueOf(mMealName.getText());
+        String cookTime = String.valueOf(mCookTime.getText());
+        String description = String.valueOf(mDescription.getText());
+        String difficulty = mDifficulty.getSelectedItem().toString();
+        String category = mCategory.getSelectedItem().toString();
+
+        RequestParams params = new RequestParams();
+        params.put(getString(R.string.name_key), mealName);
+        params.put(getString(R.string.cooktime_key), cookTime);
+        params.put(getString(R.string.description_key), description);
+        params.put(getString(R.string.difficulty_key), difficulty);
+        params.put(getString(R.string.category_key), category);
+        params.put(getString(R.string.ingredients_key), ingredients);
+        params.put(getString(R.string.instruction_key), instructions);
+
+        Client.post(getString(R.string.meals_URL), params, new JsonHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                Log.d("create", "SUCCESS");
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject object) {
+                Log.d("create", "SUCCESS");
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+            }
+        });
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()){
+            case R.id.add_ingredient:
+                String ingredient = String.valueOf(mIngredient.getText());
+                ((CustomListAdapter)mIngredients.getAdapter()).addItem(ingredient);
+                mIngredient.setText("");
+                break;
+            case R.id.add_instruction:
+                String instruction = String.valueOf(mInstruction.getText());
+                ((CustomListAdapter)mInstructions.getAdapter()).addItem(instruction);
+                mInstruction.setText("");
+                break;
+            case R.id.create_button:
+                onCreateMeal();
+                break;
+        }
+    }
 }

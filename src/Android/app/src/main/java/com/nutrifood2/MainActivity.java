@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,12 +18,22 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.nutrifood2.Categories.CategoryFragment;
 import com.nutrifood2.Home.HomeFragment;
 import com.nutrifood2.Meals.MealListFragment;
+import com.nutrifood2.Models.User;
 import com.nutrifood2.Profil.ProfilFragment;
 import com.nutrifood2.Utils.Client;
 import com.nutrifood2.Utils.DataHolder;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
+import cz.msebera.android.httpclient.Header;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -55,6 +66,7 @@ public class MainActivity extends AppCompatActivity
         else {
             setNavigationItem(R.id.nav_home);
             Client.addHeader(DataHolder.token);
+            getUserProfile();
         }
     }
 
@@ -169,5 +181,50 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return ret;
+    }
+
+    private void newUser(JSONObject obj) {
+        if (DataHolder.user == null)
+            DataHolder.user = new User();
+        try {
+            DataHolder.user.Age(obj.getInt(getString(R.string.age_key)));
+            DataHolder.user.Username(obj.getString(getString(R.string.username_key)));
+            DataHolder.user.Firstname(obj.getString(getString(R.string.firstname_key)));
+            DataHolder.user.Lastname(obj.getString(getString(R.string.lastname_key)));
+            DataHolder.user.Email(obj.getString(getString(R.string.email_key)));
+            DataHolder.user.Allergy(DataHolder.getArrayList(new ArrayList<String>(),
+                    obj.getJSONArray(getString(R.string.allergy_key))));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void getUserProfile()
+    {
+        Client.get(getString(R.string.user_URL), null, new JsonHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                Log.d("SUCCESS ONE", String.valueOf(response));
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject object) {
+                Log.d("SUCCESS TWO", String.valueOf(object));
+                newUser(object);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String string, Throwable throwable) {
+                Log.d("ERROR ONE", String.valueOf(statusCode));
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                Log.d("ERROR TWO", String.valueOf(statusCode));
+            }
+
+        });
     }
 }
