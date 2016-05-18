@@ -124,13 +124,14 @@ public class MealReviewFragment extends Fragment implements View.OnClickListener
                 mNbView.setText(String.valueOf(length) + " Comments");
                 Log.d("SUCCESS", response.toString());
 
+                adapter.clearList();
+
                 try {
                     for (int i = 0; i < length; ++i) {
                         obj = response.getJSONObject(i);
                         if (obj != null) {
                             Comment item = newComment(obj);
-                            if (!CommentContent.ITEM_MAP.containsKey(item.Id()))
-                                adapter.addItem(item);
+                            adapter.addItem(item);
                             CommentContent.addItem(item);
                         }
                         adapter.notifyDataSetChanged();

@@ -121,12 +121,11 @@ public class MealListFragment extends Fragment {
             meal.Id(obj.getString(getString(R.string.id_key)));
             meal.Author(obj.getString(getString(R.string.author_key)));
             meal.Cooktime(obj.getString(getString(R.string.cooktime_key)));
-            meal.Rating(obj.getInt(getString(R.string.rating_key)));
             meal.Description(obj.getString(getString(R.string.description_key)));
             meal.Ingredients(DataHolder.getArrayList(new ArrayList<String>(), obj.getJSONArray(getString(R.string.ingredients_key))));
             meal.Instruction(DataHolder.getArrayList(new ArrayList<String>(), obj.getJSONArray(getString(R.string.instruction_key))));
             meal.StrImage(obj.getString(getString(R.string.image_key)));
-            meal.Rating(obj.getInt(getString(R.string.rating_key)));
+            meal.Rating(obj.getDouble(getString(R.string.rating_key)));
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (IllegalStateException e) {

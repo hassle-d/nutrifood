@@ -9,7 +9,7 @@ public class Meal extends BasicItem {
     private String mCategory;
     private String mOldCategory;
     private String mCooktime;
-    private int mRating;
+    private double mRating;
     private ArrayList<String> mInstruction;
     private ArrayList<String> mIngredients;
 
@@ -23,16 +23,6 @@ public class Meal extends BasicItem {
     public void Author(String str)
     {
         mAuthor = str;
-    }
-
-    public ArrayList<String> Instruction()
-    {
-        return mInstruction;
-    }
-
-    public void Instruction(ArrayList<String> list)
-    {
-        mInstruction = list;
     }
 
     public String Difficulty()
@@ -83,7 +73,17 @@ public class Meal extends BasicItem {
         mIngredients = list;
     }
 
-    public int Rating() { return mRating; }
+    public ArrayList<String> Instruction()
+    {
+        return mInstruction;
+    }
 
-    public void Rating(int rating) { mRating = rating; }
+    public void Instruction(ArrayList<String> list)
+    {
+        mInstruction = list;
+    }
+
+    public double Rating() { return mRating; }
+
+    public void Rating(double rating) { mRating = rating; }
 }

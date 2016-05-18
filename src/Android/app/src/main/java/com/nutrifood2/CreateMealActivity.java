@@ -252,7 +252,6 @@ public class CreateMealActivity extends AppCompatActivity implements View.OnClic
         params.put(getString(R.string.instruction_key), instructions);
         try {
             params.put(getString(R.string.image_key), mImage);
-            return;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

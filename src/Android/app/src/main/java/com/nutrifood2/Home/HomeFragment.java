@@ -118,12 +118,11 @@ public class                HomeFragment extends Fragment {
 
                 adapter = (SimpleRecyclerViewAdapter) recyclerView.getAdapter();
                 length = response.length();
+                length = length > 6 ? 6 : length;
                 try {
 
-                    for (int i = 1, pos = length - i; i <= 7 && pos >= 0; ++i) {
-
-                        pos = length - i;
-                        obj = response.getJSONObject(pos);
+                    for (int i = 0; i < length; ++i) {
+                        obj = response.getJSONObject(i);
                         if (obj != null) {
                             Meal item = newMeal(obj);
                             MealContent.addItem(item);
@@ -181,6 +180,7 @@ public class                HomeFragment extends Fragment {
                     obj.getJSONArray(getString(R.string.instruction_key))));
 
             meal.StrImage(obj.getString(getString(R.string.image_key)));
+            meal.Rating(obj.getDouble(getString(R.string.rating_key)));
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (IllegalStateException e) {

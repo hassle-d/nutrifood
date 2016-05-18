@@ -76,6 +76,8 @@ public class ListRecyclerViewAdapter
         initialize();
     }
 
+    public void clearList() { mValues.clear(); }
+
     public void addItem(BasicItem item)
     {
         mValues.add(item);
