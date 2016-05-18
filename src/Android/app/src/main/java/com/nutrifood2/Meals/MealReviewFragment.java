@@ -161,7 +161,7 @@ public class MealReviewFragment extends Fragment implements View.OnClickListener
         });
     }
 
-    private void onRating(int value)
+    private void onRating(double value)
     {
         String url = "/" + getString(R.string.rating_key) + "/" + mItem.Id();
         RequestParams params = new RequestParams();
@@ -226,7 +226,7 @@ public class MealReviewFragment extends Fragment implements View.OnClickListener
         double rating = mRating.getRating();
         if (rating > 0)
         {
-            onRating((int)rating);
+            onRating(rating);
         }
     }
 

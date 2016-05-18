@@ -232,7 +232,7 @@ public class CreateMealActivity extends AppCompatActivity implements View.OnClic
         CustomListAdapter instructionAdapter = (CustomListAdapter)mInstructions.getAdapter();
         try {
             ingredients = DataHolder.getJsonArray(ingredientAdapter.getList(), ingredients);
-            instructions = DataHolder.getJsonArray(instructionAdapter.getList(), instructions);
+            //instructions = DataHolder.getJsonArray(instructionAdapter.getList(), instructions);
             instruction = DataHolder.strJoin(instructionAdapter.getList(), "\n");
         } catch (JSONException e) {
             e.printStackTrace();
