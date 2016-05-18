@@ -1,5 +1,6 @@
 package com.nutrifood2.Adapter;
 
+// Import needed to execute the code
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -26,35 +27,90 @@ import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 
+/**
+ * Adapter for the simple recycler views
+ *
+ * @author DimitriAndMathias
+ * @version 2016.0501
+ * @since 2.0
+ */
 public class SimpleRecyclerViewAdapter
-        extends RecyclerView.Adapter<SimpleRecyclerViewAdapter.ViewHolder> {
-
+        extends RecyclerView.Adapter<SimpleRecyclerViewAdapter.ViewHolder>
+{
+    // Private variables
     private final List<Meal> mValues;
     private CallBack mCallBack;
     private Context mContext;
 
-    public SimpleRecyclerViewAdapter(Context context, List<Meal> items, CallBack action) {
+    /**
+     * Public constructor that saves the given context, items and action
+     *
+     * @author DimitriAndMathias
+     * @param context The given layout's context
+     * @param items The given layout's items
+     * @param action The given layout's action
+     * @version 2016.0501
+     */
+    public SimpleRecyclerViewAdapter(Context context, List<Meal> items, CallBack action)
+    {
         mValues = items;
         mCallBack = action;
         mContext = context;
     }
 
-    public SimpleRecyclerViewAdapter(Context context, CallBack action) {
+    /**
+     * Public constructor that saves the given context and action
+     *
+     * @author DimitriAndMathias
+     * @param context The given layout's context
+     * @param action The given layout's action
+     * @version 2016.0501
+     */
+    public SimpleRecyclerViewAdapter(Context context, CallBack action)
+    {
         mValues = new ArrayList<>();
         mCallBack = action;
         mContext = context;
     }
 
-    public SimpleRecyclerViewAdapter(Context context, List<Meal> items) {
+    /**
+     * Public constructor that saves the given context and items
+     *
+     * @author DimitriAndMathias
+     * @param context The given layout's context
+     * @param items The given layout's items
+     * @version 2016.0501
+     */
+    public SimpleRecyclerViewAdapter(Context context, List<Meal> items)
+    {
         mValues = items;
         mContext = context;
     }
 
+    /**
+     * This method simply .
+     *
+     * @author DimitriAndMathias
+     * @param item The given item
+     * @version 2010.1105
+     * @since 1.0
+     * @return nothing
+     */
     public void addItem(Meal item)
     {
         mValues.add(item);
     }
 
+    /**
+     * This method simply .
+     *
+     * @author DimitriAndMathias
+     * @param parent The given view group
+     * @param viewType The given view type
+     * @version 2010.1105
+     * @since 1.0
+     * @return The View asked holder
+     */
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
@@ -62,6 +118,16 @@ public class SimpleRecyclerViewAdapter
         return new ViewHolder(view);
     }
 
+    /**
+     * This method simply .
+     *
+     * @author DimitriAndMathias
+     * @param holder The given view holder
+     * @param position The given item's position
+     * @version 2010.1105
+     * @since 1.0
+     * @return nothing
+     */
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
@@ -118,6 +184,15 @@ public class SimpleRecyclerViewAdapter
         });
     }
 
+
+    /**
+     * This method simply .
+     *
+     * @author DimitriAndMathias
+     * @version 2010.1105
+     * @since 1.0
+     * @return The list's count
+     */
     @Override
     public int getItemCount() {
         return mValues.size();
