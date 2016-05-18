@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.nutrifood2.Meals.MealReviewFragment">
 
     <TextView
@@ -16,16 +17,19 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/detail_recyclerview"
         android:layout_below="@id/nb_review"
+        android:layout_above="@+id/comment_zone"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <LinearLayout
+        android:id="@+id/comment_zone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_margin="@dimen/text_margin"
         android:background="#bbbbbb"
-        android:layout_below="@id/detail_recyclerview">
+        android:layout_alignParentBottom="true">
 
         <TextView
             android:layout_width="match_parent"
@@ -49,17 +53,36 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"/>
 
-        <Button
-            android:id="@+id/submit_button"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="SUBMIT"
-            android:background="@drawable/button"
-            android:textColor="@color/colorLight"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="10dp">
+
+            <Button
+                android:id="@+id/submit_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SUBMIT"
+                android:background="@drawable/button"
+                android:textColor="@color/colorLight" />
+
+            <RatingBar
+                android:id="@+id/rating"
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                style="?android:attr/ratingBarStyleIndicator"
+                android:isIndicator="false"
+                android:numStars="5"
+                android:rating="0"
+                android:stepSize="0.5" />
+
+        </RelativeLayout>
 
     </LinearLayout>
 

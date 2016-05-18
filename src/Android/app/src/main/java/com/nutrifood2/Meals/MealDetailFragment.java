@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.nutrifood2.Adapter.ListRecyclerViewAdapter;
@@ -66,12 +67,16 @@ public class MealDetailFragment extends Fragment {
             CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
             TextView author = (TextView) activity.findViewById(R.id.author);
             ImageView imageParalax = (ImageView) activity.findViewById(R.id.image_paralax);
+            RatingBar ratingBar = (RatingBar) activity.findViewById(R.id.ratingBar);
 
             if (appBarLayout != null)
                 appBarLayout.setTitle(mItem.Name());
 
             if (author != null)
                 author.setText(mItem.Author());
+
+            if (ratingBar != null)
+                ratingBar.setRating((float) mItem.Rating());
 
             if (imageParalax != null)
             {

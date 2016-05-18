@@ -452,6 +452,34 @@ myApp.controller('mealController', function($scope, $http, $routeParams, $cookie
         });
     };
 
+    var  getMeal = function(){
+        delete $http.defaults.headers.common['X-Requested-With'];
+        $http({
+            method: 'GET',
+            url: '/api/v1/meals/' + id,
+            headers: {'Authorization': token}
+        }).then(function(dataResponse) {
+            console.log(dataResponse.data);
+            $scope.meal = dataResponse.data;
+            if (dataResponse.data.video)
+                $scope.videoUrl = dataResponse.data.video;
+        });
+    }
+    $scope.addVote = function(note) {
+        var fd = new FormData();
+        fd.append('note', note);
+        $http.post('/api/v1/vote/' + id, fd, {
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined, 'Authorization': token}
+        })
+        .success(function(){
+            console.log('ok');
+            getMeal();
+        })
+        .error(function(){
+        });
+    };
+
     $scope.addBookmark = function() {
         $http.post('/api/v1/bookmark/' + id, {}, {
             transformRequest: angular.identity,
@@ -478,28 +506,18 @@ myApp.controller('mealController', function($scope, $http, $routeParams, $cookie
         });
     };
 
-    delete $http.defaults.headers.common['X-Requested-With'];
-    $http({
-        method: 'GET',
-        url: '/api/v1/meals/' + id,
-        headers: {'Authorization': token}
-    }).then(function(dataResponse) {
-        console.log(dataResponse.data);
-        $scope.meal = dataResponse.data;
-        if (dataResponse.data.video)
-            $scope.videoUrl = dataResponse.data.video;
-    });
-
+    getMeal();
     getComment();
 
     $scope.addComment = function (){
 
-        var comment = {
-            author: $cookies.get('username'),
-            comment: $scope.content
-        };
-
-        $http.post('/api/v1/comment/' + id, serialize(comment))
+        var fd = new FormData();
+        fd.append('author', $cookies.get('username'));
+        fd.append('comment', $scope.content);
+        $http.post('/api/v1/comment/' + id, fd, {
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined, 'Authorization': token}
+        })
             .success(function(comment){
                 console.log(comment);
                 getComment();

@@ -125,7 +125,7 @@ public class MealListFragment extends Fragment {
             meal.Ingredients(DataHolder.getArrayList(new ArrayList<String>(), obj.getJSONArray(getString(R.string.ingredients_key))));
             meal.Instruction(DataHolder.getArrayList(new ArrayList<String>(), obj.getJSONArray(getString(R.string.instruction_key))));
             meal.StrImage(obj.getString(getString(R.string.image_key)));
-            //           meal.Image(obj.getString(getString(R.string.image_key)), getActivity());
+            meal.Rating(obj.getDouble(getString(R.string.rating_key)));
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (IllegalStateException e) {
@@ -144,7 +144,7 @@ public class MealListFragment extends Fragment {
                 JSONObject obj;
                 SimpleRecyclerViewAdapter adapter;
                 adapter = (SimpleRecyclerViewAdapter) recyclerView.getAdapter();
-                Log.d("SUCCESS", String.valueOf(length));
+                Log.d("SUCCESS", response.toString());
                 try {
                     for (int i = 0; i < length; ++i) {
                         obj = response.getJSONObject(i);
@@ -175,6 +175,4 @@ public class MealListFragment extends Fragment {
             }
         });
     }
-
-
 }

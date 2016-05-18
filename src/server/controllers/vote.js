@@ -32,6 +32,7 @@ exports.postVote = function(req, res) {
         else {
             if (hasNotVoted(votes, req.user.username.toLowerCase())) {
                 var theSum = getSum(votes, req.body.note);
+                console.log(req.body);
                 var vote = new Vote({
                     user: req.user.username.toLowerCase(),
                     note: req.body.note,
@@ -51,7 +52,7 @@ exports.postVote = function(req, res) {
                 });
             }
             else
-                res.json('already voted').status(401);
+                res.status(401).json('already voted');
         }
     });
 

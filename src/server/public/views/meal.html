@@ -20,11 +20,12 @@
 					</div>
 					<div class="entry entry-action">
 						<div ng-if="user.username">
-						<a ng-if="meal.bookmarked==true" ng-click="delBookmark();" title="Unbookmark" class="action action-bookmark" style="background-color:#f8c231;">
+
+						<a ng-if="meal.bookmarked==true;" ng-click="delBookmark();" title="Unbookmark" class="action action-bookmark" style="background-color:#f8c231;">
 							<i class="fa fa-bookmark"></i>
 							<p>BOOKMARKED</p>
 						</a>
-						<a ng-if="meal.bookmarked==false" ng-click="addBookmark();" id="bookmarkme" title="Bookmark" class="action action-bookmark">
+						<a ng-if="meal.bookmarked==false;" ng-click="addBookmark();" id="bookmarkme" title="Bookmark" class="action action-bookmark">
 							<i class="fa fa-bookmark"></i>
 							<p>BOOKMARK</p>
 						</a>
@@ -50,16 +51,16 @@
 						</div>
 						<div class="action entry-rate">
 							<span  style="margin-top:5px;">
-								<i ng-if="meal.vote>0" class="fa fa-star rated" style="font-size:2em;"></i>
-								<i ng-if="meal.vote>1" class="fa fa-star rated" style="font-size:2em;"></i>
-								<i ng-if="meal.vote>2" class="fa fa-star rated" style="font-size:2em;"></i>
-								<i ng-if="meal.vote>3" class="fa fa-star rated" style="font-size:2em;"></i>
-								<i ng-if="meal.vote==5" class="fa fa-star rated" style="font-size:2em;"></i>
-								<i ng-if="meal.vote==0" class="fa fa-star" style="font-size:2em;"></i>
-								<i ng-if="meal.vote<=1" class="fa fa-star" style="font-size:2em;"></i>
-								<i ng-if="meal.vote<=2" class="fa fa-star" style="font-size:2em;"></i>
-								<i ng-if="meal.vote<=3" class="fa fa-star" style="font-size:2em;"></i>
-								<i ng-if="meal.vote<=4" class="fa fa-star" style="font-size:2em;"></i>
+								<i ng-if="meal.vote>0" ng-click="addVote(1);" class="fa fa-star rated" style="font-size:2em;"></i>
+								<i ng-if="meal.vote>1" ng-click="addVote(2);" class="fa fa-star rated" style="font-size:2em;"></i>
+								<i ng-if="meal.vote>2" ng-click="addVote(3);" class="fa fa-star rated" style="font-size:2em;"></i>
+								<i ng-if="meal.vote>3" ng-click="addVote(4);" class="fa fa-star rated" style="font-size:2em;"></i>
+								<i ng-if="meal.vote==5" ng-click="addVote(5);" class="fa fa-star rated" style="font-size:2em;"></i>
+								<i ng-if="meal.vote==0" ng-click="addVote(1);" class="fa fa-star" style="font-size:2em;"></i>
+								<i ng-if="meal.vote<=1" ng-click="addVote(2);" class="fa fa-star" style="font-size:2em;"></i>
+								<i ng-if="meal.vote<=2" ng-click="addVote(3);" class="fa fa-star" style="font-size:2em;"></i>
+								<i ng-if="meal.vote<=3" ng-click="addVote(4);" class="fa fa-star" style="font-size:2em;"></i>
+								<i ng-if="meal.vote<=4" ng-click="addVote(5);" class="fa fa-star" style="font-size:2em;"></i>
 							</span>
 						</div>
 					</div>
