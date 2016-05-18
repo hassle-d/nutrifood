@@ -210,6 +210,10 @@ myApp.controller('recipeSubmitController', function($scope, $http, $cookies, $lo
             if (ingredients == null) {
                 ingredients = [];
             }
+            for (var i = ingredients.length - 1; i >= 0; i--) {
+                if (ingredients[i].val == $scope.ingredientInput)
+                    return ;
+            };
             ingredients.push({val:$scope.ingredientInput});
             $scope.ingredients = ingredients;
             $scope.ingredientInput = "";
