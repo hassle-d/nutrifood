@@ -158,7 +158,7 @@ exports.getMealById = function(req, res) {
 };
 
 exports.deleteMeal = function(req, res) {
-    Meals.findById(req.params.id, function err, meal) {
+    Meal.findById(req.params.id, function (err, meal) {
         if (err)
             res.status(500).json(err);
         else {
@@ -192,7 +192,7 @@ exports.deleteMeal = function(req, res) {
                 });
             }
         }
-    }
+    });
 };
 
 exports.getOwnerMeal = function(req, res){
