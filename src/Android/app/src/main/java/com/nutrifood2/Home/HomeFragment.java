@@ -114,17 +114,16 @@ public class                HomeFragment extends Fragment {
             {
                 SimpleRecyclerViewAdapter   adapter;
                 int                         length;
-                int                         limitation;
                 JSONObject                  obj;
 
                 adapter = (SimpleRecyclerViewAdapter) recyclerView.getAdapter();
                 length = response.length();
-                limitation = 6;
                 try {
 
-                    for (int i = length - 1; i >= length - limitation; --i) {
+                    for (int i = 1, pos = length - i; i <= 7 && pos >= 0; ++i) {
 
-                        obj = response.getJSONObject(i);
+                        pos = length - i;
+                        obj = response.getJSONObject(pos);
                         if (obj != null) {
                             Meal item = newMeal(obj);
                             MealContent.addItem(item);
