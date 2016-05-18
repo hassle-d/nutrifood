@@ -26,14 +26,19 @@ router.route('/meals/name/:name')
     .get(authController.isValidToken, mealController.getMealByName);
 
 router.route('/meals/category/:category')
-    .get(authController.isValidToken, mealController.getMealByCategory);
+    .get(mealController.getMealByCategory);
+
+router.route('/meals/mymeals/:author')
+		.get(authController.isValidToken, mealController.getOwnerMeal);
 
 router.route('/meals')
     .post(/*authController.isValidToken, */mealController.postMeals)
-    .get(authController.isValidToken, mealController.getMeals);
+    .get(mealController.getMeals);
+
+router.route('/meals/:id')
+		.put(authController.isValidToken, mealController.updateMeal);
 
 router.route('/meals/:id')
     .get(authController.isValidToken, mealController.getMealById)
-    .put(authController.isValidToken, mealController.updateMeal);
 
 module.exports = router;

@@ -19,6 +19,7 @@
 						<img src="/api/v1/meals/image/{{meal.image}}" alt="">
 					</div>
 					<div class="entry entry-action">
+						<div ng-if="user.username">
 						<a ng-if="meal.bookmarked==true" ng-click="delBookmark();" title="Unbookmark" class="action action-bookmark" style="background-color:#f8c231;">
 							<i class="fa fa-bookmark"></i>
 							<p>BOOKMARKED</p>
@@ -27,6 +28,7 @@
 							<i class="fa fa-bookmark"></i>
 							<p>BOOKMARK</p>
 						</a>
+						</div>
 						<a href="http://localhost/culinier-template/dest/recipe_single_video.html" class="action action-print">
 							<i class="fa fa-print"></i>
 							<p>PRINT</p>

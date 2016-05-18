@@ -11,10 +11,10 @@ var authController = require('../controllers/auth');
 
 router.route('/category')
 	.post(authController.isValidToken, authController.isAdmin, categoryController.postCategory)
-	.get(authController.isValidToken, categoryController.getCategory);
+	.get(categoryController.getCategory);
 
 router.route('/category/:id')
-	.get(authController.isValidToken, categoryController.getCategoryById)
+	.get(categoryController.getCategoryById)
 	.delete(authController.isValidToken, authController.isAdmin, categoryController.deleteCategoryById);
 
 module.exports = router;
