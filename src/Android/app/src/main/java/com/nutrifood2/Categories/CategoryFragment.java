@@ -1,5 +1,6 @@
 package com.nutrifood2.Categories;
 
+// Import needed to execute the code
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,13 +27,32 @@ import com.nutrifood2.Utils.RecyclerViewDecorator;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryFragment extends Fragment {
+/**
+ * Fragment for the category page
+ *
+ * @author DimitriAndMathias
+ * @version 2016.0501
+ * @since 2.0
+ */
+public class CategoryFragment extends Fragment
+{
+    // Private variables
     private View category_view;
     private RecyclerView mRecyclerView = null;
     private List<Integer> mResources = new ArrayList<>();
 
+    /**
+     * This method simply .
+     *
+     * @author DimitriAndMathias
+     * @param savedInstanceState The given bundle
+     * @version 2010.1105
+     * @since 1.0
+     * @return nothing
+     */
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
 
         mResources.add(R.drawable.medi_food);
@@ -43,9 +63,21 @@ public class CategoryFragment extends Fragment {
         mResources.add(R.drawable.indian_food);
     }
 
+    /**
+     * This method simply .
+     *
+     * @author DimitriAndMathias
+     * @param inflater The given layout inflater
+     * @param container The given view group
+     * @param savedInstanceState The given bundle
+     * @version 2010.1105
+     * @since 1.0
+     * @return The created view
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState)
+    {
         category_view = inflater.inflate(R.layout.fragment_category, container, false);
 
         mRecyclerView = (RecyclerView) category_view.findViewById(R.id.category_list);
@@ -55,13 +87,31 @@ public class CategoryFragment extends Fragment {
         return category_view;
     }
 
+    /**
+     * This method simply .
+     *
+     * @author DimitriAndMathias
+     * @version 2010.1105
+     * @since 1.0
+     * @return nothing
+     */
     @Override
     public void onStart()
     {
         super.onStart();
     }
 
-    private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
+    /**
+     * This method simply .
+     *
+     * @author DimitriAndMathias
+     * @param recyclerView The given recycler view
+     * @version 2010.1105
+     * @since 1.0
+     * @return nothing
+     */
+    private void setupRecyclerView(@NonNull RecyclerView recyclerView)
+    {
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(),
                 getResources().getInteger(R.integer.GRID_COLUMNS));
         recyclerView.setHasFixedSize(true);

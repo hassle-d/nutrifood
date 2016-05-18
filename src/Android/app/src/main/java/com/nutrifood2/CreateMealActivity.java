@@ -1,5 +1,6 @@
 package com.nutrifood2;
 
+// Import needed to execute the code
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -47,8 +48,16 @@ import java.net.URISyntaxException;
 
 import cz.msebera.android.httpclient.Header;
 
-public class CreateMealActivity extends AppCompatActivity implements View.OnClickListener  {
-
+/**
+ * Activity for the meal's creation
+ *
+ * @author DimitriAndMathias
+ * @version 2016.0501
+ * @since 2.0
+ */
+public class CreateMealActivity extends AppCompatActivity implements View.OnClickListener
+{
+    // Private variables
     static final int REQUEST_CAMERA = 1;
     static final int SELECT_FILE = 2;
     private File mImage = null;
@@ -62,8 +71,18 @@ public class CreateMealActivity extends AppCompatActivity implements View.OnClic
     private Spinner mDifficulty;
     private Spinner mCategory;
 
+    /**
+     * This method simply .
+     *
+     * @author DimitriAndMathias
+     * @param savedInstanceState The given bundle
+     * @version 2010.1105
+     * @since 1.0
+     * @return nothing
+     */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_meal);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -110,8 +129,18 @@ public class CreateMealActivity extends AppCompatActivity implements View.OnClic
         createButton.setOnClickListener(this);
     }
 
+    /**
+     * This method simply .
+     *
+     * @author DimitriAndMathias
+     * @param item The given menu's item
+     * @version 2010.1105
+     * @since 1.0
+     * @return The option's value
+     */
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
         int id = item.getItemId();
         if (id == android.R.id.home) {
             // This ID represents the Home or Up button. In the case of this
@@ -128,7 +157,16 @@ public class CreateMealActivity extends AppCompatActivity implements View.OnClic
         return super.onOptionsItemSelected(item);
     }
 
-    private void selectImage() {
+    /**
+     * This method simply .
+     *
+     * @author DimitriAndMathias
+     * @version 2010.1105
+     * @since 1.0
+     * @return nothing
+     */
+    private void selectImage()
+    {
         try {
             final CharSequence[] items = { "Take Photo", "Choose from Library", "Cancel" };
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -161,13 +199,33 @@ public class CreateMealActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
+    /**
+     * This method simply .
+     *
+     * @author DimitriAndMathias
+     * @param permission The given permission
+     * @version 2010.1105
+     * @since 1.0
+     * @return The permission's status
+     */
     private boolean checkWriteExternalPermission(String permission)
     {
         int res = checkCallingOrSelfPermission(permission);
         return (res == PackageManager.PERMISSION_GRANTED);
     }
 
-    private File savebitmap(String filename, Bitmap bitmap) {
+    /**
+     * This method simply .
+     *
+     * @author DimitriAndMathias
+     * @param filename The given bitmap's filename
+     * @param bitmap The given bitmap
+     * @version 2010.1105
+     * @since 1.0
+     * @return The saved file
+     */
+    private File savebitmap(String filename, Bitmap bitmap)
+    {
         String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
         OutputStream outStream = null;
 
@@ -191,8 +249,20 @@ public class CreateMealActivity extends AppCompatActivity implements View.OnClic
 
     }
 
+    /**
+     * This method simply .
+     *
+     * @author DimitriAndMathias
+     * @param requestCode The given request code
+     * @param resultCode The given result code
+     * @param data The given data
+     * @version 2010.1105
+     * @since 1.0
+     * @return nothing
+     */
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == REQUEST_CAMERA) {
@@ -222,6 +292,14 @@ public class CreateMealActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
+    /**
+     * This method simply .
+     *
+     * @author DimitriAndMathias
+     * @version 2010.1105
+     * @since 1.0
+     * @return nothing
+     */
     private void onCreateMeal()
     {
         JSONArray ingredients = new JSONArray();
@@ -258,32 +336,91 @@ public class CreateMealActivity extends AppCompatActivity implements View.OnClic
 
         Client.post(getString(R.string.meals_URL), params, new JsonHttpResponseHandler() {
 
+            /**
+             * This method simply .
+             *
+             * @author DimitriAndMathias
+             * @param statusCode The given status' code
+             * @param headers The given headers
+             * @param response The given json array
+             * @version 2010.1105
+             * @since 1.0
+             * @return nothing
+             */
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response)
+            {
                 Log.d("create", "SUCCESS");
                 finish();
             }
 
+            /**
+             * This method simply .
+             *
+             * @author DimitriAndMathias
+             * @param statusCode The given status' code
+             * @param headers The given headers
+             * @param object The given json object
+             * @version 2010.1105
+             * @since 1.0
+             * @return nothing
+             */
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject object) {
+            public void onSuccess(int statusCode, Header[] headers, JSONObject object)
+            {
                 Log.d("create", "SUCCESS");
                 finish();
             }
 
+            /**
+             * This method simply .
+             *
+             * @author DimitriAndMathias
+             * @param statusCode The given status' code
+             * @param headers The given headers
+             * @param throwable The given throwable
+             * @version 2010.1105
+             * @since 1.0
+             * @return nothing
+             */
             @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable)
+            {
                 Log.d("create", responseString);
             }
 
+            /**
+             * This method simply .
+             *
+             * @author DimitriAndMathias
+             * @param statusCode The given status' code
+             * @param headers The given headers
+             * @param throwable The given throwable
+             * @param errorResponse The given json array
+             * @version 2010.1105
+             * @since 1.0
+             * @return nothing
+             */
             @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse)
+            {
                 Log.d("create", "FAILURE");
             }
         });
     }
 
+    /**
+     * This method simply .
+     *
+     * @author DimitriAndMathias
+     * @param v The given view
+     * @version 2010.1105
+     * @since 1.0
+     * @return nothing
+     */
     @Override
-    public void onClick(View v) {
+    public void onClick(View v)
+    {
         switch(v.getId()){
             case R.id.add_ingredient:
                 String ingredient = String.valueOf(mIngredient.getText());

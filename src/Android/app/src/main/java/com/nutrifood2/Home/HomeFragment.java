@@ -1,5 +1,6 @@
 package com.nutrifood2.Home;
 
+// Import needed to execute the code
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -32,14 +33,32 @@ import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 
-
+/**
+ * Fragment for the home page
+ *
+ * @author DimitriAndMathias
+ * @version 2016.0501
+ * @since 2.0
+ */
 public class                HomeFragment extends Fragment {
 
+    // Private variables
     private View            home_view;
     private RecyclerView    recyclerView;
 
     private final int       MAX_MEALS = 6;
 
+    /**
+     * This method simply .
+     *
+     * @author DimitriAndMathias
+     * @param inflater The given layout inflater
+     * @param container The given view group
+     * @param savedInstanceState The given bundle
+     * @version 2010.1105
+     * @since 1.0
+     * @return The created view
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
@@ -55,33 +74,82 @@ public class                HomeFragment extends Fragment {
         return home_view;
     }
 
+    /**
+     * This method simply .
+     *
+     * @author DimitriAndMathias
+     * @version 2010.1105
+     * @since 1.0
+     * @return nothing
+     */
     @Override
     public void onStart() { super.onStart(); }
 
+    /**
+     * This method simply .
+     *
+     * @author DimitriAndMathias
+     * @version 2010.1105
+     * @since 1.0
+     * @return nothing
+     */
     @Override
     public void onResume()
     {
         super.onResume();
     }
 
+    /**
+     * This method simply .
+     *
+     * @author DimitriAndMathias
+     * @version 2010.1105
+     * @since 1.0
+     * @return nothing
+     */
     @Override
     public void onPause()
     {
         super.onPause();
     }
 
+    /**
+     * This method simply .
+     *
+     * @author DimitriAndMathias
+     * @version 2010.1105
+     * @since 1.0
+     * @return nothing
+     */
     @Override
     public void onStop()
     {
         super.onStop();
     }
 
+    /**
+     * This method simply .
+     *
+     * @author DimitriAndMathias
+     * @version 2010.1105
+     * @since 1.0
+     * @return nothing
+     */
     @Override
     public void onDestroy()
     {
         super.onDestroy();
     }
 
+    /**
+     * This method simply .
+     *
+     * @author DimitriAndMathias
+     * @param recyclerView The given recycler view
+     * @version 2010.1105
+     * @since 1.0
+     * @return nothing
+     */
     private void            setupRecyclerView(@NonNull RecyclerView recyclerView)
     {
         GridLayoutManager   layoutManager;
@@ -106,10 +174,29 @@ public class                HomeFragment extends Fragment {
                 getResources().getInteger(R.integer.GRID_COLUMNS)));
     }
 
+    /**
+     * This method simply .
+     *
+     * @author DimitriAndMathias
+     * @version 2010.1105
+     * @since 1.0
+     * @return nothing
+     */
     private void getListMeals()
     {
         Client.get(getString(R.string.meals_URL), null, new JsonHttpResponseHandler()
         {
+            /**
+             * This method simply .
+             *
+             * @author DimitriAndMathias
+             * @param statusCode The given status' code
+             * @param headers The given headers
+             * @param response The given response
+             * @version 2010.1105
+             * @since 1.0
+             * @return nothing
+             */
             @Override
             public void                     onSuccess(int statusCode, Header[] headers,
                                                       JSONArray response)
@@ -137,19 +224,58 @@ public class                HomeFragment extends Fragment {
                 }
             }
 
+            /**
+             * This method simply .
+             *
+             * @author DimitriAndMathias
+             * @param statusCode The given status' code
+             * @param headers The given headers
+             * @version 2010.1105
+             * @since 1.0
+             * @return nothing
+             */
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject object) { }
 
+            /**
+             * This method simply .
+             *
+             * @author DimitriAndMathias
+             * @param statusCode The given status' code
+             * @param headers The given headers
+             * @version 2010.1105
+             * @since 1.0
+             * @return nothing
+             */
             @Override
             public void onFailure(int statusCode, Header[] headers, String string,
                                   Throwable throwable) { }
 
+            /**
+             * This method simply .
+             *
+             * @author DimitriAndMathias
+             * @param statusCode The given status' code
+             * @param headers The given headers
+             * @version 2010.1105
+             * @since 1.0
+             * @return nothing
+             */
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable,
                                   JSONObject errorResponse) { }
         });
     }
 
+    /**
+     * This method simply .
+     *
+     * @author DimitriAndMathias
+     * @param obj The given json object
+     * @version 2010.1105
+     * @since 1.0
+     * @return The created meal
+     */
     private Meal    newMeal(JSONObject obj) {
         String id;
         Meal meal;
