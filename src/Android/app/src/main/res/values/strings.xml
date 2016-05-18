@@ -73,7 +73,7 @@
     <string name="date_key">date</string>
     <string name="content_key">comment</string>
     <string name="rating_key">vote</string>
-    <string name="value_key">value</string>
+    <string name="value_key">note</string>
 
     <string name="token_key">token</string>
     <string name="error_key">message</string>
