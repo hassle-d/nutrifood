@@ -9,7 +9,7 @@ var voteController = require('../controllers/vote');
 var authController = require('../controllers/auth');
 
 router.route('/vote/:meal')
-	.get(voteController.getVote)
+	.get(authController.isValidToken, voteController.getVote)
 	.post(authController.isValidToken, voteController.postVote);
 
 module.exports = router;

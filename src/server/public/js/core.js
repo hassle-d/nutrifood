@@ -45,9 +45,9 @@ myApp.config(function ($httpProvider, $routeProvider) {
                     templateUrl : 'views/meals.html',
                     controller: 'homeController'
                 })
-                .when('/meals/',{
+                .when('/meals/bookmark',{
                     templateUrl : 'views/meals.html',
-                    controller: 'BookmarkMealsController'
+                    controller: 'bookmarkMealsController'
                 })
                 .when('/meals/search/:id',{
                     templateUrl : 'views/meals.html',
@@ -123,9 +123,20 @@ myApp.directive('fileModel', ['$parse', function ($parse) {
     };
 }]);
 
-myApp.controller('bookmarkMealsController', function($scope, $http, $cookies, $location, authService){
+myApp.controller('bookmarkMealsController', function($scope, $http, $cookies, $location, authService, mealService){
     var token = authService.isAuthenticated();
+    $scope.title = "Boomarked Meals";
+    mealService.bookmarkedMeals(token).then(function(dataResponse) {
 
+        var data = dataResponse.data;
+
+        for (var i = 0, j = data.length; i < j; i++) {
+            data[i].name = data[i].name.charAt(0).toUpperCase() + data[i].name.slice(1);
+        }
+
+        $scope.meals = data;
+        console.log($scope.meals);
+    });
 });
 
 myApp.controller('recipeSubmitController', function($scope, $http, $cookies, $location, authService){
@@ -310,10 +321,18 @@ myApp.service('mealService', function($http) {
             headers: {'Authorization': token}
         });
     }
+    this.bookmarkedMeals = function(token) {
+        return $http({
+            method: 'GET',
+            url: '/api/v1/bookmark',
+            headers: {'Authorization': token}
+        });
+    }
 });
 
 myApp.controller('homeController', function($rootScope, $scope, mealService, authService, $cookies) {
     $scope.meals = null;
+    $scope.title = "Recipes Timeline"
     var token = $cookies.get("token");
     $rootScope.token = token;
     mealService.getData(token).then(function(dataResponse) {
@@ -332,6 +351,7 @@ myApp.controller('homeController', function($rootScope, $scope, mealService, aut
 myApp.controller('searchMealsController', function($scope, mealService, authService, $routeParams) {
     var token = authService.isAuthenticated();
     var id = $routeParams.id;
+    $scope.title = "Search results";
 
     $scope.meals = null;
     mealService.searchMeals(token, id).then(function(dataResponse) {
@@ -350,7 +370,7 @@ myApp.controller('searchMealsController', function($scope, mealService, authServ
 myApp.controller('categoryMealsController', function($scope, mealService, authService, $routeParams) {
     var token = authService.isAuthenticated();
     var id = $routeParams.id;
-
+    $scope.title=id.charAt(0).toUpperCase() + id.slice(1) + " food";
     $scope.meals = null;
     mealService.categoryMeals(token, id).then(function(dataResponse) {
 
