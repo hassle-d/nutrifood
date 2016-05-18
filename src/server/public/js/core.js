@@ -489,6 +489,7 @@ myApp.controller('mealController', function($scope, $http, $routeParams, $cookie
         }).then(function(dataResponse) {
             console.log(dataResponse.data);
             $scope.meal = dataResponse.data;
+            $scope.videoUrl = null;
             if (dataResponse.data.video && dataResponse.data.video != "undefined")
                 $scope.videoUrl = dataResponse.data.video;
         });
